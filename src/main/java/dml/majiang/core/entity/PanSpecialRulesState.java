@@ -29,4 +29,8 @@ public class PanSpecialRulesState {
     public void addSpecialRuleState(SpecialRuleState specialRuleState) {
         specialRuleStateMap.put(specialRuleState.getClass(), specialRuleState);
     }
+
+    public <T extends SpecialRuleState> T findSpecialRuleState(Class<T> specialRuleStateClass) {
+        return (T) specialRuleStateMap.get(specialRuleStateClass);
+    }
 }
