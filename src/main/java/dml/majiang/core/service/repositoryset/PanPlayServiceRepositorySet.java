@@ -1,6 +1,5 @@
 package dml.majiang.core.service.repositoryset;
 
-import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.chi.ChiActionProcessor;
 import dml.majiang.core.entity.action.chi.ChiActionUpdater;
 import dml.majiang.core.entity.action.da.DaActionProcessor;
@@ -22,7 +21,7 @@ public interface PanPlayServiceRepositorySet {
 
     public PanIDGeneratorRepository getPanIDGeneratorRepository();
 
-    public PanSpecialRulesStateRepository<PanSpecialRulesState> getPanSpecialRulesStateRepository();
+    public PanSpecialRulesStateRepository getPanSpecialRulesStateRepository();
 
     public MoActionProcessorRepository<MoActionProcessor> getMoActionProcessorRepository();
 

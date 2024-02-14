@@ -1,5 +1,6 @@
 package dml.majiang.core.entity;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Map;
  */
 public class PanSpecialRulesState {
     private long panId;
-    private Map<Class<?>, SpecialRuleState> specialRuleStateMap;
+    private Map<Class<?>, SpecialRuleState> specialRuleStateMap = new HashMap<>();
 
     public long getPanId() {
         return panId;
@@ -23,5 +24,9 @@ public class PanSpecialRulesState {
 
     public void setSpecialRuleStateMap(Map<Class<?>, SpecialRuleState> specialRuleStateMap) {
         this.specialRuleStateMap = specialRuleStateMap;
+    }
+
+    public void addSpecialRuleState(SpecialRuleState specialRuleState) {
+        specialRuleStateMap.put(specialRuleState.getClass(), specialRuleState);
     }
 }

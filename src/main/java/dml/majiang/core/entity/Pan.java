@@ -29,6 +29,11 @@ public class Pan {
      */
     private PaiCursor activePaiCursor;
 
+    /**
+     * 只玩哪些牌
+     */
+    private List<MajiangPai> playPaiTypeList;
+
     public long getId() {
         return id;
     }
@@ -219,5 +224,25 @@ public class Pan {
             }
         }
         return true;
+    }
+
+    public List<MajiangPai> getPlayPaiTypeList() {
+        return playPaiTypeList;
+    }
+
+    public void setPlayPaiTypeList(List<MajiangPai> playPaiTypeList) {
+        this.playPaiTypeList = playPaiTypeList;
+    }
+
+    public Map<MenFeng, String> getMenFengPanPlayerIdMap() {
+        return menFengPanPlayerIdMap;
+    }
+
+    public void setMenFengPanPlayerIdMap(Map<MenFeng, String> menFengPanPlayerIdMap) {
+        this.menFengPanPlayerIdMap = menFengPanPlayerIdMap;
+    }
+
+    public void removeAvaliablePai(MajiangPai pai) {
+        avaliablePaiList.remove(pai);
     }
 }

@@ -747,16 +747,18 @@ public class ShoupaiCalculator {
                 boolean hu = gouXingPanHu.panHu(gouXing.getGouXingCode(), chichuShunziCount, pengchuKeziCount,
                         gangchuGangziCount);
                 if (hu) {
-                    // 先把所有当的鬼牌加入计算器
+                    // 从计算器中移除所有鬼牌本牌,把所有当的鬼牌加入计算器
                     for (int i = 0; i < guipaiDangPaiArray.length; i++) {
+                        removePai(guipaiDangPaiArray[i].getGuipai());
                         addPai(guipaiDangPaiArray[i].getDangpai());
                     }
                     // 计算牌型
                     huPaiShoupaiPaiXingList.addAll(calculateAllShoupaiPaiXingForGouXingWithHupai(gouXing,
                             dangPaiArray, guipaiDangPaiArray, huPai));
-                    // 再把所有当的鬼牌移出计算器
+                    // 把所有当的鬼牌移出计算器,把所有鬼牌本牌加回计算器
                     for (int i = 0; i < guipaiDangPaiArray.length; i++) {
                         removePai(guipaiDangPaiArray[i].getDangpai());
+                        addPai(guipaiDangPaiArray[i].getGuipai());
                     }
                 }
 
@@ -812,15 +814,17 @@ public class ShoupaiCalculator {
                 }
             }
             if (guipaiDangPaiArray != null) {
-                // 先把所有当的鬼牌加入计算器
+                // 从计算器中移除所有鬼牌本牌,把所有当的鬼牌加入计算器
                 for (int i = 0; i < guipaiDangPaiArray.length; i++) {
+                    removePai(guipaiDangPaiArray[i].getGuipai());
                     addPai(guipaiDangPaiArray[i].getDangpai());
                 }
                 // 计算构型
                 List<GouXing> gouXingList = calculateAllGouXing();
-                // 再把所有当的鬼牌移出计算器
+                // 把所有当的鬼牌移出计算器,把所有鬼牌本牌加回计算器
                 for (int i = 0; i < guipaiDangPaiArray.length; i++) {
                     removePai(guipaiDangPaiArray[i].getDangpai());
+                    addPai(guipaiDangPaiArray[i].getGuipai());
                 }
                 ShoupaiWithGuipaiDangGouXingZu shoupaiWithGuipaiDangGouXingZu = new ShoupaiWithGuipaiDangGouXingZu();
                 shoupaiWithGuipaiDangGouXingZu.setGouXingList(gouXingList);

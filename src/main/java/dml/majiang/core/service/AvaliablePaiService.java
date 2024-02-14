@@ -39,5 +39,6 @@ public class AvaliablePaiService {
         Random r = new Random(panId);
         Collections.shuffle(allPaiList, r);
         pan.setAvaliablePaiList(allPaiList);
+        pan.setPlayPaiTypeList(playPaiTypeList);
     }
 }

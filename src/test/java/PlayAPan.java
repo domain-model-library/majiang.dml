@@ -2,7 +2,6 @@ import dml.common.repository.TestCommonRepository;
 import dml.common.repository.TestCommonSingletonRepository;
 import dml.id.entity.LongIdGenerator;
 import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.chi.ChiActionProcessor;
 import dml.majiang.core.entity.action.chi.ChiActionUpdater;
 import dml.majiang.core.entity.action.chi.ChiPlayerDaPaiChiActionUpdater;
@@ -107,7 +106,7 @@ public class PlayAPan {
     PanIDGeneratorRepository panIDGeneratorRepository = TestCommonSingletonRepository.instance(PanIDGeneratorRepository.class,
             new LongIdGenerator(1L) {
             });
-    PanSpecialRulesStateRepository<PanSpecialRulesState> panSpecialRulesStateRepository =
+    PanSpecialRulesStateRepository panSpecialRulesStateRepository =
             TestCommonRepository.instance(PanSpecialRulesStateRepository.class);
     MoActionProcessorRepository<MoActionProcessor> moActionProcessorRepository =
             TestCommonRepository.instance(MoActionProcessorRepository.class);
@@ -168,7 +167,7 @@ class PlayAPanServiceRepositorySet implements PanPlayServiceRepositorySet,
     private PanRepository panRepository;
     private PanIDGeneratorRepository panIDGeneratorRepository;
 
-    private PanSpecialRulesStateRepository<PanSpecialRulesState> panSpecialRulesStateRepository;
+    private PanSpecialRulesStateRepository panSpecialRulesStateRepository;
 
     private MoActionProcessorRepository<MoActionProcessor> moActionProcessorRepository;
 
@@ -198,7 +197,7 @@ class PlayAPanServiceRepositorySet implements PanPlayServiceRepositorySet,
 
     public PlayAPanServiceRepositorySet(PanRepository panRepository,
                                         PanIDGeneratorRepository panIDGeneratorRepository,
-                                        PanSpecialRulesStateRepository<PanSpecialRulesState> panSpecialRulesStateRepository,
+                                        PanSpecialRulesStateRepository panSpecialRulesStateRepository,
                                         MoActionProcessorRepository<MoActionProcessor> moActionProcessorRepository,
                                         MoActionUpdaterRepository<MoActionUpdater> moActionUpdaterRepository,
                                         DaActionProcessorRepository<DaActionProcessor> daActionProcessorRepository,
@@ -243,7 +242,7 @@ class PlayAPanServiceRepositorySet implements PanPlayServiceRepositorySet,
     }
 
     @Override
-    public PanSpecialRulesStateRepository<PanSpecialRulesState> getPanSpecialRulesStateRepository() {
+    public PanSpecialRulesStateRepository getPanSpecialRulesStateRepository() {
         return panSpecialRulesStateRepository;
     }
 

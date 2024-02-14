@@ -67,7 +67,7 @@ public class PanPlayService {
         HuActionUpdaterRepository<HuActionUpdater> huActionUpdaterRepository = panPlayServiceRepositorySet.getHuActionUpdaterRepository();
         GuoActionProcessorRepository<GuoActionProcessor> guoActionProcessorRepository = panPlayServiceRepositorySet.getGuoActionProcessorRepository();
         GuoActionUpdaterRepository<GuoActionUpdater> guoActionUpdaterRepository = panPlayServiceRepositorySet.getGuoActionUpdaterRepository();
-        PanSpecialRulesStateRepository<PanSpecialRulesState> panSpecialRulesStateRepository = panPlayServiceRepositorySet.getPanSpecialRulesStateRepository();
+        PanSpecialRulesStateRepository panSpecialRulesStateRepository = panPlayServiceRepositorySet.getPanSpecialRulesStateRepository();
 
         Pan newPan = new Pan();
         newPan.setId(panIDGeneratorRepository.take().generateId());
@@ -134,7 +134,7 @@ public class PanPlayService {
     public static void action(long panId, String playerId, int actionId,
                               PanPlayServiceRepositorySet panPlayServiceRepositorySet) {
         PanRepository panRepository = panPlayServiceRepositorySet.getPanRepository();
-        PanSpecialRulesStateRepository<PanSpecialRulesState> panSpecialRulesStateRepository = panPlayServiceRepositorySet.getPanSpecialRulesStateRepository();
+        PanSpecialRulesStateRepository panSpecialRulesStateRepository = panPlayServiceRepositorySet.getPanSpecialRulesStateRepository();
         MoActionProcessorRepository<MoActionProcessor> moActionProcessorRepository = panPlayServiceRepositorySet.getMoActionProcessorRepository();
         MoActionUpdaterRepository<MoActionUpdater> moActionUpdaterRepository = panPlayServiceRepositorySet.getMoActionUpdaterRepository();
         DaActionProcessorRepository<DaActionProcessor> daActionProcessorRepository = panPlayServiceRepositorySet.getDaActionProcessorRepository();
