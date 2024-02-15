@@ -6,6 +6,8 @@ import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.hu.DianpaoHu;
 import dml.majiang.core.entity.action.hu.HuAction;
+import dml.majiang.core.entity.action.mo.LundaoMopai;
+import dml.majiang.core.entity.action.mo.MoAction;
 import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
 import dml.majiang.core.entity.shoupai.gouxing.GouXingPanHu;
 
@@ -72,6 +74,12 @@ public class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
             xiajiaPlayer.checkAndGenerateGuoCandidateAction(daAction);
 
             xiajiaPlayer = pan.findXiajia(xiajiaPlayer);
+        }
+
+        // 如果所有玩家啥也做不了,那就下家摸牌
+        if (pan.allPlayerHasNoActionCandidates()) {
+            xiajiaPlayer = pan.findXiajia(daPlayer);
+            xiajiaPlayer.addActionCandidate(new MoAction(xiajiaPlayer.getId(), new LundaoMopai()));
         }
     }
 }

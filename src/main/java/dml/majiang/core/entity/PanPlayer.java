@@ -403,4 +403,17 @@ public class PanPlayer {
     public void setHu(Hu hu) {
         this.hu = hu;
     }
+
+    public List<MajiangPai> findShoupaiForPaiTypes(Set<MajiangPai> paiTypes) {
+        List<MajiangPai> shoupaiList = new ArrayList<>();
+        for (MajiangPai shoupai : fangruShoupaiList) {
+            if (paiTypes.contains(shoupai)) {
+                shoupaiList.add(shoupai);
+            }
+        }
+        if (gangmoShoupai != null && paiTypes.contains(gangmoShoupai)) {
+            shoupaiList.add(gangmoShoupai);
+        }
+        return shoupaiList;
+    }
 }
