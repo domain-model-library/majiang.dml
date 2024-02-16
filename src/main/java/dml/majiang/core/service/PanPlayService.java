@@ -131,8 +131,8 @@ public class PanPlayService {
         panStartActionUpdater.process(pan);
     }
 
-    public static void action(long panId, String playerId, int actionId,
-                              PanPlayServiceRepositorySet panPlayServiceRepositorySet) {
+    public static PanPlayerAction action(long panId, String playerId, int actionId,
+                                         PanPlayServiceRepositorySet panPlayServiceRepositorySet) {
         PanRepository panRepository = panPlayServiceRepositorySet.getPanRepository();
         PanSpecialRulesStateRepository panSpecialRulesStateRepository = panPlayServiceRepositorySet.getPanSpecialRulesStateRepository();
         MoActionProcessorRepository<MoActionProcessor> moActionProcessorRepository = panPlayServiceRepositorySet.getMoActionProcessorRepository();
@@ -196,6 +196,7 @@ public class PanPlayService {
             GuoActionUpdater guoActionUpdater = guoActionUpdaterRepository.find(panId);
             guoActionUpdater.updateActions(guoAction, pan, panSpecialRulesState);
         }
+        return action;
     }
 
 }
