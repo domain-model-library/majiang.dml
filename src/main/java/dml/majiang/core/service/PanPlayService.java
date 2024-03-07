@@ -101,6 +101,7 @@ public class PanPlayService {
         guoActionUpdater.setPanId(newPan.getId());
         guoActionUpdaterRepository.put(guoActionUpdater);
         PanSpecialRulesState panSpecialRulesState = new PanSpecialRulesState();
+        panSpecialRulesState.setPanId(newPan.getId());
         panSpecialRulesStateRepository.put(panSpecialRulesState);
         return newPan;
     }
