@@ -95,7 +95,7 @@ public class PlayAPan {
         //查询庄家看到的一盘，从中获取庄家唯一的action id
         String zhuangPlayerId = pan.getZhuangPlayerId();
         CanNotSeeOtherPlayersPanView panViewForZhuang = PanPlayerViewService.buildPanViewForPlayer(pan.getId(), zhuangPlayerId, playAPanServiceRepositorySet);
-        int actionId = panViewForZhuang.getPlayerIdPanPlayerMap().get(zhuangPlayerId).getActionCandidates().values().iterator().next().getId();
+        int actionId = panViewForZhuang.getSelfPlayerView().getActionCandidates().values().iterator().next().getId();
 
         //庄家摸牌
         PanPlayService.action(pan.getId(), zhuangPlayerId, actionId, playAPanServiceRepositorySet);

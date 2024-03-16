@@ -27,6 +27,8 @@ public class CanNotSeeOtherPlayersPlayerView {
 
     private Map<Integer, PanPlayerAction> actionCandidates = new HashMap<>();
 
+    private int fangruShoupaiCount;
+
 
     public CanNotSeeOtherPlayersPlayerView() {
     }
@@ -38,6 +40,8 @@ public class CanNotSeeOtherPlayersPlayerView {
             fangruShoupaiList.addAll(player.getFangruShoupaiList());
             gangmoShoupai = player.getGangmoShoupai();
             actionCandidates.putAll(player.getActionCandidates());
+        } else {
+            fangruShoupaiCount = player.getFangruShoupaiList().size();
         }
     }
 
@@ -72,4 +76,9 @@ public class CanNotSeeOtherPlayersPlayerView {
     public void setActionCandidates(Map<Integer, PanPlayerAction> actionCandidates) {
         this.actionCandidates = actionCandidates;
     }
+
+    public int getFangruShoupaiCount() {
+        return fangruShoupaiCount;
+    }
+
 }
