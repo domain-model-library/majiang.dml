@@ -27,7 +27,7 @@ public class Pan {
     /**
      * 当前活跃的那张牌的定位
      */
-    private PaiCursor activePaiCursor;
+    private PaiCursor activePaiCursor;//TODO 这东西也应该分到新的service里
 
     /**
      * 只玩哪些牌

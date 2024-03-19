@@ -283,6 +283,15 @@ public class PanPlayer {
         return false;
     }
 
+    public boolean hasDaActionCandidate() {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof DaAction) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean hasGangActionCandidate() {
         for (PanPlayerAction action : actionCandidates.values()) {
             if (action instanceof GangAction) {
@@ -416,4 +425,6 @@ public class PanPlayer {
         }
         return shoupaiList;
     }
+
+
 }
