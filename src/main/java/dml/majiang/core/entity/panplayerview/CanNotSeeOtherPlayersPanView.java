@@ -25,11 +25,11 @@ public class CanNotSeeOtherPlayersPanView {
         this.id = pan.getId();
         PanPlayer currPlayer = pan.findPlayerById(playerId);
         selfPlayerView = new CanNotSeeOtherPlayersPlayerView(currPlayer, playerId);
-        currPlayer = pan.findXiajia(currPlayer);
+        currPlayer = pan.findNextMenFengPlayer(currPlayer);
         xiajiaPlayerView = new CanNotSeeOtherPlayersPlayerView(currPlayer, playerId);
-        currPlayer = pan.findXiajia(currPlayer);
+        currPlayer = pan.findNextMenFengPlayer(currPlayer);
         duijiaPlayerView = new CanNotSeeOtherPlayersPlayerView(currPlayer, playerId);
-        currPlayer = pan.findXiajia(currPlayer);
+        currPlayer = pan.findNextMenFengPlayer(currPlayer);
         shangjiaPlayerView = new CanNotSeeOtherPlayersPlayerView(currPlayer, playerId);
         this.zhuangPlayerId = pan.getZhuangPlayerId();
     }

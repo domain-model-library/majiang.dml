@@ -43,7 +43,7 @@ public class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
     public void updateActions(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();
         PanPlayer daPlayer = pan.findPlayerById(daAction.getActionPlayerId());
-        PanPlayer xiajiaPlayer = pan.findXiajia(daPlayer);
+        PanPlayer xiajiaPlayer = pan.findNextMenFengPlayer(daPlayer);
         MajiangPai daPai = daAction.getPai();
 
         // 下家可以吃
@@ -73,12 +73,12 @@ public class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
             // 需要有“过”
             xiajiaPlayer.checkAndGenerateGuoCandidateAction(daAction);
 
-            xiajiaPlayer = pan.findXiajia(xiajiaPlayer);
+            xiajiaPlayer = pan.findNextMenFengPlayer(xiajiaPlayer);
         }
 
         // 如果所有玩家啥也做不了,那就下家摸牌
         if (pan.allPlayerHasNoActionCandidates()) {
-            xiajiaPlayer = pan.findXiajia(daPlayer);
+            xiajiaPlayer = pan.findNextMenFengPlayer(daPlayer);
             xiajiaPlayer.addActionCandidate(new MoAction(xiajiaPlayer.getId(), new LundaoMopai()));
         }
     }

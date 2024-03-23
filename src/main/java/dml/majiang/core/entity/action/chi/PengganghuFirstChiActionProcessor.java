@@ -26,7 +26,7 @@ public class PengganghuFirstChiActionProcessor implements ChiActionProcessor {
     @Override
     public void process(ChiAction chiAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
         PanPlayer player = pan.findPlayerById(chiAction.getActionPlayerId());
-        PanPlayer xiajia = pan.findXiajia(player);
+        PanPlayer xiajia = pan.findNextMenFengPlayer(player);
         while (true) {
             if (!xiajia.getId().equals(player.getId())) {
                 if (xiajia.hasPengActionCandidate()
@@ -38,7 +38,7 @@ public class PengganghuFirstChiActionProcessor implements ChiActionProcessor {
             } else {
                 break;
             }
-            xiajia = pan.findXiajia(xiajia);
+            xiajia = pan.findNextMenFengPlayer(xiajia);
         }
 
         pan.playerChiPai(chiAction.getActionPlayerId(), chiAction.getDachupaiPlayerId(), chiAction.getChijinPai(),

@@ -81,12 +81,8 @@ public class Pan {
     }
 
     public PanPlayer findPlayerByMenFeng(MenFeng menFeng) {
-        for (PanPlayer panPlayer : playerIdPanPlayerMap.values()) {
-            if (panPlayer.getMenFeng().equals(menFeng)) {
-                return panPlayer;
-            }
-        }
-        return null;
+        String playerId = menFengPanPlayerIdMap.get(menFeng);
+        return playerIdPanPlayerMap.get(playerId);
     }
 
     public List<PanPlayer> allPlayers() {
@@ -145,17 +141,6 @@ public class Pan {
         return playerIdPanPlayerMap.get(playerId);
     }
 
-    public PanPlayer findNextMenFengPlayer(String currentMenFengPlayerId) {
-        PanPlayer currentMenFengPlayer = playerIdPanPlayerMap.get(currentMenFengPlayerId);
-        MenFeng nextMenFeng = currentMenFengPlayer.getMenFeng().next();
-        String nextPlayerId = menFengPanPlayerIdMap.get(nextMenFeng);
-        while (nextPlayerId == null) {
-            nextMenFeng = nextMenFeng.next();
-            nextPlayerId = menFengPanPlayerIdMap.get(nextMenFeng);
-        }
-        return playerIdPanPlayerMap.get(nextPlayerId);
-    }
-
     public void playerDaChuPai(String playerId, MajiangPai pai) {
         PanPlayer player = playerIdPanPlayerMap.get(playerId);
         player.daChuPai(pai);
@@ -170,7 +155,7 @@ public class Pan {
         this.activePaiCursor = activePaiCursor;
     }
 
-    public PanPlayer findXiajia(PanPlayer player) {
+    public PanPlayer findNextMenFengPlayer(PanPlayer player) {
         MenFeng xiajiaMenFeng = player.getMenFeng().next();
         String xiajiaPlayerId = menFengPanPlayerIdMap.get(xiajiaMenFeng);
         while (xiajiaPlayerId == null) {

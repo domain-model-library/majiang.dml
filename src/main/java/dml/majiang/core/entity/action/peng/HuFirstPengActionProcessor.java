@@ -26,7 +26,7 @@ public class HuFirstPengActionProcessor implements PengActionProcessor {
     @Override
     public void process(PengAction pengAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
         PanPlayer player = pan.findPlayerById(pengAction.getActionPlayerId());
-        PanPlayer xiajia = pan.findXiajia(player);
+        PanPlayer xiajia = pan.findNextMenFengPlayer(player);
         while (true) {
             if (!xiajia.getId().equals(player.getId())) {
                 if (xiajia.hasHuActionCandidate()) {
@@ -36,7 +36,7 @@ public class HuFirstPengActionProcessor implements PengActionProcessor {
             } else {
                 break;
             }
-            xiajia = pan.findXiajia(xiajia);
+            xiajia = pan.findNextMenFengPlayer(xiajia);
         }
 
         pan.playerPengPai(pengAction.getActionPlayerId(), pengAction.getDachupaiPlayerId(), pengAction.getPai());

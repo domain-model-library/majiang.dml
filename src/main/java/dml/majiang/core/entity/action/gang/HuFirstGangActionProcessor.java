@@ -29,7 +29,7 @@ public class HuFirstGangActionProcessor implements GangActionProcessor {
     @Override
     public void process(GangAction gangAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
         PanPlayer player = pan.findPlayerById(gangAction.getActionPlayerId());
-        PanPlayer xiajia = pan.findXiajia(player);
+        PanPlayer xiajia = pan.findNextMenFengPlayer(player);
         while (true) {
             if (!xiajia.getId().equals(player.getId())) {
                 if (xiajia.hasHuActionCandidate()) {
@@ -39,7 +39,7 @@ public class HuFirstGangActionProcessor implements GangActionProcessor {
             } else {
                 break;
             }
-            xiajia = pan.findXiajia(xiajia);
+            xiajia = pan.findNextMenFengPlayer(xiajia);
         }
 
         GangType gangType = gangAction.getGangType();

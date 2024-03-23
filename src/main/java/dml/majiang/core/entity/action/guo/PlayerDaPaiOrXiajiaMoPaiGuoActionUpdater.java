@@ -43,7 +43,7 @@ public class PlayerDaPaiOrXiajiaMoPaiGuoActionUpdater implements GuoActionUpdate
                 // 打牌那家的下家摸牌 TODO 还没处理牌摸完
                 // 打牌那家的下家摸牌
                 PanPlayer xiajiaPlayer = pan
-                        .findXiajia(pan.findPlayerById(guoAction.getActionPlayerId()));
+                        .findNextMenFengPlayer(pan.findPlayerById(guoAction.getActionPlayerId()));
                 xiajiaPlayer.addActionCandidate(new MoAction(xiajiaPlayer.getId(), new LundaoMopai()));
             }
         } else if (causedByAction instanceof PengAction) {// 过的是我碰之后的杠
