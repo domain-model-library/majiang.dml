@@ -29,4 +29,28 @@ public class WaitingPlayerCursorService {
             }
         }
     }
+
+    public static void clearWaitingPlayerIdIfAnyPengGangHu(long panId,
+                                                           WaitingPlayerCursorServiceRepositorySet waitingPlayerCursorServiceRepositorySet) {
+        PanRepository panRepository = waitingPlayerCursorServiceRepositorySet.getPanRepository();
+        WaitingPlayerCursorRepository waitingPlayerCursorRepository = waitingPlayerCursorServiceRepositorySet.getWaitingPlayerCursorRepository();
+
+        Pan pan = panRepository.find(panId);
+        List<PanPlayer> players = pan.allPlayers();
+        for (PanPlayer player : players) {
+            if (player.hasPengActionCandidate() || player.hasGangActionCandidate() || player.hasHuActionCandidate()) {
+                WaitingPlayerCursor waitingPlayerCursor = waitingPlayerCursorRepository.takeOrPutIfAbsent(pan.getId(),
+                        new WaitingPlayerCursor(pan.getId()));
+                waitingPlayerCursor.setWaitingPlayerId(null);
+                return;
+            }
+        }
+    }
+
+    public static WaitingPlayerCursor findWaitingPlayerCursor(long panId,
+                                                              WaitingPlayerCursorServiceRepositorySet waitingPlayerCursorServiceRepositorySet) {
+        WaitingPlayerCursorRepository waitingPlayerCursorRepository = waitingPlayerCursorServiceRepositorySet.getWaitingPlayerCursorRepository();
+        return waitingPlayerCursorRepository.find(panId);
+    }
+
 }
