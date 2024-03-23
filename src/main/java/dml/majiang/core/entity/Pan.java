@@ -222,6 +222,39 @@ public class Pan {
         return true;
     }
 
+    public PanPlayer findXiajia(String playerId) {
+        PanPlayer player = playerIdPanPlayerMap.get(playerId);
+        MenFeng playerMenFeng = player.getMenFeng();
+        MenFeng xiajiaMenFeng = playerMenFeng.xiajia();
+        String xiajiaPlayerId = menFengPanPlayerIdMap.get(xiajiaMenFeng);
+        if (xiajiaPlayerId == null) {
+            return null;
+        }
+        return playerIdPanPlayerMap.get(xiajiaPlayerId);
+    }
+
+    public PanPlayer findShangjia(String playerId) {
+        PanPlayer player = playerIdPanPlayerMap.get(playerId);
+        MenFeng playerMenFeng = player.getMenFeng();
+        MenFeng shangjiaMenFeng = playerMenFeng.shangjia();
+        String shangjiaPlayerId = menFengPanPlayerIdMap.get(shangjiaMenFeng);
+        if (shangjiaPlayerId == null) {
+            return null;
+        }
+        return playerIdPanPlayerMap.get(shangjiaPlayerId);
+    }
+
+    public PanPlayer findDuijia(String playerId) {
+        PanPlayer player = playerIdPanPlayerMap.get(playerId);
+        MenFeng playerMenFeng = player.getMenFeng();
+        MenFeng duijiaMenFeng = playerMenFeng.duijia();
+        String duijiaPlayerId = menFengPanPlayerIdMap.get(duijiaMenFeng);
+        if (duijiaPlayerId == null) {
+            return null;
+        }
+        return playerIdPanPlayerMap.get(duijiaPlayerId);
+    }
+
     public List<MajiangPai> getPlayPaiTypeList() {
         return playPaiTypeList;
     }
