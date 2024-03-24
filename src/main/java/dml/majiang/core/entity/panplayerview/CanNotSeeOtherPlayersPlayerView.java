@@ -81,4 +81,7 @@ public class CanNotSeeOtherPlayersPlayerView {
         return fangruShoupaiCount;
     }
 
+    public MajiangPai getGangmoShoupai() {
+        return gangmoShoupai;
+    }
 }
