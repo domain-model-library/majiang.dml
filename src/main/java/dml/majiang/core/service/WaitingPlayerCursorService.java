@@ -19,32 +19,16 @@ public class WaitingPlayerCursorService {
         WaitingPlayerCursorRepository waitingPlayerCursorRepository = waitingPlayerCursorServiceRepositorySet.getWaitingPlayerCursorRepository();
 
         Pan pan = panRepository.find(panId);
+        WaitingPlayerCursor waitingPlayerCursor = waitingPlayerCursorRepository.takeOrPutIfAbsent(pan.getId(),
+                new WaitingPlayerCursor(pan.getId()));
         List<PanPlayer> players = pan.allPlayers();
         for (PanPlayer player : players) {
             if (player.hasDaActionCandidate()) {
-                WaitingPlayerCursor waitingPlayerCursor = waitingPlayerCursorRepository.takeOrPutIfAbsent(pan.getId(),
-                        new WaitingPlayerCursor(pan.getId()));
                 waitingPlayerCursor.setWaitingPlayerId(player.getId());
                 return;
             }
         }
-    }
-
-    public static void clearWaitingPlayerIdIfAnyPengGangHu(long panId,
-                                                           WaitingPlayerCursorServiceRepositorySet waitingPlayerCursorServiceRepositorySet) {
-        PanRepository panRepository = waitingPlayerCursorServiceRepositorySet.getPanRepository();
-        WaitingPlayerCursorRepository waitingPlayerCursorRepository = waitingPlayerCursorServiceRepositorySet.getWaitingPlayerCursorRepository();
-
-        Pan pan = panRepository.find(panId);
-        List<PanPlayer> players = pan.allPlayers();
-        for (PanPlayer player : players) {
-            if (player.hasPengActionCandidate() || player.hasGangActionCandidate() || player.hasHuActionCandidate()) {
-                WaitingPlayerCursor waitingPlayerCursor = waitingPlayerCursorRepository.takeOrPutIfAbsent(pan.getId(),
-                        new WaitingPlayerCursor(pan.getId()));
-                waitingPlayerCursor.setWaitingPlayerId(null);
-                return;
-            }
-        }
+        waitingPlayerCursor.setWaitingPlayerId(null);
     }
 
     public static WaitingPlayerCursor findWaitingPlayerCursor(long panId,
