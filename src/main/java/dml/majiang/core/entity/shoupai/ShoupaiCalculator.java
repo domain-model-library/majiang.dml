@@ -507,7 +507,8 @@ public class ShoupaiCalculator {
                                                                          MajiangPai actGuipaiBenpaiPai,
                                                                          PanPlayer player,
                                                                          GouXingPanHu gouXingPanHu) {
-        boolean gangmoGuipai = guipaiTypes.contains(player.getGangmoShoupai());
+        MajiangPai gangmoShoupai = player.getGangmoShoupai();
+        boolean gangmoGuipai = gangmoShoupai != null && guipaiTypes.contains(gangmoShoupai);
         if (!gangmoGuipai) {
             addPai(player.getGangmoShoupai());
         }
