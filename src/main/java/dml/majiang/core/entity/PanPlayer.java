@@ -51,6 +51,7 @@ public class PanPlayer {
 
     public void addShoupai(MajiangPai pai) {
         fangruShoupaiList.add(pai);
+        shoupaiCalculator.addPai(pai);
     }
 
     public void addActionCandidate(PanPlayerAction action) {
