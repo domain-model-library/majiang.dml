@@ -1,3 +1,4 @@
+import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
 import dml.majiang.core.entity.shoupai.gouxing.GouXingCalculator;
@@ -6,6 +7,7 @@ import dml.majiang.core.entity.shoupai.gouxing.NoDanpaiOneDuiziGouXingPanHu;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 import static dml.majiang.core.entity.MajiangPai.*;
 import static org.junit.Assert.assertFalse;
@@ -45,6 +47,54 @@ public class HuTest {
                         new NoDanpaiOneDuiziGouXingPanHu());
         assertFalse(huPaiShoupaiPaiXingList.isEmpty());
 
+        //验证有三个财神，白板当财神本牌的胡
+        //财神是西风
+        Set<MajiangPai> guipaiTypes = Set.of(xifeng);
+        player = new PanPlayer();
+        player.addShoupai(yiwan);
+        player.addShoupai(yiwan);
+        player.addShoupai(yiwan);
+
+        player.addShoupai(erwan);
+        player.addShoupai(erwan);
+        player.addShoupai(erwan);
+
+        player.addShoupai(xifeng);
+        player.addShoupai(sanwan);
+        player.addShoupai(sanwan);
+
+        player.addShoupai(xifeng);
+        player.addShoupai(siwan);
+        player.addShoupai(siwan);
+
+        player.addShoupai(xifeng);
+        player.addShoupai(wuwan);
+        player.addShoupai(wuwan);
+
+        player.addShoupai(baiban);
+        player.setGangmoShoupai(baiban);
+
+        MajiangPai[] paiTypesForGuipaiAct = calculatePaiTypesForGuipaiAct();
+        List<MajiangPai> guipaiList = List.of(xifeng, xifeng, xifeng);
+        MajiangPai actGuipaiBenpaiPai = baiban;
+        huPaiShoupaiPaiXingList =
+                player.getShoupaiCalculator().calculateAllHuPaiShoupaiPaiXingForZimoHu(guipaiTypes, paiTypesForGuipaiAct,
+                        guipaiList, actGuipaiBenpaiPai, player, new NoDanpaiOneDuiziGouXingPanHu());
+        assertFalse(huPaiShoupaiPaiXingList.isEmpty());
+
+    }
+
+    private MajiangPai[] calculatePaiTypesForGuipaiAct() {
+        MajiangPai[] xushupaiArray = MajiangPai.xushupaiArray();
+        MajiangPai[] fengpaiArray = MajiangPai.fengpaiArray();
+        MajiangPai[] paiTypesForGuipaiAct;
+
+        paiTypesForGuipaiAct = new MajiangPai[xushupaiArray.length + fengpaiArray.length + 2];
+        System.arraycopy(xushupaiArray, 0, paiTypesForGuipaiAct, 0, xushupaiArray.length);
+        System.arraycopy(fengpaiArray, 0, paiTypesForGuipaiAct, xushupaiArray.length, fengpaiArray.length);
+        paiTypesForGuipaiAct[31] = MajiangPai.hongzhong;
+        paiTypesForGuipaiAct[32] = MajiangPai.facai;
+        return paiTypesForGuipaiAct;
     }
 
 }
