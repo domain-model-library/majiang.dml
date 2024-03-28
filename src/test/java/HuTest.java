@@ -42,10 +42,10 @@ public class HuTest {
         player.addShoupai(liuwan);
         player.setGangmoShoupai(liuwan);
 
-        List<ShoupaiPaiXing> huPaiShoupaiPaiXingList =
+        List<ShoupaiPaiXing> huPaiShoupaiPaiXingList1 =
                 player.getShoupaiCalculator().calculateAllHuPaiShoupaiPaiXingForZimoHu(player,
                         new NoDanpaiOneDuiziGouXingPanHu());
-        assertFalse(huPaiShoupaiPaiXingList.isEmpty());
+        assertFalse(huPaiShoupaiPaiXingList1.isEmpty());
 
         //验证有三个财神，白板当财神本牌的胡
         //财神是西风
@@ -77,10 +77,10 @@ public class HuTest {
         MajiangPai[] paiTypesForGuipaiAct = calculatePaiTypesForGuipaiAct();
         List<MajiangPai> guipaiList = List.of(xifeng, xifeng, xifeng);
         MajiangPai actGuipaiBenpaiPai = baiban;
-        huPaiShoupaiPaiXingList =
+        List<ShoupaiPaiXing> huPaiShoupaiPaiXingList2 =
                 player.getShoupaiCalculator().calculateAllHuPaiShoupaiPaiXingForZimoHu(guipaiTypes, paiTypesForGuipaiAct,
                         guipaiList, actGuipaiBenpaiPai, player, new NoDanpaiOneDuiziGouXingPanHu());
-        assertFalse(huPaiShoupaiPaiXingList.isEmpty());
+        assertFalse(huPaiShoupaiPaiXingList2.isEmpty());
 
         //验证有财神，白板当财神本牌的胡，而财神又正好是白板
         guipaiTypes = Set.of(baiban);
@@ -110,10 +110,10 @@ public class HuTest {
 
         guipaiList = List.of(baiban, baiban);
         actGuipaiBenpaiPai = baiban;
-        huPaiShoupaiPaiXingList =
+        List<ShoupaiPaiXing> huPaiShoupaiPaiXingList3 =
                 player.getShoupaiCalculator().calculateAllHuPaiShoupaiPaiXingForZimoHu(guipaiTypes, paiTypesForGuipaiAct,
                         guipaiList, actGuipaiBenpaiPai, player, new NoDanpaiOneDuiziGouXingPanHu());
-        assertFalse(huPaiShoupaiPaiXingList.isEmpty());
+        assertFalse(huPaiShoupaiPaiXingList3.isEmpty());
 
     }
 
