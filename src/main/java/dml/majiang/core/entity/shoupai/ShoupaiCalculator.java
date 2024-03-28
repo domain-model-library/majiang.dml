@@ -615,7 +615,7 @@ public class ShoupaiCalculator {
                                                                   GouXingPanHu gouXingPanHu, MajiangPai huPai) {
         List<ShoupaiPaiXing> shoupaiPaiXingList = new ArrayList<>();
         int actGuipaiBenpaiPaiCount = count(actGuipaiBenpaiPai);
-        if (actGuipaiBenpaiPaiCount > 0) {
+        if (!guipaiTypes.contains(actGuipaiBenpaiPai) && actGuipaiBenpaiPaiCount > 0) {
             shoupaiPaiXingList.addAll(calculateHuPaiShoupaiPaiXingListWithActGuipaiBenpaiPai(
                     actGuipaiBenpaiPai, actGuipaiBenpaiPaiCount,
                     guipaiTypes, paiTypesForGuipaiAct, guipaiList,
