@@ -82,6 +82,39 @@ public class HuTest {
                         guipaiList, actGuipaiBenpaiPai, player, new NoDanpaiOneDuiziGouXingPanHu());
         assertFalse(huPaiShoupaiPaiXingList.isEmpty());
 
+        //验证有财神，白板当财神本牌的胡，而财神又正好是白板
+        guipaiTypes = Set.of(baiban);
+        player = new PanPlayer();
+        player.addShoupai(yiwan);
+        player.addShoupai(yiwan);
+        player.addShoupai(yiwan);
+
+        player.addShoupai(erwan);
+        player.addShoupai(erwan);
+        player.addShoupai(erwan);
+
+        player.addShoupai(baiban);
+        player.addShoupai(sanwan);
+        player.addShoupai(sanwan);
+
+        player.addShoupai(baiban);
+        player.addShoupai(siwan);
+        player.addShoupai(siwan);
+
+        player.addShoupai(wuwan);
+        player.addShoupai(wuwan);
+        player.addShoupai(wuwan);
+
+        player.addShoupai(xifeng);
+        player.setGangmoShoupai(xifeng);
+
+        guipaiList = List.of(baiban, baiban);
+        actGuipaiBenpaiPai = baiban;
+        huPaiShoupaiPaiXingList =
+                player.getShoupaiCalculator().calculateAllHuPaiShoupaiPaiXingForZimoHu(guipaiTypes, paiTypesForGuipaiAct,
+                        guipaiList, actGuipaiBenpaiPai, player, new NoDanpaiOneDuiziGouXingPanHu());
+        assertFalse(huPaiShoupaiPaiXingList.isEmpty());
+
     }
 
     private MajiangPai[] calculatePaiTypesForGuipaiAct() {
