@@ -719,7 +719,7 @@ public class ShoupaiCalculator {
             if (hu) {
                 // 计算牌型
                 huPaiShoupaiPaiXingList.addAll(calculateAllShoupaiPaiXingForGouXingWithHupai(gouXing,
-                        dangPaiArray, new GuipaiDangPai[0], huPai));
+                        dangPaiArray, huPai));
             }
         }
         return huPaiShoupaiPaiXingList;
@@ -755,7 +755,7 @@ public class ShoupaiCalculator {
                     }
                     // 计算牌型
                     huPaiShoupaiPaiXingList.addAll(calculateAllShoupaiPaiXingForGouXingWithHupai(gouXing,
-                            dangPaiArray, guipaiDangPaiArray, huPai));
+                            dangPaiArray, huPai));
                     // 把所有当的鬼牌移出计算器,把所有鬼牌本牌加回计算器
                     for (int i = 0; i < guipaiDangPaiArray.length; i++) {
                         removePai(guipaiDangPaiArray[i].getDangpai());
@@ -769,7 +769,7 @@ public class ShoupaiCalculator {
     }
 
     private List<ShoupaiPaiXing> calculateAllShoupaiPaiXingForGouXingWithHupai(
-            GouXing gouXing, ShoupaiJiesuanPai[] dangPaiArray, GuipaiDangPai[] guipaiDangPaiArray, MajiangPai huPai) {
+            GouXing gouXing, ShoupaiJiesuanPai[] dangPaiArray, MajiangPai huPai) {
         List<ShoupaiPaiXing> huPaiShoupaiPaiXingList = new ArrayList<>();
         // 计算牌型
         List<PaiXing> paiXingList = calculateAllPaiXingFromGouXing(gouXing);
