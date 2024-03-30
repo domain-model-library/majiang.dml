@@ -1,4 +1,4 @@
-package dml.majiang.specialrules.service;
+package dml.majiang.specialrules.guipai.service;
 
 import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pan;
@@ -6,8 +6,8 @@ import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.repository.PanRepository;
 import dml.majiang.core.repository.PanSpecialRulesStateRepository;
-import dml.majiang.specialrules.entity.GuipaiState;
-import dml.majiang.specialrules.service.repositoryset.GuipaiServiceRepositorySet;
+import dml.majiang.specialrules.guipai.entity.GuipaiState;
+import dml.majiang.specialrules.guipai.service.repositoryset.GuipaiServiceRepositorySet;
 
 import java.util.List;
 import java.util.Random;

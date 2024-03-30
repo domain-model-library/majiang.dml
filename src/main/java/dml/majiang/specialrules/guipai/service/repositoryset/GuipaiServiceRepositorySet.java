@@ -1,4 +1,4 @@
-package dml.majiang.specialrules.service.repositoryset;
+package dml.majiang.specialrules.guipai.service.repositoryset;
 
 import dml.majiang.core.repository.PanRepository;
 import dml.majiang.core.repository.PanSpecialRulesStateRepository;

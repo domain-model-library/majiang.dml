@@ -6,7 +6,7 @@ import dml.majiang.core.entity.action.chi.ChiActionProcessor;
 import dml.majiang.core.entity.action.chi.ChiActionUpdater;
 import dml.majiang.core.entity.action.chi.ChiPlayerDaPaiChiActionUpdater;
 import dml.majiang.core.entity.action.chi.PengganghuFirstChiActionProcessor;
-import dml.majiang.core.entity.action.da.ChiPengGangHuDaActionUpdater;
+import dml.majiang.core.entity.action.da.ChiPengGangDaActionUpdater;
 import dml.majiang.core.entity.action.da.DaActionProcessor;
 import dml.majiang.core.entity.action.da.DaActionUpdater;
 import dml.majiang.core.entity.action.da.DachushoupaiDaActionProcessor;
@@ -22,7 +22,7 @@ import dml.majiang.core.entity.action.hu.ClearAllActionHuActionUpdater;
 import dml.majiang.core.entity.action.hu.HuActionProcessor;
 import dml.majiang.core.entity.action.hu.HuActionUpdater;
 import dml.majiang.core.entity.action.hu.PlayerSetHuHuActionProcessor;
-import dml.majiang.core.entity.action.mo.GangHuMoActionUpdater;
+import dml.majiang.core.entity.action.mo.GangDaMoActionUpdater;
 import dml.majiang.core.entity.action.mo.MoActionProcessor;
 import dml.majiang.core.entity.action.mo.MoActionUpdater;
 import dml.majiang.core.entity.action.mo.PlayerMoPaiMoActionProcessor;
@@ -34,7 +34,6 @@ import dml.majiang.core.entity.action.start.ZhuangMoStartActionUpdater;
 import dml.majiang.core.entity.panplayerview.CanNotSeeOtherPlayersPanView;
 import dml.majiang.core.entity.shoupai.gouxing.GouXingCalculator;
 import dml.majiang.core.entity.shoupai.gouxing.GouXingCalculatorHelper;
-import dml.majiang.core.entity.shoupai.gouxing.NoDanpaiOneDuiziGouXingPanHu;
 import dml.majiang.core.repository.*;
 import dml.majiang.core.service.*;
 import dml.majiang.core.service.repositoryset.*;
@@ -56,9 +55,9 @@ public class PlayAPan {
         // 创建一盘麻将
         Pan pan = PanPlayService.createPan(
                 new PlayerMoPaiMoActionProcessor(),
-                new GangHuMoActionUpdater(new NoDanpaiOneDuiziGouXingPanHu()),
+                new GangDaMoActionUpdater(),
                 new DachushoupaiDaActionProcessor(),
-                new ChiPengGangHuDaActionUpdater(new NoDanpaiOneDuiziGouXingPanHu()),
+                new ChiPengGangDaActionUpdater(),
                 new PengganghuFirstChiActionProcessor(),
                 new ChiPlayerDaPaiChiActionUpdater(),
                 new HuFirstPengActionProcessor(),

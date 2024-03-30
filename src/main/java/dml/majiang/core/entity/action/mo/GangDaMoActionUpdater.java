@@ -3,25 +3,14 @@ package dml.majiang.core.entity.action.mo;
 import dml.majiang.core.entity.Pan;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
-import dml.majiang.core.entity.action.hu.HuAction;
-import dml.majiang.core.entity.action.hu.ZimoHu;
-import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
-import dml.majiang.core.entity.shoupai.gouxing.GouXingPanHu;
-
-import java.util.List;
 
 /**
- * 摸完之后可以杠、胡的操作，也可以过，过了之后就可以打了。最常见的摸后操作
+ * 摸完之后可以杠，也可以过，什么也没有那就打了。最常见的摸后操作 (当然抹完之后也可以胡，但是各地方的胡牌规则不一样，这里就不包含了)
  */
-public class GangHuMoActionUpdater implements MoActionUpdater {
+public class GangDaMoActionUpdater implements MoActionUpdater {
     private long panId;
-    private GouXingPanHu gouXingPanHu;
 
-    public GangHuMoActionUpdater() {
-    }
-
-    public GangHuMoActionUpdater(GouXingPanHu gouXingPanHu) {
-        this.gouXingPanHu = gouXingPanHu;
+    public GangDaMoActionUpdater() {
     }
 
     @Override
@@ -52,17 +41,10 @@ public class GangHuMoActionUpdater implements MoActionUpdater {
         // 刻子杠手牌
         player.tryKezigangshoupaiAndGenerateCandidateAction();
 
-        // 胡，各地方的胡牌规则不一样，这里只是演示
-        List<ShoupaiPaiXing> huPaiShoupaiPaiXingList =
-                player.getShoupaiCalculator().calculateAllHuPaiShoupaiPaiXingForZimoHu(player, this.gouXingPanHu);
-        if (huPaiShoupaiPaiXingList != null && !huPaiShoupaiPaiXingList.isEmpty()) {
-            player.addActionCandidate(new HuAction(player.getId(), new ZimoHu(huPaiShoupaiPaiXingList.get(0))));
-        }
-
         // 需要有“过”
         player.checkAndGenerateGuoCandidateAction(moAction);
 
-        // 没有杠、胡，那就只能打了
+        // 没有动作，那就只能打了
         if (player.getActionCandidates().isEmpty()) {
             player.generateDaActions();
         }

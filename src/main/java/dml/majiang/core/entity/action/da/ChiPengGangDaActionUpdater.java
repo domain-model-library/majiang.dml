@@ -4,29 +4,17 @@ import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pan;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
-import dml.majiang.core.entity.action.hu.DianpaoHu;
-import dml.majiang.core.entity.action.hu.HuAction;
 import dml.majiang.core.entity.action.mo.LundaoMopai;
 import dml.majiang.core.entity.action.mo.MoAction;
-import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
-import dml.majiang.core.entity.shoupai.gouxing.GouXingPanHu;
-
-import java.util.List;
 
 /**
- * 打之后能吃碰杠胡，最常见的打之后的动作
+ * 打之后能吃碰杠(还有胡，但是各地规则不同，就不包含了)，最常见的打之后的动作
  */
-public class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
+public class ChiPengGangDaActionUpdater implements DaActionUpdater {
 
     private long panId;
 
-    private GouXingPanHu gouXingPanHu;
-
-    public ChiPengGangHuDaActionUpdater() {
-    }
-
-    public ChiPengGangHuDaActionUpdater(GouXingPanHu gouXingPanHu) {
-        this.gouXingPanHu = gouXingPanHu;
+    public ChiPengGangDaActionUpdater() {
     }
 
     @Override
@@ -59,16 +47,6 @@ public class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
 
             //杠
             xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daAction.getActionPlayerId(), daAction.getPai());
-
-            //点炮胡
-            // 各地方的胡牌规则不一样，这里只是演示
-            List<ShoupaiPaiXing> huPaiShoupaiPaiXingList =
-                    xiajiaPlayer.getShoupaiCalculator().calculateAllHuPaiShoupaiPaiXingForDianpaoHu(
-                            xiajiaPlayer, daAction.getPai(), gouXingPanHu);
-            if (huPaiShoupaiPaiXingList != null && !huPaiShoupaiPaiXingList.isEmpty()) {
-                xiajiaPlayer.addActionCandidate(new HuAction(xiajiaPlayer.getId(),
-                        new DianpaoHu(huPaiShoupaiPaiXingList.get(0), daAction.getActionPlayerId())));
-            }
 
             // 需要有“过”
             xiajiaPlayer.checkAndGenerateGuoCandidateAction(daAction);

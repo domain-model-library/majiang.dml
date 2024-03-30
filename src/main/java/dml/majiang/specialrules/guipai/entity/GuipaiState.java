@@ -1,4 +1,4 @@
-package dml.majiang.specialrules.entity;
+package dml.majiang.specialrules.guipai.entity;
 
 import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.SpecialRuleState;
