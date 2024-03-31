@@ -8,18 +8,6 @@ import dml.majiang.core.entity.PanSpecialRulesState;
  * 摸完之后可以杠胡，也可以过，什么也没有那就打了。最常见的摸后操作
  */
 public abstract class GangHuDaMoActionUpdater implements MoActionUpdater {
-    private long panId;
-
-    @Override
-    public void setPanId(long panId) {
-        this.panId = panId;
-    }
-
-    @Override
-    public long getPanId() {
-        return panId;
-    }
-
     @Override
     public void updateActions(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();

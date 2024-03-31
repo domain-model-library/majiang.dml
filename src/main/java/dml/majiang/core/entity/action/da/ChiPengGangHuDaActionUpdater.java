@@ -11,20 +11,6 @@ import dml.majiang.core.entity.action.mo.MoAction;
  * 打之后能吃碰杠胡，最常见的打之后的动作
  */
 public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
-
-    private long panId;
-
-    @Override
-    public void setPanId(long panId) {
-        this.panId = panId;
-    }
-
-    @Override
-    public long getPanId() {
-        return panId;
-    }
-
-    @Override
     public void updateActions(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();
         PanPlayer daPlayer = pan.findPlayerById(daAction.getActionPlayerId());

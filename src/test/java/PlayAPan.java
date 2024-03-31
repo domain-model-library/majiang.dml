@@ -314,13 +314,37 @@ class PlayAPanServiceRepositorySet implements PanPlayServiceRepositorySet,
 }
 
 class TestGangHuDaMoActionUpdater extends GangHuDaMoActionUpdater {
+    private long panId;
+
     @Override
     protected void tryAndGenerateHuCandidateAction(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    }
+
+    @Override
+    public void setPanId(long panId) {
+        this.panId = panId;
+    }
+
+    @Override
+    public long getPanId() {
+        return panId;
     }
 }
 
 class TestChiPengGangHuDaActionUpdater extends ChiPengGangHuDaActionUpdater {
+    private long panId;
+
     @Override
     protected void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    }
+
+    @Override
+    public void setPanId(long panId) {
+        this.panId = panId;
+    }
+
+    @Override
+    public long getPanId() {
+        return panId;
     }
 }
