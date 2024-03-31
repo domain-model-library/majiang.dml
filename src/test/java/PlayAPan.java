@@ -2,6 +2,7 @@ import dml.common.repository.TestCommonRepository;
 import dml.common.repository.TestCommonSingletonRepository;
 import dml.id.entity.LongIdGenerator;
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.chi.ChiActionProcessor;
 import dml.majiang.core.entity.action.chi.ChiActionUpdater;
@@ -335,7 +336,8 @@ class TestChiPengGangHuDaActionUpdater extends ChiPengGangHuDaActionUpdater {
     private long panId;
 
     @Override
-    protected void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    protected void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan,
+                                                   PanSpecialRulesState panSpecialRulesState, PanPlayer panPlayer) {
     }
 
     @Override

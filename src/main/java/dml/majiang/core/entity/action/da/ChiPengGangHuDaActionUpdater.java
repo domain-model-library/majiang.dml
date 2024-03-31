@@ -32,7 +32,7 @@ public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
             xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daAction.getActionPlayerId(), daAction.getPai());
 
             //胡
-            tryAndGenerateHuCandidateAction(daAction, pan, panSpecialRulesState);
+            tryAndGenerateHuCandidateAction(daAction, pan, panSpecialRulesState, xiajiaPlayer);
 
             // 需要有“过”
             xiajiaPlayer.checkAndGenerateGuoCandidateAction(daAction);
@@ -47,5 +47,6 @@ public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
         }
     }
 
-    protected abstract void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState);
+    protected abstract void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan,
+                                                            PanSpecialRulesState panSpecialRulesState, PanPlayer panPlayer);
 }
