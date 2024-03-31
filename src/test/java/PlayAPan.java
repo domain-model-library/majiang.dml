@@ -2,14 +2,12 @@ import dml.common.repository.TestCommonRepository;
 import dml.common.repository.TestCommonSingletonRepository;
 import dml.id.entity.LongIdGenerator;
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.chi.ChiActionProcessor;
 import dml.majiang.core.entity.action.chi.ChiActionUpdater;
 import dml.majiang.core.entity.action.chi.ChiPlayerDaPaiChiActionUpdater;
 import dml.majiang.core.entity.action.chi.PengganghuFirstChiActionProcessor;
-import dml.majiang.core.entity.action.da.ChiPengGangDaActionUpdater;
-import dml.majiang.core.entity.action.da.DaActionProcessor;
-import dml.majiang.core.entity.action.da.DaActionUpdater;
-import dml.majiang.core.entity.action.da.DachushoupaiDaActionProcessor;
+import dml.majiang.core.entity.action.da.*;
 import dml.majiang.core.entity.action.gang.GangActionProcessor;
 import dml.majiang.core.entity.action.gang.GangActionUpdater;
 import dml.majiang.core.entity.action.gang.GangPlayerMoPaiGangActionUpdater;
@@ -22,10 +20,7 @@ import dml.majiang.core.entity.action.hu.ClearAllActionHuActionUpdater;
 import dml.majiang.core.entity.action.hu.HuActionProcessor;
 import dml.majiang.core.entity.action.hu.HuActionUpdater;
 import dml.majiang.core.entity.action.hu.PlayerSetHuHuActionProcessor;
-import dml.majiang.core.entity.action.mo.GangDaMoActionUpdater;
-import dml.majiang.core.entity.action.mo.MoActionProcessor;
-import dml.majiang.core.entity.action.mo.MoActionUpdater;
-import dml.majiang.core.entity.action.mo.PlayerMoPaiMoActionProcessor;
+import dml.majiang.core.entity.action.mo.*;
 import dml.majiang.core.entity.action.peng.HuFirstPengActionProcessor;
 import dml.majiang.core.entity.action.peng.KezigangshoupaiPengActionUpdater;
 import dml.majiang.core.entity.action.peng.PengActionProcessor;
@@ -55,9 +50,9 @@ public class PlayAPan {
         // 创建一盘麻将
         Pan pan = PanPlayService.createPan(
                 new PlayerMoPaiMoActionProcessor(),
-                new GangDaMoActionUpdater(),
+                new TestGangHuDaMoActionUpdater(),
                 new DachushoupaiDaActionProcessor(),
-                new ChiPengGangDaActionUpdater(),
+                new TestChiPengGangHuDaActionUpdater(),
                 new PengganghuFirstChiActionProcessor(),
                 new ChiPlayerDaPaiChiActionUpdater(),
                 new HuFirstPengActionProcessor(),
@@ -318,3 +313,14 @@ class PlayAPanServiceRepositorySet implements PanPlayServiceRepositorySet,
 
 }
 
+class TestGangHuDaMoActionUpdater extends GangHuDaMoActionUpdater {
+    @Override
+    protected void tryAndGenerateHuCandidateAction(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    }
+}
+
+class TestChiPengGangHuDaActionUpdater extends ChiPengGangHuDaActionUpdater {
+    @Override
+    protected void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    }
+}

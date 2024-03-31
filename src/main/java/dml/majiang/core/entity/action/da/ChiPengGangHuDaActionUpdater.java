@@ -8,14 +8,11 @@ import dml.majiang.core.entity.action.mo.LundaoMopai;
 import dml.majiang.core.entity.action.mo.MoAction;
 
 /**
- * 打之后能吃碰杠(还有胡，但是各地规则不同，就不包含了)，最常见的打之后的动作
+ * 打之后能吃碰杠胡，最常见的打之后的动作
  */
-public class ChiPengGangDaActionUpdater implements DaActionUpdater {
+public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
 
     private long panId;
-
-    public ChiPengGangDaActionUpdater() {
-    }
 
     @Override
     public void setPanId(long panId) {
@@ -48,6 +45,9 @@ public class ChiPengGangDaActionUpdater implements DaActionUpdater {
             //杠
             xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daAction.getActionPlayerId(), daAction.getPai());
 
+            //胡
+            tryAndGenerateHuCandidateAction(daAction, pan, panSpecialRulesState);
+
             // 需要有“过”
             xiajiaPlayer.checkAndGenerateGuoCandidateAction(daAction);
 
@@ -60,4 +60,6 @@ public class ChiPengGangDaActionUpdater implements DaActionUpdater {
             xiajiaPlayer.addActionCandidate(new MoAction(xiajiaPlayer.getId(), new LundaoMopai()));
         }
     }
+
+    protected abstract void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState);
 }

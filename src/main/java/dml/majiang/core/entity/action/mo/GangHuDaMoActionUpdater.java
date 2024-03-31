@@ -5,13 +5,10 @@ import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
 /**
- * 摸完之后可以杠，也可以过，什么也没有那就打了。最常见的摸后操作 (当然抹完之后也可以胡，但是各地方的胡牌规则不一样，这里就不包含了)
+ * 摸完之后可以杠胡，也可以过，什么也没有那就打了。最常见的摸后操作
  */
-public class GangDaMoActionUpdater implements MoActionUpdater {
+public abstract class GangHuDaMoActionUpdater implements MoActionUpdater {
     private long panId;
-
-    public GangDaMoActionUpdater() {
-    }
 
     @Override
     public void setPanId(long panId) {
@@ -41,6 +38,9 @@ public class GangDaMoActionUpdater implements MoActionUpdater {
         // 刻子杠手牌
         player.tryKezigangshoupaiAndGenerateCandidateAction();
 
+        // 胡
+        tryAndGenerateHuCandidateAction(moAction, pan, panSpecialRulesState);
+
         // 需要有“过”
         player.checkAndGenerateGuoCandidateAction(moAction);
 
@@ -49,4 +49,6 @@ public class GangDaMoActionUpdater implements MoActionUpdater {
             player.generateDaActions();
         }
     }
+
+    protected abstract void tryAndGenerateHuCandidateAction(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState);
 }
