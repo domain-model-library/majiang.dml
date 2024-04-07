@@ -76,4 +76,43 @@ public class GuipaiService {
         panSpecialRulesState.addSpecialRuleState(actGuipaiBenpaiState);
     }
 
+    /**
+     * 鬼牌放最左边，代替鬼牌本牌的牌要在鬼牌本牌的位置
+     *
+     * @param panId
+     * @param guipaiServiceRepositorySet
+     */
+    public static void sortPlayerShoupaiWithActGuipaiBenpaiPai(long panId, GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
+        PanRepository panRepository = guipaiServiceRepositorySet.getPanRepository();
+        PanSpecialRulesStateRepository panSpecialRulesStateRepository = guipaiServiceRepositorySet.getPanSpecialRulesStateRepository();
+
+        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.find(panId);
+        GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
+        ActGuipaiBenpaiState actGuipaiBenpaiState = panSpecialRulesState.findSpecialRuleState(ActGuipaiBenpaiState.class);
+        MajiangPai guipaiType = guipaiState.getGuipaiType();
+        MajiangPai actGuipaiBenpaiPai = actGuipaiBenpaiState.getActGuipaiBenpaiPai();
+        Pan pan = panRepository.take(panId);
+        for (PanPlayer player : pan.allPlayers()) {
+            List<MajiangPai> fangruShoupaiList = player.getFangruShoupaiList();
+            fangruShoupaiList.sort((pai1, pai2) -> {
+                if (pai1.equals(guipaiType) && !pai2.equals(guipaiType)) {
+                    return -1;
+                } else if (!pai1.equals(guipaiType) && pai2.equals(guipaiType)) {
+                    return 1;
+                } else if (pai1.equals(guipaiType) && pai2.equals(guipaiType)) {
+                    return 0;
+                } else {
+                    if (pai1.equals(actGuipaiBenpaiPai)) {
+                        pai1 = guipaiType;
+                    }
+                    if (pai2.equals(actGuipaiBenpaiPai)) {
+                        pai2 = guipaiType;
+                    }
+                    return pai1.compareTo(pai2);
+                }
+            });
+        }
+
+    }
+
 }
