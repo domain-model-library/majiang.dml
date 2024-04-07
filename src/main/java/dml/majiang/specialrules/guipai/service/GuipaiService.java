@@ -6,6 +6,7 @@ import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.repository.PanRepository;
 import dml.majiang.core.repository.PanSpecialRulesStateRepository;
+import dml.majiang.specialrules.guipai.entity.ActGuipaiBenpaiState;
 import dml.majiang.specialrules.guipai.entity.GuipaiState;
 import dml.majiang.specialrules.guipai.service.repositoryset.GuipaiServiceRepositorySet;
 
@@ -63,6 +64,15 @@ public class GuipaiService {
             });
         }
 
+    }
+
+    public static void setActGuipaiBenpaiPai(long panId, MajiangPai actGuipaiBenpaiPai,
+                                             GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
+        PanSpecialRulesStateRepository panSpecialRulesStateRepository = guipaiServiceRepositorySet.getPanSpecialRulesStateRepository();
+
+        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.take(panId);
+        ActGuipaiBenpaiState actGuipaiBenpaiState = panSpecialRulesState.findSpecialRuleState(ActGuipaiBenpaiState.class);
+        actGuipaiBenpaiState.setActGuipaiBenpaiPai(actGuipaiBenpaiPai);
     }
 
 }

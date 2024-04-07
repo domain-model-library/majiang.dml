@@ -318,6 +318,11 @@ public class ShoupaiCalculator {
         paiQuantityArray[paiOrdinal]++;
     }
 
+    public void addPai(MajiangPai pai, int zhangShu) {
+        int paiOrdinal = pai.ordinal();
+        paiQuantityArray[paiOrdinal] += zhangShu;
+    }
+
     public void removePai(MajiangPai pai) {
         int paiOrdinal = pai.ordinal();
         paiQuantityArray[paiOrdinal]--;
@@ -326,6 +331,65 @@ public class ShoupaiCalculator {
     public void removePai(MajiangPai pai, int zhangShu) {
         int paiOrdinal = pai.ordinal();
         paiQuantityArray[paiOrdinal] -= zhangShu;
+    }
+
+    /**
+     * @param pai1
+     * @param guipaiType         目前支持一种鬼牌
+     * @param actGuipaiBenpaiPai
+     * @return
+     */
+    public Shunzi tryAndMakeShunziWithPai1(MajiangPai pai1, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPai) {
+        int guipaiOrdinal = guipaiType.ordinal();
+        int actGuipaiBenpaiPaiOrdinal = actGuipaiBenpaiPai.ordinal();
+        int paiOrdinal = pai1.ordinal();
+        if (paiOrdinal == actGuipaiBenpaiPaiOrdinal) {
+            paiOrdinal = guipaiOrdinal;
+        }
+        int pai2 = paiOrdinal + 1;
+        int pai3 = paiOrdinal + 2;
+        if (guipaiOrdinal == pai2) {
+            pai2 = actGuipaiBenpaiPaiOrdinal;
+        }
+        if (guipaiOrdinal == pai3) {
+            pai3 = actGuipaiBenpaiPaiOrdinal;
+        }
+        if (paiOrdinal >= 0 && paiOrdinal <= 8) {// 万
+            if (paiOrdinal <= 6) {
+                if (paiQuantityArray[pai2] > 0 && paiQuantityArray[pai3] > 0) {
+                    Shunzi shunzi = new Shunzi(pai1, MajiangPai.valueOf(pai2), MajiangPai.valueOf(pai3));
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else if (paiOrdinal >= 9 && paiOrdinal <= 17) {// 筒
+            if (paiOrdinal <= 15) {
+                if (paiQuantityArray[pai2] > 0 && paiQuantityArray[pai3] > 0) {
+                    Shunzi shunzi = new Shunzi(pai1, MajiangPai.valueOf(pai2), MajiangPai.valueOf(pai3));
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else if (paiOrdinal >= 18 && paiOrdinal <= 26) {// 条
+            if (paiOrdinal <= 24) {
+                if (paiQuantityArray[pai2] > 0 && paiQuantityArray[pai3] > 0) {
+                    Shunzi shunzi = new Shunzi(pai1, MajiangPai.valueOf(pai2), MajiangPai.valueOf(pai3));
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 
     public Shunzi tryAndMakeShunziWithPai1(MajiangPai pai1) {
@@ -371,6 +435,59 @@ public class ShoupaiCalculator {
         }
     }
 
+    public Shunzi tryAndMakeShunziWithPai2(MajiangPai pai2, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPai) {
+        int guipaiOrdinal = guipaiType.ordinal();
+        int actGuipaiBenpaiPaiOrdinal = actGuipaiBenpaiPai.ordinal();
+        int paiOrdinal = pai2.ordinal();
+        if (paiOrdinal == actGuipaiBenpaiPaiOrdinal) {
+            paiOrdinal = guipaiOrdinal;
+        }
+        int pai1 = paiOrdinal - 1;
+        int pai3 = paiOrdinal + 1;
+        if (guipaiOrdinal == pai1) {
+            pai1 = actGuipaiBenpaiPaiOrdinal;
+        }
+        if (guipaiOrdinal == pai3) {
+            pai3 = actGuipaiBenpaiPaiOrdinal;
+        }
+        if (paiOrdinal >= 0 && paiOrdinal <= 8) {// 万
+            if (paiOrdinal >= 1 && paiOrdinal <= 7) {
+                if (paiQuantityArray[pai1] > 0 && paiQuantityArray[pai3] > 0) {
+                    Shunzi shunzi = new Shunzi(MajiangPai.valueOf(pai1), pai2, MajiangPai.valueOf(pai3));
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else if (paiOrdinal >= 9 && paiOrdinal <= 17) {// 筒
+            if (paiOrdinal >= 10 && paiOrdinal <= 16) {
+                if (paiQuantityArray[pai1] > 0 && paiQuantityArray[pai3] > 0) {
+                    Shunzi shunzi = new Shunzi(MajiangPai.valueOf(pai1), pai2, MajiangPai.valueOf(pai3));
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else if (paiOrdinal >= 18 && paiOrdinal <= 26) {// 条
+            if (paiOrdinal >= 19 && paiOrdinal <= 25) {
+                if (paiQuantityArray[pai1] > 0 && paiQuantityArray[pai3] > 0) {
+                    Shunzi shunzi = new Shunzi(MajiangPai.valueOf(pai1), pai2, MajiangPai.valueOf(pai3));
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public Shunzi tryAndMakeShunziWithPai2(MajiangPai pai2) {
         int paiOrdinal = pai2.ordinal();
         if (paiOrdinal >= 0 && paiOrdinal <= 8) {// 万
@@ -402,6 +519,59 @@ public class ShoupaiCalculator {
                 if (paiQuantityArray[paiOrdinal - 1] > 0 && paiQuantityArray[paiOrdinal + 1] > 0) {
                     Shunzi shunzi = new Shunzi(MajiangPai.valueOf(paiOrdinal - 1), pai2,
                             MajiangPai.valueOf(paiOrdinal + 1));
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public Shunzi tryAndMakeShunziWithPai3(MajiangPai pai3, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPai) {
+        int guipaiOrdinal = guipaiType.ordinal();
+        int actGuipaiBenpaiPaiOrdinal = actGuipaiBenpaiPai.ordinal();
+        int paiOrdinal = pai3.ordinal();
+        if (paiOrdinal == actGuipaiBenpaiPaiOrdinal) {
+            paiOrdinal = guipaiOrdinal;
+        }
+        int pai1 = paiOrdinal - 2;
+        int pai2 = paiOrdinal - 1;
+        if (guipaiOrdinal == pai1) {
+            pai1 = actGuipaiBenpaiPaiOrdinal;
+        }
+        if (guipaiOrdinal == pai2) {
+            pai2 = actGuipaiBenpaiPaiOrdinal;
+        }
+        if (paiOrdinal >= 0 && paiOrdinal <= 8) {// 万
+            if (paiOrdinal >= 2) {
+                if (paiQuantityArray[pai1] > 0 && paiQuantityArray[pai2] > 0) {
+                    Shunzi shunzi = new Shunzi(MajiangPai.valueOf(pai1), MajiangPai.valueOf(pai2), pai3);
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else if (paiOrdinal >= 9 && paiOrdinal <= 17) {// 筒
+            if (paiOrdinal >= 11) {
+                if (paiQuantityArray[pai1] > 0 && paiQuantityArray[pai2] > 0) {
+                    Shunzi shunzi = new Shunzi(MajiangPai.valueOf(pai1), MajiangPai.valueOf(pai2), pai3);
+                    return shunzi;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        } else if (paiOrdinal >= 18 && paiOrdinal <= 26) {// 条
+            if (paiOrdinal >= 20) {
+                if (paiQuantityArray[pai1] > 0 && paiQuantityArray[pai2] > 0) {
+                    Shunzi shunzi = new Shunzi(MajiangPai.valueOf(pai1), MajiangPai.valueOf(pai2), pai3);
                     return shunzi;
                 } else {
                     return null;
@@ -621,14 +791,14 @@ public class ShoupaiCalculator {
                     guipaiTypes, paiTypesForGuipaiAct, guipaiList,
                     player, gouXingPanHu, huPai));
         } else {
-            shoupaiPaiXingList.addAll(calculateHuPaiShoupaiPaiXingListWithoutActGuipaiBenpaiPai(
-                    guipaiTypes, paiTypesForGuipaiAct, guipaiList, player, gouXingPanHu, huPai));
+            shoupaiPaiXingList.addAll(calculateHuPaiShoupaiPaiXingListWithoutActGuipaiBenpaiPai(paiTypesForGuipaiAct,
+                    guipaiList, player, gouXingPanHu, huPai));
         }
         return shoupaiPaiXingList;
     }
 
     private Collection<? extends ShoupaiPaiXing> calculateHuPaiShoupaiPaiXingListWithoutActGuipaiBenpaiPai(
-            Set<MajiangPai> guipaiTypes, MajiangPai[] paiTypesForGuipaiAct, List<MajiangPai> guipaiList,
+            MajiangPai[] paiTypesForGuipaiAct, List<MajiangPai> guipaiList,
             PanPlayer player, GouXingPanHu gouXingPanHu, MajiangPai huPai) {
         if (!guipaiList.isEmpty()) {// 有鬼牌
             List<ShoupaiPaiXing> shoupaiPaiXingList = calculateHuPaiShoupaiPaiXingListWithGuipai(
