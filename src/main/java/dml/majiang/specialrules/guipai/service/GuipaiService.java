@@ -71,8 +71,9 @@ public class GuipaiService {
         PanSpecialRulesStateRepository panSpecialRulesStateRepository = guipaiServiceRepositorySet.getPanSpecialRulesStateRepository();
 
         PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.take(panId);
-        ActGuipaiBenpaiState actGuipaiBenpaiState = panSpecialRulesState.findSpecialRuleState(ActGuipaiBenpaiState.class);
+        ActGuipaiBenpaiState actGuipaiBenpaiState = new ActGuipaiBenpaiState();
         actGuipaiBenpaiState.setActGuipaiBenpaiPai(actGuipaiBenpaiPai);
+        panSpecialRulesState.addSpecialRuleState(actGuipaiBenpaiState);
     }
 
 }
