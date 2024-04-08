@@ -428,4 +428,15 @@ public class PanPlayer {
     }
 
 
+    public void removeDaActionCandidate(MajiangPai pai) {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof DaAction) {
+                DaAction daAction = (DaAction) action;
+                if (daAction.getPai().equals(pai)) {
+                    actionCandidates.remove(action.getId());
+                    return;
+                }
+            }
+        }
+    }
 }

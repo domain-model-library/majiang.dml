@@ -33,10 +33,10 @@ public abstract class GuipaiMoActionUpdater implements MoActionUpdater {
 
         // 没有动作，那就只能打了
         if (player.getActionCandidates().isEmpty()) {
-            GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
-            int guipaiCount = player.getShoupaiCalculator().clearPai(guipaiState.getGuipaiType());
             player.generateDaActions();
-            player.getShoupaiCalculator().addPai(guipaiState.getGuipaiType(), guipaiCount);
+            //不能打财神，过滤掉
+            GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
+            player.removeDaActionCandidate(guipaiState.getGuipaiType());
         }
     }
 
