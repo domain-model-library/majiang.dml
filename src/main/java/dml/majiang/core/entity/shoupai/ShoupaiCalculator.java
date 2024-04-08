@@ -1021,4 +1021,10 @@ public class ShoupaiCalculator {
         this.paiQuantityArray = paiQuantityArray;
     }
 
+    public int clearPai(MajiangPai pai) {
+        int paiOrdinal = pai.ordinal();
+        int count = paiQuantityArray[paiOrdinal];
+        paiQuantityArray[paiOrdinal] = 0;
+        return count;
+    }
 }
