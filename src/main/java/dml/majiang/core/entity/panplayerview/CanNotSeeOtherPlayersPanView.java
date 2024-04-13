@@ -14,6 +14,7 @@ public class CanNotSeeOtherPlayersPanView {
     private CanNotSeeOtherPlayersPlayerView shangjiaPlayerView;
     private CanNotSeeOtherPlayersPlayerView xiajiaPlayerView;
     private CanNotSeeOtherPlayersPlayerView duijiaPlayerView;
+    private int avaliablePaiLeft;
 
 
     private String zhuangPlayerId;
@@ -32,6 +33,8 @@ public class CanNotSeeOtherPlayersPanView {
         currPlayer = pan.findNextMenFengPlayer(currPlayer);
         shangjiaPlayerView = new CanNotSeeOtherPlayersPlayerView(currPlayer, playerId);
         this.zhuangPlayerId = pan.getZhuangPlayerId();
+
+        this.avaliablePaiLeft = pan.countAvaliablePai();
     }
 
     public long getId() {
@@ -56,5 +59,9 @@ public class CanNotSeeOtherPlayersPanView {
 
     public CanNotSeeOtherPlayersPlayerView getDuijiaPlayerView() {
         return duijiaPlayerView;
+    }
+
+    public int getAvaliablePaiLeft() {
+        return avaliablePaiLeft;
     }
 }
