@@ -275,4 +275,9 @@ public class Pan {
         avaliablePaiList.remove(pai);
     }
 
+    public void releasePlayerActionBlockedByHigherPriorityAction() {
+        for (PanPlayer player : playerIdPanPlayerMap.values()) {
+            player.releaseActionBlockedByHigherPriorityAction();
+        }
+    }
 }

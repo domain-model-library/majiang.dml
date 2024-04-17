@@ -45,6 +45,9 @@ public class PlayerDaPaiOrXiajiaMoPaiGuoActionUpdater implements GuoActionUpdate
                 PanPlayer xiajiaPlayer = pan
                         .findNextMenFengPlayer(pan.findPlayerById(causedByAction.getActionPlayerId()));
                 xiajiaPlayer.addActionCandidate(new MoAction(xiajiaPlayer.getId(), new LundaoMopai()));
+            } else {
+                //释放被阻塞的吃动作
+                pan.releasePlayerActionBlockedByHigherPriorityAction();
             }
         } else if (causedByAction instanceof PengAction) {// 过的是我碰之后的杠
             // 那要我打牌
