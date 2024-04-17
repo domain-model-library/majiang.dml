@@ -29,6 +29,8 @@ public class CanNotSeeOtherPlayersPlayerView {
 
     private int fangruShoupaiCount;
 
+    private List<MajiangPai> dachupaiList;
+
 
     public CanNotSeeOtherPlayersPlayerView() {
     }
@@ -36,6 +38,7 @@ public class CanNotSeeOtherPlayersPlayerView {
     public CanNotSeeOtherPlayersPlayerView(PanPlayer player, String toWiewPlayerId) {
         this.id = player.getId();
         this.menFeng = player.getMenFeng();
+        this.dachupaiList = player.getDachupaiList();
         if (player.getId().equals(toWiewPlayerId)) {
             fangruShoupaiList.addAll(player.getFangruShoupaiList());
             gangmoShoupai = player.getGangmoShoupai();
@@ -83,5 +86,9 @@ public class CanNotSeeOtherPlayersPlayerView {
 
     public MajiangPai getGangmoShoupai() {
         return gangmoShoupai;
+    }
+
+    public List<MajiangPai> getDachupaiList() {
+        return dachupaiList;
     }
 }
