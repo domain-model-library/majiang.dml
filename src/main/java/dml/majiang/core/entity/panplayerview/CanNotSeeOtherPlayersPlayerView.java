@@ -4,6 +4,10 @@ import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.MenFeng;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.action.PanPlayerAction;
+import dml.majiang.core.entity.chupaizu.ChichuPaiZu;
+import dml.majiang.core.entity.chupaizu.GangchuPaiZu;
+import dml.majiang.core.entity.chupaizu.PengchuPaiZu;
+import dml.majiang.core.entity.fenzu.GangType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +35,15 @@ public class CanNotSeeOtherPlayersPlayerView {
 
     private List<MajiangPai> dachupaiList;
 
+    private List<ChichuPaiZu> chichupaiZuList;
+    private List<PengchuPaiZu> pengchupaiZuList;
+
+    /**
+     * 如果不是自己，那只有明杠可见，暗杠只记录数量
+     */
+    private List<GangchuPaiZu> gangchupaiZuList = new ArrayList<>();
+    private int angangCount;
+
 
     public CanNotSeeOtherPlayersPlayerView() {
     }
@@ -39,12 +52,24 @@ public class CanNotSeeOtherPlayersPlayerView {
         this.id = player.getId();
         this.menFeng = player.getMenFeng();
         this.dachupaiList = player.getDachupaiList();
+        this.chichupaiZuList = player.getChichupaiZuList();
+        this.pengchupaiZuList = player.getPengchupaiZuList();
         if (player.getId().equals(toWiewPlayerId)) {
             fangruShoupaiList.addAll(player.getFangruShoupaiList());
             gangmoShoupai = player.getGangmoShoupai();
             actionCandidates.putAll(player.getActionCandidates());
+            gangchupaiZuList = player.getGangchupaiZuList();
         } else {
             fangruShoupaiCount = player.getFangruShoupaiList().size();
+            //只有明杠可见
+            for (GangchuPaiZu gangchuPaiZu : player.getGangchupaiZuList()) {
+                if (gangchuPaiZu.getGangType().equals(GangType.shoupaigangmo)
+                        || gangchuPaiZu.getGangType().equals(GangType.gangsigeshoupai)) {
+                    angangCount++;
+                } else {
+                    gangchupaiZuList.add(gangchuPaiZu);
+                }
+            }
         }
     }
 
@@ -90,5 +115,21 @@ public class CanNotSeeOtherPlayersPlayerView {
 
     public List<MajiangPai> getDachupaiList() {
         return dachupaiList;
+    }
+
+    public List<ChichuPaiZu> getChichupaiZuList() {
+        return chichupaiZuList;
+    }
+
+    public List<PengchuPaiZu> getPengchupaiZuList() {
+        return pengchupaiZuList;
+    }
+
+    public List<GangchuPaiZu> getGangchupaiZuList() {
+        return gangchupaiZuList;
+    }
+
+    public int getAngangCount() {
+        return angangCount;
     }
 }
