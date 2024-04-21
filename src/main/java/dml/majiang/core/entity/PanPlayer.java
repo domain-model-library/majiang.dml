@@ -450,4 +450,8 @@ public class PanPlayer {
             }
         }
     }
+
+    public int countFangruShoupai() {
+        return fangruShoupaiList.size();
+    }
 }

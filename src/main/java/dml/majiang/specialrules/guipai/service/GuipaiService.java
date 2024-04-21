@@ -36,6 +36,24 @@ public class GuipaiService {
     }
 
     /**
+     * 指定鬼牌
+     *
+     * @param panId
+     * @param guipaiServiceRepositorySet
+     */
+    public static void determineFixedPaiGuipai(long panId, MajiangPai guipai, GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
+        PanRepository panRepository = guipaiServiceRepositorySet.getPanRepository();
+        PanSpecialRulesStateRepository panSpecialRulesStateRepository = guipaiServiceRepositorySet.getPanSpecialRulesStateRepository();
+
+        GuipaiState guipaiState = new GuipaiState();
+        guipaiState.setGuipaiType(guipai);
+        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.take(panId);
+        panSpecialRulesState.addSpecialRuleState(guipaiState);
+        Pan pan = panRepository.take(panId);
+        pan.removeAvaliablePai(guipai);
+    }
+
+    /**
      * 鬼牌放最左边
      *
      * @param panId

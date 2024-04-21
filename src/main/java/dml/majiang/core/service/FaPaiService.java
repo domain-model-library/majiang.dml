@@ -39,6 +39,9 @@ public class FaPaiService {
             for (int j = 0; j < 4; j++) {
                 PanPlayer player = pan.findPlayerByMenFeng(playerMenFeng);
                 if (player != null) {
+                    if (player.countFangruShoupai() == 16) {
+                        continue;
+                    }
                     faPai(avaliablePaiList, player);
                 }
                 playerMenFeng = playerMenFeng.next();
@@ -49,5 +52,12 @@ public class FaPaiService {
     private static void faPai(List<MajiangPai> avaliablePaiList, PanPlayer player) {
         MajiangPai pai = avaliablePaiList.remove(0);
         player.addShoupai(pai);
+    }
+
+    public static void faPai(List<MajiangPai> avaliablePaiList, PanPlayer player, MajiangPai pai) {
+        boolean fapaiFound = avaliablePaiList.remove(pai);
+        if (fapaiFound) {
+            player.addShoupai(pai);
+        }
     }
 }
