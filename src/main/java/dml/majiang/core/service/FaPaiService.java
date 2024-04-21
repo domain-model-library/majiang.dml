@@ -54,9 +54,15 @@ public class FaPaiService {
         player.addShoupai(pai);
     }
 
-    public static void faPai(List<MajiangPai> avaliablePaiList, PanPlayer player, MajiangPai pai) {
+    public static void faPai(long panId, MenFeng menFeng, MajiangPai pai,
+                             FaPaiServiceRepositorySet faPaiServiceRepositorySet) {
+        PanRepository panRepository = faPaiServiceRepositorySet.getPanRepository();
+
+        Pan pan = panRepository.take(panId);
+        List<MajiangPai> avaliablePaiList = pan.getAvaliablePaiList();
         boolean fapaiFound = avaliablePaiList.remove(pai);
         if (fapaiFound) {
+            PanPlayer player = pan.findPlayerByMenFeng(menFeng);
             player.addShoupai(pai);
         }
     }
