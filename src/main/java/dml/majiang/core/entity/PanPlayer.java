@@ -46,8 +46,6 @@ public class PanPlayer {
     private List<PengchuPaiZu> pengchupaiZuList = new ArrayList<>();
     private List<GangchuPaiZu> gangchupaiZuList = new ArrayList<>();
 
-    private Hu hu;
-
 
     public void addShoupai(MajiangPai pai) {
         fangruShoupaiList.add(pai);
@@ -404,14 +402,6 @@ public class PanPlayer {
         fangruShoupaiList.remove(pai);
         shoupaiCalculator.removePai(pai);
         fangruShoupai();
-    }
-
-    public Hu getHu() {
-        return hu;
-    }
-
-    public void setHu(Hu hu) {
-        this.hu = hu;
     }
 
     public List<MajiangPai> findShoupaiForPaiTypes(Set<MajiangPai> paiTypes) {

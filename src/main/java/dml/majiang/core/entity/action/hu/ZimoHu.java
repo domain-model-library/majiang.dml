@@ -7,7 +7,7 @@ public class ZimoHu extends Hu {
     public ZimoHu() {
     }
 
-    public ZimoHu(ShoupaiPaiXing shoupaiPaiXing) {
-        super(shoupaiPaiXing);
+    public ZimoHu(String playerId, ShoupaiPaiXing shoupaiPaiXing) {
+        super(playerId, shoupaiPaiXing);
     }
 }

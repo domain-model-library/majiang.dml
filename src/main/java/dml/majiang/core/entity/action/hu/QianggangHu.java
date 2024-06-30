@@ -8,8 +8,8 @@ public class QianggangHu extends Hu {
     public QianggangHu() {
     }
 
-    public QianggangHu(ShoupaiPaiXing shoupaiPaiXing, String gangPlayerId) {
-        super(shoupaiPaiXing);
+    public QianggangHu(String playerId, ShoupaiPaiXing shoupaiPaiXing, String gangPlayerId) {
+        super(playerId, shoupaiPaiXing);
         this.gangPlayerId = gangPlayerId;
     }
 

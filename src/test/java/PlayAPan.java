@@ -20,7 +20,7 @@ import dml.majiang.core.entity.action.guo.PlayerDaPaiOrXiajiaMoPaiGuoActionUpdat
 import dml.majiang.core.entity.action.hu.ClearAllActionHuActionUpdater;
 import dml.majiang.core.entity.action.hu.HuActionProcessor;
 import dml.majiang.core.entity.action.hu.HuActionUpdater;
-import dml.majiang.core.entity.action.hu.PlayerSetHuHuActionProcessor;
+import dml.majiang.core.entity.action.hu.PanSetHuHuActionProcessor;
 import dml.majiang.core.entity.action.mo.*;
 import dml.majiang.core.entity.action.peng.HuFirstPengActionProcessor;
 import dml.majiang.core.entity.action.peng.KezigangshoupaiPengActionUpdater;
@@ -60,7 +60,7 @@ public class PlayAPan {
                 new KezigangshoupaiPengActionUpdater(),
                 new HuFirstGangActionProcessor(),
                 new GangPlayerMoPaiGangActionUpdater(),
-                new PlayerSetHuHuActionProcessor(),
+                new PanSetHuHuActionProcessor(),
                 new ClearAllActionHuActionUpdater(),
                 new DoNothingGuoActionProcessor(),
                 new PlayerDaPaiOrXiajiaMoPaiGuoActionUpdater(),

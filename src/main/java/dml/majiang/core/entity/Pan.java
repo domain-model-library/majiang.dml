@@ -1,6 +1,7 @@
 package dml.majiang.core.entity;
 
 import dml.majiang.core.entity.action.PanPlayerAction;
+import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.cursor.PaiCursor;
 import dml.majiang.core.entity.cursor.PlayerLatestDachupaiCursor;
 import dml.majiang.core.entity.fenzu.Shunzi;
@@ -34,6 +35,19 @@ public class Pan {
      */
     private List<MajiangPai> playPaiTypeList;
 
+    /**
+     * 胡牌
+     */
+    private Hu hu;
+
+    public void setHu(Hu hu) {
+        this.hu = hu;
+    }
+
+    public Hu getHu() {
+        return hu;
+    }
+    
     public long getId() {
         return id;
     }
@@ -280,4 +294,5 @@ public class Pan {
             player.releaseActionBlockedByHigherPriorityAction();
         }
     }
+
 }

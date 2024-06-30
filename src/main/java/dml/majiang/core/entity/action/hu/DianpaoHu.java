@@ -8,8 +8,8 @@ public class DianpaoHu extends Hu {
     public DianpaoHu() {
     }
 
-    public DianpaoHu(ShoupaiPaiXing shoupaiPaiXing, String dianpaoPlayerId) {
-        super(shoupaiPaiXing);
+    public DianpaoHu(String playerId, ShoupaiPaiXing shoupaiPaiXing, String dianpaoPlayerId) {
+        super(playerId, shoupaiPaiXing);
         this.dianpaoPlayerId = dianpaoPlayerId;
     }
 
