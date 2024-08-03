@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.hu;
 
 
+import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
 
 public abstract class Hu {
@@ -29,6 +30,10 @@ public abstract class Hu {
 
     public void setShoupaiPaiXing(ShoupaiPaiXing shoupaiPaiXing) {
         this.shoupaiPaiXing = shoupaiPaiXing;
+    }
+
+    public MajiangPai getHuPai() {
+        return shoupaiPaiXing.getLastActionPai();
     }
 
 

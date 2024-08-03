@@ -316,4 +316,45 @@ public class ShoupaiPaiXing {
         this.shunziList = shunziList;
     }
 
+    public MajiangPai getLastActionPai() {
+        for (ShoupaiDanpai shoupaiDanpai : danpaiList) {
+            if (shoupaiDanpai.getPai().isLastActionPai()) {
+                return shoupaiDanpai.getPai().getYuanPaiType();
+            }
+        }
+        for (ShoupaiDuiziZu shoupaiDuiziZu : duiziList) {
+            if (shoupaiDuiziZu.getPai1().isLastActionPai()) {
+                return shoupaiDuiziZu.getPai1().getYuanPaiType();
+            }
+            if (shoupaiDuiziZu.getPai2().isLastActionPai()) {
+                return shoupaiDuiziZu.getPai2().getYuanPaiType();
+            }
+        }
+        for (ShoupaiKeziZu shoupaiKeziZu : keziList) {
+            if (shoupaiKeziZu.getPai1().isLastActionPai()) {
+                return shoupaiKeziZu.getPai1().getYuanPaiType();
+            }
+            if (shoupaiKeziZu.getPai2().isLastActionPai()) {
+                return shoupaiKeziZu.getPai2().getYuanPaiType();
+            }
+            if (shoupaiKeziZu.getPai3().isLastActionPai()) {
+                return shoupaiKeziZu.getPai3().getYuanPaiType();
+            }
+        }
+        for (ShoupaiGangziZu shoupaiGangziZu : gangziList) {
+            if (shoupaiGangziZu.getPai1().isLastActionPai()) {
+                return shoupaiGangziZu.getPai1().getYuanPaiType();
+            }
+            if (shoupaiGangziZu.getPai2().isLastActionPai()) {
+                return shoupaiGangziZu.getPai2().getYuanPaiType();
+            }
+            if (shoupaiGangziZu.getPai3().isLastActionPai()) {
+                return shoupaiGangziZu.getPai3().getYuanPaiType();
+            }
+            if (shoupaiGangziZu.getPai4().isLastActionPai()) {
+                return shoupaiGangziZu.getPai4().getYuanPaiType();
+            }
+        }
+        return null;
+    }
 }
