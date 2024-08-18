@@ -355,6 +355,17 @@ public class ShoupaiPaiXing {
                 return shoupaiGangziZu.getPai4().getYuanPaiType();
             }
         }
+        for (ShoupaiShunziZu shoupaiShunziZu : shunziList) {
+            if (shoupaiShunziZu.getPai1().isLastActionPai()) {
+                return shoupaiShunziZu.getPai1().getYuanPaiType();
+            }
+            if (shoupaiShunziZu.getPai2().isLastActionPai()) {
+                return shoupaiShunziZu.getPai2().getYuanPaiType();
+            }
+            if (shoupaiShunziZu.getPai3().isLastActionPai()) {
+                return shoupaiShunziZu.getPai3().getYuanPaiType();
+            }
+        }
         return null;
     }
 }
