@@ -1,19 +1,5 @@
 package dml.majiang.core.service.repositoryset;
 
-import dml.majiang.core.entity.action.chi.ChiActionProcessor;
-import dml.majiang.core.entity.action.chi.ChiActionUpdater;
-import dml.majiang.core.entity.action.da.DaActionProcessor;
-import dml.majiang.core.entity.action.da.DaActionUpdater;
-import dml.majiang.core.entity.action.gang.GangActionProcessor;
-import dml.majiang.core.entity.action.gang.GangActionUpdater;
-import dml.majiang.core.entity.action.guo.GuoActionProcessor;
-import dml.majiang.core.entity.action.guo.GuoActionUpdater;
-import dml.majiang.core.entity.action.hu.HuActionProcessor;
-import dml.majiang.core.entity.action.hu.HuActionUpdater;
-import dml.majiang.core.entity.action.mo.MoActionProcessor;
-import dml.majiang.core.entity.action.mo.MoActionUpdater;
-import dml.majiang.core.entity.action.peng.PengActionProcessor;
-import dml.majiang.core.entity.action.peng.PengActionUpdater;
 import dml.majiang.core.repository.*;
 
 public interface PanPlayServiceRepositorySet {
@@ -23,31 +9,31 @@ public interface PanPlayServiceRepositorySet {
 
     public PanSpecialRulesStateRepository getPanSpecialRulesStateRepository();
 
-    public MoActionProcessorRepository<MoActionProcessor> getMoActionProcessorRepository();
+    public MoActionProcessorRepository getMoActionProcessorRepository();
 
-    public MoActionUpdaterRepository<MoActionUpdater> getMoActionUpdaterRepository();
+    public MoActionUpdaterRepository getMoActionUpdaterRepository();
 
-    public PengActionProcessorRepository<PengActionProcessor> getPengActionProcessorRepository();
+    public PengActionProcessorRepository getPengActionProcessorRepository();
 
-    public PengActionUpdaterRepository<PengActionUpdater> getPengActionUpdaterRepository();
+    public PengActionUpdaterRepository getPengActionUpdaterRepository();
 
-    public HuActionProcessorRepository<HuActionProcessor> getHuActionProcessorRepository();
+    public HuActionProcessorRepository getHuActionProcessorRepository();
 
-    public HuActionUpdaterRepository<HuActionUpdater> getHuActionUpdaterRepository();
+    public HuActionUpdaterRepository getHuActionUpdaterRepository();
 
-    public GangActionProcessorRepository<GangActionProcessor> getGangActionProcessorRepository();
+    public GangActionProcessorRepository getGangActionProcessorRepository();
 
-    public GangActionUpdaterRepository<GangActionUpdater> getGangActionUpdaterRepository();
+    public GangActionUpdaterRepository getGangActionUpdaterRepository();
 
-    public ChiActionProcessorRepository<ChiActionProcessor> getChiActionProcessorRepository();
+    public ChiActionProcessorRepository getChiActionProcessorRepository();
 
-    public ChiActionUpdaterRepository<ChiActionUpdater> getChiActionUpdaterRepository();
+    public ChiActionUpdaterRepository getChiActionUpdaterRepository();
 
-    public DaActionProcessorRepository<DaActionProcessor> getDaActionProcessorRepository();
+    public DaActionProcessorRepository getDaActionProcessorRepository();
 
-    public DaActionUpdaterRepository<DaActionUpdater> getDaActionUpdaterRepository();
+    public DaActionUpdaterRepository getDaActionUpdaterRepository();
 
-    public GuoActionProcessorRepository<GuoActionProcessor> getGuoActionProcessorRepository();
+    public GuoActionProcessorRepository getGuoActionProcessorRepository();
 
-    public GuoActionUpdaterRepository<GuoActionUpdater> getGuoActionUpdaterRepository();
+    public GuoActionUpdaterRepository getGuoActionUpdaterRepository();
 }

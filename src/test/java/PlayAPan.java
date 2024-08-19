@@ -164,31 +164,31 @@ class PlayAPanServiceRepositorySet implements PanPlayServiceRepositorySet,
 
     private PanSpecialRulesStateRepository panSpecialRulesStateRepository;
 
-    private MoActionProcessorRepository<MoActionProcessor> moActionProcessorRepository;
+    private MoActionProcessorRepository moActionProcessorRepository;
 
-    private MoActionUpdaterRepository<MoActionUpdater> moActionUpdaterRepository;
+    private MoActionUpdaterRepository moActionUpdaterRepository;
 
-    private DaActionProcessorRepository<DaActionProcessor> daActionProcessorRepository;
+    private DaActionProcessorRepository daActionProcessorRepository;
 
-    private DaActionUpdaterRepository<DaActionUpdater> daActionUpdaterRepository;
+    private DaActionUpdaterRepository daActionUpdaterRepository;
 
-    private ChiActionProcessorRepository<ChiActionProcessor> chiActionProcessorRepository;
+    private ChiActionProcessorRepository chiActionProcessorRepository;
 
-    private ChiActionUpdaterRepository<ChiActionUpdater> chiActionUpdaterRepository;
-    private PengActionProcessorRepository<PengActionProcessor> pengActionProcessorRepository;
+    private ChiActionUpdaterRepository chiActionUpdaterRepository;
+    private PengActionProcessorRepository pengActionProcessorRepository;
 
-    private PengActionUpdaterRepository<PengActionUpdater> pengActionUpdaterRepository;
+    private PengActionUpdaterRepository pengActionUpdaterRepository;
 
-    private GangActionProcessorRepository<GangActionProcessor> gangActionProcessorRepository;
+    private GangActionProcessorRepository gangActionProcessorRepository;
 
-    private GangActionUpdaterRepository<GangActionUpdater> gangActionUpdaterRepository;
-    private HuActionProcessorRepository<HuActionProcessor> huActionProcessorRepository;
+    private GangActionUpdaterRepository gangActionUpdaterRepository;
+    private HuActionProcessorRepository huActionProcessorRepository;
 
-    private HuActionUpdaterRepository<HuActionUpdater> huActionUpdaterRepository;
+    private HuActionUpdaterRepository huActionUpdaterRepository;
 
-    private GuoActionProcessorRepository<GuoActionProcessor> guoActionProcessorRepository;
+    private GuoActionProcessorRepository guoActionProcessorRepository;
 
-    private GuoActionUpdaterRepository<GuoActionUpdater> guoActionUpdaterRepository;
+    private GuoActionUpdaterRepository guoActionUpdaterRepository;
 
     public PlayAPanServiceRepositorySet(PanRepository panRepository,
                                         PanIDGeneratorRepository panIDGeneratorRepository,
@@ -242,72 +242,72 @@ class PlayAPanServiceRepositorySet implements PanPlayServiceRepositorySet,
     }
 
     @Override
-    public MoActionProcessorRepository<MoActionProcessor> getMoActionProcessorRepository() {
+    public MoActionProcessorRepository getMoActionProcessorRepository() {
         return moActionProcessorRepository;
     }
 
     @Override
-    public MoActionUpdaterRepository<MoActionUpdater> getMoActionUpdaterRepository() {
+    public MoActionUpdaterRepository getMoActionUpdaterRepository() {
         return moActionUpdaterRepository;
     }
 
     @Override
-    public PengActionProcessorRepository<PengActionProcessor> getPengActionProcessorRepository() {
+    public PengActionProcessorRepository getPengActionProcessorRepository() {
         return pengActionProcessorRepository;
     }
 
     @Override
-    public PengActionUpdaterRepository<PengActionUpdater> getPengActionUpdaterRepository() {
+    public PengActionUpdaterRepository getPengActionUpdaterRepository() {
         return pengActionUpdaterRepository;
     }
 
     @Override
-    public HuActionProcessorRepository<HuActionProcessor> getHuActionProcessorRepository() {
+    public HuActionProcessorRepository getHuActionProcessorRepository() {
         return huActionProcessorRepository;
     }
 
     @Override
-    public HuActionUpdaterRepository<HuActionUpdater> getHuActionUpdaterRepository() {
+    public HuActionUpdaterRepository getHuActionUpdaterRepository() {
         return huActionUpdaterRepository;
     }
 
     @Override
-    public GangActionProcessorRepository<GangActionProcessor> getGangActionProcessorRepository() {
+    public GangActionProcessorRepository getGangActionProcessorRepository() {
         return gangActionProcessorRepository;
     }
 
     @Override
-    public GangActionUpdaterRepository<GangActionUpdater> getGangActionUpdaterRepository() {
+    public GangActionUpdaterRepository getGangActionUpdaterRepository() {
         return gangActionUpdaterRepository;
     }
 
     @Override
-    public ChiActionProcessorRepository<ChiActionProcessor> getChiActionProcessorRepository() {
+    public ChiActionProcessorRepository getChiActionProcessorRepository() {
         return chiActionProcessorRepository;
     }
 
     @Override
-    public ChiActionUpdaterRepository<ChiActionUpdater> getChiActionUpdaterRepository() {
+    public ChiActionUpdaterRepository getChiActionUpdaterRepository() {
         return chiActionUpdaterRepository;
     }
 
     @Override
-    public DaActionProcessorRepository<DaActionProcessor> getDaActionProcessorRepository() {
+    public DaActionProcessorRepository getDaActionProcessorRepository() {
         return daActionProcessorRepository;
     }
 
     @Override
-    public DaActionUpdaterRepository<DaActionUpdater> getDaActionUpdaterRepository() {
+    public DaActionUpdaterRepository getDaActionUpdaterRepository() {
         return daActionUpdaterRepository;
     }
 
     @Override
-    public GuoActionProcessorRepository<GuoActionProcessor> getGuoActionProcessorRepository() {
+    public GuoActionProcessorRepository getGuoActionProcessorRepository() {
         return guoActionProcessorRepository;
     }
 
     @Override
-    public GuoActionUpdaterRepository<GuoActionUpdater> getGuoActionUpdaterRepository() {
+    public GuoActionUpdaterRepository getGuoActionUpdaterRepository() {
         return guoActionUpdaterRepository;
     }
 
