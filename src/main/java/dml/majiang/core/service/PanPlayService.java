@@ -36,7 +36,8 @@ import java.util.List;
  * 盘局服务
  */
 public class PanPlayService {
-    public static Pan createPan(MoActionProcessor moActionProcessor,
+    public static Pan createPan(long panId,
+                                MoActionProcessor moActionProcessor,
                                 MoActionUpdater moActionUpdater,
                                 DaActionProcessor daActionProcessor,
                                 DaActionUpdater daActionUpdater,
@@ -52,7 +53,6 @@ public class PanPlayService {
                                 GuoActionUpdater guoActionUpdater,
                                 PanPlayServiceRepositorySet panPlayServiceRepositorySet) {
         PanRepository panRepository = panPlayServiceRepositorySet.getPanRepository();
-        PanIDGeneratorRepository panIDGeneratorRepository = panPlayServiceRepositorySet.getPanIDGeneratorRepository();
         MoActionProcessorRepository<MoActionProcessor> moActionProcessorRepository = panPlayServiceRepositorySet.getMoActionProcessorRepository();
         MoActionUpdaterRepository<MoActionUpdater> moActionUpdaterRepository = panPlayServiceRepositorySet.getMoActionUpdaterRepository();
         DaActionProcessorRepository<DaActionProcessor> daActionProcessorRepository = panPlayServiceRepositorySet.getDaActionProcessorRepository();
@@ -70,7 +70,7 @@ public class PanPlayService {
         PanSpecialRulesStateRepository panSpecialRulesStateRepository = panPlayServiceRepositorySet.getPanSpecialRulesStateRepository();
 
         Pan newPan = new Pan();
-        newPan.setId(panIDGeneratorRepository.take().generateId());
+        newPan.setId(panId);
         panRepository.put(newPan);
         moActionProcessor.setPanId(newPan.getId());
         moActionProcessorRepository.put(moActionProcessor);
