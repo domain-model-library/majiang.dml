@@ -40,11 +40,12 @@ public class PlayerDaPaiOrXiajiaMoPaiGuoActionUpdater implements GuoActionUpdate
             player.generateDaActions();
         } else if (causedByAction instanceof DaAction) {// 过的是别人打出牌之后我可以吃碰杠胡
             if (pan.allPlayerHasNoActionCandidates()) {// 如果所有玩家啥也干不了
-                // 打牌那家的下家摸牌 TODO 还没处理牌摸完
-                // 打牌那家的下家摸牌
-                PanPlayer xiajiaPlayer = pan
-                        .findNextMenFengPlayer(pan.findPlayerById(causedByAction.getActionPlayerId()));
-                xiajiaPlayer.addActionCandidate(new MoAction(xiajiaPlayer.getId(), new LundaoMopai()));
+                if (pan.countAvaliablePai() > 0) {
+                    // 打牌那家的下家摸牌
+                    PanPlayer xiajiaPlayer = pan
+                            .findNextMenFengPlayer(pan.findPlayerById(causedByAction.getActionPlayerId()));
+                    xiajiaPlayer.addActionCandidate(new MoAction(xiajiaPlayer.getId(), new LundaoMopai()));
+                }
             } else {
                 //释放被阻塞的吃动作
                 pan.releasePlayerActionBlockedByHigherPriorityAction();

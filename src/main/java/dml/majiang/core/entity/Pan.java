@@ -47,7 +47,7 @@ public class Pan {
     public Hu getHu() {
         return hu;
     }
-    
+
     public long getId() {
         return id;
     }
@@ -295,4 +295,9 @@ public class Pan {
         }
     }
 
+    public void removeMoActionCandidate() {
+        for (PanPlayer player : playerIdPanPlayerMap.values()) {
+            player.removeMoActionCandidate();
+        }
+    }
 }

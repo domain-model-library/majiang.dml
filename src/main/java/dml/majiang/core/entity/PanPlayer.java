@@ -5,8 +5,8 @@ import dml.majiang.core.entity.action.chi.ChiAction;
 import dml.majiang.core.entity.action.da.DaAction;
 import dml.majiang.core.entity.action.gang.GangAction;
 import dml.majiang.core.entity.action.guo.GuoAction;
-import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.action.hu.HuAction;
+import dml.majiang.core.entity.action.mo.MoAction;
 import dml.majiang.core.entity.action.peng.PengAction;
 import dml.majiang.core.entity.chupaizu.ChichuPaiZu;
 import dml.majiang.core.entity.chupaizu.GangchuPaiZu;
@@ -443,5 +443,14 @@ public class PanPlayer {
 
     public int countFangruShoupai() {
         return fangruShoupaiList.size();
+    }
+
+    public void removeMoActionCandidate() {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof MoAction) {
+                actionCandidates.remove(action.getId());
+                return;
+            }
+        }
     }
 }
