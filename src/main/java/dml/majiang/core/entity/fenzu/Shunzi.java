@@ -2,18 +2,19 @@ package dml.majiang.core.entity.fenzu;
 
 
 import dml.majiang.core.entity.MajiangPai;
+import dml.majiang.core.entity.Pai;
 import dml.majiang.core.entity.shoupai.ShoupaiShunziZu;
 
 public class Shunzi implements MajiangPaiFenZu {
 
-    private MajiangPai pai1;
-    private MajiangPai pai2;
-    private MajiangPai pai3;
+    private Pai pai1;
+    private Pai pai2;
+    private Pai pai3;
 
     public Shunzi() {
     }
 
-    public Shunzi(MajiangPai pai1, MajiangPai pai2, MajiangPai pai3) {
+    public Shunzi(Pai pai1, Pai pai2, Pai pai3) {
         this.pai1 = pai1;
         this.pai2 = pai2;
         this.pai3 = pai3;
@@ -37,33 +38,32 @@ public class Shunzi implements MajiangPaiFenZu {
 
     @Override
     public MajiangPai[] toPaiArray() {
-        return new MajiangPai[]{pai1, pai2, pai3};
+        return new MajiangPai[]{pai1.getPaiType(), pai2.getPaiType(), pai3.getPaiType()};
     }
 
-    public MajiangPai getPai1() {
+    public Pai getPai1() {
         return pai1;
     }
 
-    public void setPai1(MajiangPai pai1) {
+    public void setPai1(Pai pai1) {
         this.pai1 = pai1;
     }
 
-    public MajiangPai getPai2() {
+    public Pai getPai2() {
         return pai2;
     }
 
-    public void setPai2(MajiangPai pai2) {
+    public void setPai2(Pai pai2) {
         this.pai2 = pai2;
     }
 
-    public MajiangPai getPai3() {
+    public Pai getPai3() {
         return pai3;
     }
 
-    public void setPai3(MajiangPai pai3) {
+    public void setPai3(Pai pai3) {
         this.pai3 = pai3;
     }
-
 
     public boolean equals(Object o) {
         Shunzi s = (Shunzi) o;

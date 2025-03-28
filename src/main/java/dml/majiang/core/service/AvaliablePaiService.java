@@ -1,6 +1,7 @@
 package dml.majiang.core.service;
 
 import dml.majiang.core.entity.MajiangPai;
+import dml.majiang.core.entity.Pai;
 import dml.majiang.core.entity.Pan;
 import dml.majiang.core.repository.PanRepository;
 import dml.majiang.core.service.repositoryset.AvaliablePaiServiceRepositorySet;
@@ -30,12 +31,17 @@ public class AvaliablePaiService {
             }
         }
 
-        List<MajiangPai> allPaiList = new ArrayList<>();
-        playPaiTypeList.forEach((paiType) -> {
+        List<Pai> allPaiList = new ArrayList<>();
+        int paiId = 1;
+        for (MajiangPai paiType : playPaiTypeList) {
             for (int i = 0; i < 4; i++) {
-                allPaiList.add(paiType);
+                Pai pai = new Pai();
+                pai.setId(paiId);
+                pai.setPaiType(paiType);
+                allPaiList.add(pai);
+                paiId++;
             }
-        });
+        }
         Random r = new Random(panId);
         Collections.shuffle(allPaiList, r);
         pan.setAvaliablePaiList(allPaiList);

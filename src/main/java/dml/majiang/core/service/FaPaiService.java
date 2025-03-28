@@ -1,12 +1,10 @@
 package dml.majiang.core.service;
 
-import dml.majiang.core.entity.MajiangPai;
-import dml.majiang.core.entity.MenFeng;
-import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanPlayer;
+import dml.majiang.core.entity.*;
 import dml.majiang.core.repository.PanRepository;
 import dml.majiang.core.service.repositoryset.FaPaiServiceRepositorySet;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class FaPaiService {
@@ -14,7 +12,7 @@ public class FaPaiService {
         PanRepository panRepository = faPaiServiceRepositorySet.getPanRepository();
 
         Pan pan = panRepository.take(panId);
-        List<MajiangPai> avaliablePaiList = pan.getAvaliablePaiList();
+        List<Pai> avaliablePaiList = pan.getAvaliablePaiList();
         MenFeng zhuangPlayerMenFeng = pan.findMenFengForZhuang();
         for (int i = 0; i < 13; i++) {
             MenFeng playerMenFeng = zhuangPlayerMenFeng;
@@ -32,7 +30,7 @@ public class FaPaiService {
         PanRepository panRepository = faPaiServiceRepositorySet.getPanRepository();
 
         Pan pan = panRepository.take(panId);
-        List<MajiangPai> avaliablePaiList = pan.getAvaliablePaiList();
+        List<Pai> avaliablePaiList = pan.getAvaliablePaiList();
         MenFeng zhuangPlayerMenFeng = pan.findMenFengForZhuang();
         for (int i = 0; i < 16; i++) {
             MenFeng playerMenFeng = zhuangPlayerMenFeng;
@@ -48,21 +46,31 @@ public class FaPaiService {
         }
     }
 
-    private static void faPai(List<MajiangPai> avaliablePaiList, PanPlayer player) {
-        MajiangPai pai = avaliablePaiList.remove(0);
+    private static void faPai(List<Pai> avaliablePaiList, PanPlayer player) {
+        Pai pai = avaliablePaiList.remove(0);
         player.addShoupai(pai);
     }
 
-    public static void faPai(long panId, MenFeng menFeng, MajiangPai pai,
+    public static void faPai(long panId, MenFeng menFeng, MajiangPai paiType,
                              FaPaiServiceRepositorySet faPaiServiceRepositorySet) {
         PanRepository panRepository = faPaiServiceRepositorySet.getPanRepository();
 
         Pan pan = panRepository.take(panId);
-        List<MajiangPai> avaliablePaiList = pan.getAvaliablePaiList();
-        boolean fapaiFound = avaliablePaiList.remove(pai);
-        if (fapaiFound) {
+        List<Pai> avaliablePaiList = pan.getAvaliablePaiList();
+        //找到牌并移除
+        Pai paiFound = null;
+        Iterator<Pai> iterator = avaliablePaiList.iterator();
+        while (iterator.hasNext()) {
+            Pai pai = iterator.next();
+            if (pai.getPaiType().equals(paiType)) {
+                paiFound = pai;
+                iterator.remove();
+                break;
+            }
+        }
+        if (paiFound != null) {
             PanPlayer player = pan.findPlayerByMenFeng(menFeng);
-            player.addShoupai(pai);
+            player.addShoupai(paiFound);
         }
     }
 }

@@ -23,7 +23,7 @@ public class Pan {
 
     private String zhuangPlayerId;
 
-    private List<MajiangPai> avaliablePaiList;
+    private List<Pai> avaliablePaiList;
 
     /**
      * 当前活跃的那张牌的定位
@@ -81,11 +81,11 @@ public class Pan {
         }
     }
 
-    public List<MajiangPai> getAvaliablePaiList() {
+    public List<Pai> getAvaliablePaiList() {
         return avaliablePaiList;
     }
 
-    public void setAvaliablePaiList(List<MajiangPai> avaliablePaiList) {
+    public void setAvaliablePaiList(List<Pai> avaliablePaiList) {
         this.avaliablePaiList = avaliablePaiList;
     }
 
@@ -133,7 +133,7 @@ public class Pan {
 
     public void playerMoPai(String playerId) {
         PanPlayer player = playerIdPanPlayerMap.get(playerId);
-        MajiangPai pai = avaliablePaiList.remove(0);
+        Pai pai = avaliablePaiList.remove(0);
         player.setGangmoShoupai(pai);
     }
 

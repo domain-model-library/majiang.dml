@@ -1,26 +1,25 @@
 package dml.majiang.core.entity.action.da;
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.action.PanPlayerAction;
 
 public class DaAction extends PanPlayerAction {
 
-    private MajiangPai pai;
+    private int paiId;
 
     public DaAction() {
 
     }
 
-    public DaAction(String actionPlayerId, MajiangPai pai) {
+    public DaAction(String actionPlayerId, int paiId) {
         super(actionPlayerId);
-        this.pai = pai;
+        this.paiId = paiId;
     }
 
-    public MajiangPai getPai() {
-        return pai;
+    public int getPaiId() {
+        return paiId;
     }
 
-    public void setPai(MajiangPai pai) {
-        this.pai = pai;
+    public void setPaiId(int paiId) {
+        this.paiId = paiId;
     }
 }

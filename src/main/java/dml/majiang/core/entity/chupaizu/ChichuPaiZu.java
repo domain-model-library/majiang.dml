@@ -12,7 +12,7 @@ public class ChichuPaiZu {
     public ChichuPaiZu() {
     }
 
-    public ChichuPaiZu(MajiangPai chijinpai, Shunzi shunzi, String dachuPlayerId, String chiPlayerId) {
+    public ChichuPaiZu(int chijinpaiId, Shunzi shunzi, String dachuPlayerId, String chiPlayerId) {
         this.chijinpai = chijinpai;
         this.shunzi = shunzi;
         this.dachuPlayerId = dachuPlayerId;
