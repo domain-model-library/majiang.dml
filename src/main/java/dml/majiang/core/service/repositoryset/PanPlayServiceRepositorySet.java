@@ -5,6 +5,8 @@ import dml.majiang.core.repository.*;
 public interface PanPlayServiceRepositorySet {
     public PanRepository getPanRepository();
 
+    public PanFramesRepository getPanFramesRepository();
+
     public PanSpecialRulesStateRepository getPanSpecialRulesStateRepository();
 
     public MoActionProcessorRepository getMoActionProcessorRepository();

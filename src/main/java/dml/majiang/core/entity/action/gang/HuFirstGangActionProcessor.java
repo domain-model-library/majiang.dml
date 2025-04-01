@@ -2,6 +2,7 @@ package dml.majiang.core.entity.action.gang;
 
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.fenzu.GangType;
@@ -27,7 +28,7 @@ public class HuFirstGangActionProcessor implements GangActionProcessor {
     }
 
     @Override
-    public void process(GangAction gangAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void process(GangAction gangAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         PanPlayer player = pan.findPlayerById(gangAction.getActionPlayerId());
         PanPlayer xiajia = pan.findNextMenFengPlayer(player);
         while (true) {
@@ -44,15 +45,15 @@ public class HuFirstGangActionProcessor implements GangActionProcessor {
 
         GangType gangType = gangAction.getGangType();
         if (gangType.equals(GangType.gangdachu)) {
-            pan.playerGangDachupai(gangAction.getActionPlayerId(), gangAction.getDachupaiPlayerId(), gangAction.getPai());
+            pan.playerGangDachupai(gangAction.getActionPlayerId(), gangAction.getDachupaiPlayerId(), gangAction.getGangPaiId());
         } else if (gangType.equals(GangType.shoupaigangmo)) {
-            pan.playerShoupaiGangMo(gangAction.getActionPlayerId(), gangAction.getPai());
+            pan.playerShoupaiGangMo(gangAction.getActionPlayerId());
         } else if (gangType.equals(GangType.gangsigeshoupai)) {
-            pan.playerGangSigeshoupai(gangAction.getActionPlayerId(), gangAction.getPai());
+            pan.playerGangSigeshoupai(gangAction.getActionPlayerId(), gangAction.getPaiIds());
         } else if (gangType.equals(GangType.kezigangmo)) {
-            pan.playerKeziGangMo(gangAction.getActionPlayerId(), gangAction.getPai());
+            pan.playerKeziGangMo(gangAction.getActionPlayerId());
         } else if (gangType.equals(GangType.kezigangshoupai)) {
-            pan.playerKeziGangShoupai(gangAction.getActionPlayerId(), gangAction.getPai());
+            pan.playerKeziGangShoupai(gangAction.getActionPlayerId(), gangAction.getGangPaiId());
         } else {
         }
 

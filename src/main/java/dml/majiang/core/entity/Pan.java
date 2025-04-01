@@ -4,7 +4,6 @@ import dml.majiang.core.entity.action.PanPlayerAction;
 import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.cursor.PaiCursor;
 import dml.majiang.core.entity.cursor.PlayerLatestDachupaiCursor;
-import dml.majiang.core.entity.fenzu.Shunzi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,7 +37,7 @@ public class Pan {
     /**
      * 胡牌
      */
-    private Hu hu;
+    private Hu hu;//TODO 血战到底有很多胡
 
     public void setHu(Hu hu) {
         this.hu = hu;
@@ -155,9 +154,9 @@ public class Pan {
         return playerIdPanPlayerMap.get(playerId);
     }
 
-    public void playerDaChuPai(String playerId, MajiangPai pai) {
+    public void playerDaChuPai(String playerId, int paiId) {
         PanPlayer player = playerIdPanPlayerMap.get(playerId);
-        player.daChuPai(pai);
+        player.daChuPai(paiId);
         activePaiCursor = new PlayerLatestDachupaiCursor(playerId);
     }
 
@@ -179,45 +178,44 @@ public class Pan {
         return playerIdPanPlayerMap.get(xiajiaPlayerId);
     }
 
-    public void playerChiPai(String chijinpaiPlayerId, String dachupaiPlayerId, MajiangPai chijinpai,
-                             Shunzi chifaShunzi) {
+    public void playerChiPai(String chijinpaiPlayerId, String dachupaiPlayerId, int chijinpaiId, int[] shunziPaiIds) {
 
         PanPlayer chijinpaiPlayer = playerIdPanPlayerMap.get(chijinpaiPlayerId);
         PanPlayer dachupaiPlayer = playerIdPanPlayerMap.get(dachupaiPlayerId);
-        chijinpaiPlayer.chiPai(dachupaiPlayer, chijinpai, chifaShunzi);
+        chijinpaiPlayer.chiPai(dachupaiPlayer, chijinpaiId, shunziPaiIds);
 
     }
 
-    public void playerPengPai(String pengjinpaiPlayerId, String dachupaiPlayerId, MajiangPai pai) {
+    public void playerPengPai(String pengjinpaiPlayerId, String dachupaiPlayerId, int paiId) {
         PanPlayer pengjinpaiPlayer = playerIdPanPlayerMap.get(pengjinpaiPlayerId);
         PanPlayer dachupaiPlayer = playerIdPanPlayerMap.get(dachupaiPlayerId);
-        pengjinpaiPlayer.pengPai(dachupaiPlayer, pai);
+        pengjinpaiPlayer.pengPai(dachupaiPlayer, paiId);
     }
 
-    public void playerGangDachupai(String gangjinpaiPlayerId, String dachupaiPlayerId, MajiangPai pai) {
+    public void playerGangDachupai(String gangjinpaiPlayerId, String dachupaiPlayerId, int paiId) {
         PanPlayer gangjinpaiPlayer = playerIdPanPlayerMap.get(gangjinpaiPlayerId);
         PanPlayer dachupaiPlayer = playerIdPanPlayerMap.get(dachupaiPlayerId);
-        gangjinpaiPlayer.gangDachupai(dachupaiPlayer, pai);
+        gangjinpaiPlayer.gangDachupai(dachupaiPlayer, paiId);
     }
 
-    public void playerShoupaiGangMo(String playerId, MajiangPai pai) {
+    public void playerShoupaiGangMo(String playerId) {
         PanPlayer player = playerIdPanPlayerMap.get(playerId);
-        player.gangMopai(pai);
+        player.gangMopai();
     }
 
-    public void playerGangSigeshoupai(String playerId, MajiangPai pai) {
+    public void playerGangSigeshoupai(String playerId, int[] paiIds) {
         PanPlayer player = playerIdPanPlayerMap.get(playerId);
-        player.gangSigeshoupai(pai);
+        player.gangSigeshoupai(paiIds);
     }
 
-    public void playerKeziGangMo(String playerId, MajiangPai pai) {
+    public void playerKeziGangMo(String playerId) {
         PanPlayer player = playerIdPanPlayerMap.get(playerId);
-        player.keziGangMopai(pai);
+        player.keziGangMopai();
     }
 
-    public void playerKeziGangShoupai(String playerId, MajiangPai pai) {
+    public void playerKeziGangShoupai(String playerId, int paiId) {
         PanPlayer player = playerIdPanPlayerMap.get(playerId);
-        player.keziGangShoupai(pai);
+        player.keziGangShoupai(paiId);
     }
 
     public void playerClearActionCandidates(String playerId) {

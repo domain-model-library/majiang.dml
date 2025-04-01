@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.mo;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
 /**
@@ -21,7 +22,7 @@ public class PlayerMoPaiMoActionProcessor implements MoActionProcessor {
     }
 
     @Override
-    public void process(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void process(MoAction moAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.playerMoPai(moAction.getActionPlayerId());
     }
 }

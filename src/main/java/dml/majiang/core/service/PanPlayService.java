@@ -1,8 +1,7 @@
 package dml.majiang.core.service;
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanPlayer;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.PanPlayerAction;
 import dml.majiang.core.entity.action.chi.ChiAction;
@@ -114,27 +113,24 @@ public class PanPlayService {
         }
     }
 
-    public static void sortPlayerShoupai(long panId, PanPlayServiceRepositorySet panPlayServiceRepositorySet) {
-        PanRepository panRepository = panPlayServiceRepositorySet.getPanRepository();
-
-        Pan pan = panRepository.take(panId);
-        for (PanPlayer player : pan.allPlayers()) {
-            List<MajiangPai> fangruShoupaiList = player.getFangruShoupaiList();
-            fangruShoupaiList.sort((pai1, pai2) -> pai1.compareTo(pai2));
-        }
-    }
-
     public static void start(long panId, PanStartActionUpdater panStartActionUpdater,
                              PanPlayServiceRepositorySet panPlayServiceRepositorySet) {
         PanRepository panRepository = panPlayServiceRepositorySet.getPanRepository();
+        PanFramesRepository panFramesRepository = panPlayServiceRepositorySet.getPanFramesRepository();
 
         Pan pan = panRepository.take(panId);
         panStartActionUpdater.process(pan);
+
+        PanFrames panFrames = new PanFrames();
+        panFrames.setPanId(panId);
+        panFrames.setInitialPan(pan);
+        panFramesRepository.put(panFrames);
     }
 
     public static PanPlayerAction action(long panId, String playerId, int actionId,
                                          PanPlayServiceRepositorySet panPlayServiceRepositorySet) {
         PanRepository panRepository = panPlayServiceRepositorySet.getPanRepository();
+        PanFramesRepository panFramesRepository = panPlayServiceRepositorySet.getPanFramesRepository();
         PanSpecialRulesStateRepository panSpecialRulesStateRepository = panPlayServiceRepositorySet.getPanSpecialRulesStateRepository();
         MoActionProcessorRepository<MoActionProcessor> moActionProcessorRepository = panPlayServiceRepositorySet.getMoActionProcessorRepository();
         MoActionUpdaterRepository<MoActionUpdater> moActionUpdaterRepository = panPlayServiceRepositorySet.getMoActionUpdaterRepository();
@@ -152,51 +148,53 @@ public class PanPlayService {
         GuoActionUpdaterRepository<GuoActionUpdater> guoActionUpdaterRepository = panPlayServiceRepositorySet.getGuoActionUpdaterRepository();
 
         Pan pan = panRepository.take(panId);
+        PanFrames panFrames = panFramesRepository.take(panId);
         PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.find(panId);
         PanPlayerAction action = pan.getPlayerAction(playerId, actionId);
         if (action instanceof MoAction) {
             MoAction moAction = (MoAction) action;
             MoActionProcessor moActionProcessor = moActionProcessorRepository.find(panId);
-            moActionProcessor.process(moAction, pan, panSpecialRulesState);
+            moActionProcessor.process(moAction, pan, panFrames, panSpecialRulesState);
             MoActionUpdater moActionUpdater = moActionUpdaterRepository.find(panId);
-            moActionUpdater.updateActions(moAction, pan, panSpecialRulesState);
+            moActionUpdater.updateActions(moAction, pan, panFrames, panSpecialRulesState);
         } else if (action instanceof DaAction) {
             DaAction daAction = (DaAction) action;
             DaActionProcessor daActionProcessor = daActionProcessorRepository.find(panId);
-            daActionProcessor.process(daAction, pan, panSpecialRulesState);
+            daActionProcessor.process(daAction, pan, panFrames, panSpecialRulesState);
             DaActionUpdater daActionUpdater = daActionUpdaterRepository.find(panId);
-            daActionUpdater.updateActions(daAction, pan, panSpecialRulesState);
+            daActionUpdater.updateActions(daAction, pan, panFrames, panSpecialRulesState);
         } else if (action instanceof ChiAction) {
             ChiAction chiAction = (ChiAction) action;
             ChiActionProcessor chiActionProcessor = chiActionProcessorRepository.find(panId);
-            chiActionProcessor.process(chiAction, pan, panSpecialRulesState);
+            chiActionProcessor.process(chiAction, pan, panFrames, panSpecialRulesState);
             ChiActionUpdater chiActionUpdater = chiActionUpdaterRepository.find(panId);
-            chiActionUpdater.updateActions(chiAction, pan, panSpecialRulesState);
+            chiActionUpdater.updateActions(chiAction, pan, panFrames, panSpecialRulesState);
         } else if (action instanceof PengAction) {
             PengAction pengAction = (PengAction) action;
             PengActionProcessor pengActionProcessor = pengActionProcessorRepository.find(panId);
-            pengActionProcessor.process(pengAction, pan, panSpecialRulesState);
+            pengActionProcessor.process(pengAction, pan, panFrames, panSpecialRulesState);
             PengActionUpdater pengActionUpdater = pengActionUpdaterRepository.find(panId);
-            pengActionUpdater.updateActions(pengAction, pan, panSpecialRulesState);
+            pengActionUpdater.updateActions(pengAction, pan, panFrames, panSpecialRulesState);
         } else if (action instanceof GangAction) {
             GangAction gangAction = (GangAction) action;
             GangActionProcessor gangActionProcessor = gangActionProcessorRepository.find(panId);
-            gangActionProcessor.process(gangAction, pan, panSpecialRulesState);
+            gangActionProcessor.process(gangAction, pan, panFrames, panSpecialRulesState);
             GangActionUpdater gangActionUpdater = gangActionUpdaterRepository.find(panId);
-            gangActionUpdater.updateActions(gangAction, pan, panSpecialRulesState);
+            gangActionUpdater.updateActions(gangAction, pan, panFrames, panSpecialRulesState);
         } else if (action instanceof HuAction) {
             HuAction huAction = (HuAction) action;
             HuActionProcessor huActionProcessor = huActionProcessorRepository.find(panId);
-            huActionProcessor.process(huAction, pan, panSpecialRulesState);
+            huActionProcessor.process(huAction, pan, panFrames, panSpecialRulesState);
             HuActionUpdater huActionUpdater = huActionUpdaterRepository.find(panId);
-            huActionUpdater.updateActions(huAction, pan, panSpecialRulesState);
+            huActionUpdater.updateActions(huAction, pan, panFrames, panSpecialRulesState);
         } else if (action instanceof GuoAction) {
             GuoAction guoAction = (GuoAction) action;
             GuoActionProcessor guoActionProcessor = guoActionProcessorRepository.find(panId);
-            guoActionProcessor.process(guoAction, pan, panSpecialRulesState);
+            guoActionProcessor.process(guoAction, pan, panFrames, panSpecialRulesState);
             GuoActionUpdater guoActionUpdater = guoActionUpdaterRepository.find(panId);
-            guoActionUpdater.updateActions(guoAction, pan, panSpecialRulesState);
+            guoActionUpdater.updateActions(guoAction, pan, panFrames, panSpecialRulesState);
         }
+        panFrames.addFrame(action, pan);
         return action;
     }
 

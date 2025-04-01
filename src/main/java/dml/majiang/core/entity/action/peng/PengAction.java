@@ -1,21 +1,22 @@
 package dml.majiang.core.entity.action.peng;
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.action.PanPlayerAction;
 
 public class PengAction extends PanPlayerAction {
     private String dachupaiPlayerId;
-    private MajiangPai pai;
+    private int pengPaiId;
+    private int[] paiIds;
 
     private boolean blockedByHigherPriorityAction = false;
 
     public PengAction() {
     }
 
-    public PengAction(String actionPlayerId, String dachupaiPlayerId, MajiangPai pai) {
+    public PengAction(String actionPlayerId, String dachupaiPlayerId, int pengPaiId, int[] paiIds) {
         super(actionPlayerId);
         this.dachupaiPlayerId = dachupaiPlayerId;
-        this.pai = pai;
+        this.pengPaiId = pengPaiId;
+        this.paiIds = paiIds;
     }
 
     public String getDachupaiPlayerId() {
@@ -26,12 +27,20 @@ public class PengAction extends PanPlayerAction {
         this.dachupaiPlayerId = dachupaiPlayerId;
     }
 
-    public MajiangPai getPai() {
-        return pai;
+    public int getPengPaiId() {
+        return pengPaiId;
     }
 
-    public void setPai(MajiangPai pai) {
-        this.pai = pai;
+    public void setPengPaiId(int pengPaiId) {
+        this.pengPaiId = pengPaiId;
+    }
+
+    public int[] getPaiIds() {
+        return paiIds;
+    }
+
+    public void setPaiIds(int[] paiIds) {
+        this.paiIds = paiIds;
     }
 
     public boolean isBlockedByHigherPriorityAction() {

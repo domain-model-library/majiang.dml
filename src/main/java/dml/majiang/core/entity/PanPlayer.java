@@ -46,7 +46,7 @@ public class PanPlayer {
 
 
     public void addShoupai(Pai pai) {
-        fangruShoupaiList.add(pai);
+        fangruShoupai.put(pai.getId(), pai);
     }
 
     public void addActionCandidate(PanPlayerAction action) {
@@ -147,6 +147,186 @@ public class PanPlayer {
         return gangchupaiZuList.size();
     }
 
+    public void tryShoupaigangmoAndGenerateCandidateAction() {
+        int[] paiIds = new int[4];
+        int paiIdsIdx = 0;
+        paiIds[paiIdsIdx++] = gangmoShoupai.getId();
+        for (Pai pai : fangruShoupai.values()) {
+            if (pai.getPaiType().equals(gangmoShoupai.getPaiType())) {
+                paiIds[paiIdsIdx++] = pai.getId();
+            }
+        }
+        if (paiIdsIdx >= 4) {
+            addActionCandidate(new GangAction(id, null, gangmoShoupai.getId(), paiIds, GangType.shoupaigangmo));
+        }
+    }
+
+    public void tryKezigangmoAndGenerateCandidateAction() {
+        int[] paiIds = new int[4];
+        paiIds[0] = gangmoShoupai.getId();
+        for (PengchuPaiZu pengchuPaiZu : pengchupaiZuList) {
+            if (pengchuPaiZu.getKezi().getPaiType().equals(gangmoShoupai.getPaiType())) {
+                paiIds[1] = pengchuPaiZu.getKezi().getPai1().getId();
+                paiIds[2] = pengchuPaiZu.getKezi().getPai2().getId();
+                paiIds[3] = pengchuPaiZu.getKezi().getPai3().getId();
+                addActionCandidate(new GangAction(id, null, gangmoShoupai.getId(), paiIds, GangType.kezigangmo));
+                return;
+            }
+        }
+    }
+
+    public void tryGangsigeshoupaiAndGenerateCandidateAction() {
+        Map<MajiangPai, Set<Pai>> paiMap = makePaiTypeShoupaiMap();
+        List<Set<Pai>> gangpaiList = new ArrayList<>();
+        for (Set<Pai> paiSet : paiMap.values()) {
+            if (paiSet.size() == 4) {
+                gangpaiList.add(paiSet);
+            }
+        }
+        for (Set<Pai> paiSet : gangpaiList) {
+            int[] paiIds = new int[4];
+            int paiIdsIdx = 0;
+            for (Pai pai : paiSet) {
+                paiIds[paiIdsIdx++] = pai.getId();
+            }
+            addActionCandidate(new GangAction(id, null, -1, paiIds, GangType.gangsigeshoupai));
+        }
+    }
+
+    public void tryKezigangshoupaiAndGenerateCandidateAction() {
+        for (PengchuPaiZu pengchuPaiZu : pengchupaiZuList) {
+            for (Pai shoupai : fangruShoupai.values()) {
+                if (pengchuPaiZu.getKezi().getPaiType().equals(shoupai.getPaiType())) {
+                    int[] paiIds = new int[4];
+                    paiIds[0] = shoupai.getId();
+                    paiIds[1] = pengchuPaiZu.getKezi().getPai1().getId();
+                    paiIds[2] = pengchuPaiZu.getKezi().getPai2().getId();
+                    paiIds[3] = pengchuPaiZu.getKezi().getPai3().getId();
+                    addActionCandidate(new GangAction(id, null, shoupai.getId(), paiIds, GangType.kezigangshoupai));
+                    break;
+                }
+            }
+        }
+    }
+
+    public void tryChiAndGenerateCandidateActions(PanPlayer dachupaiPlayer, int dapaiId) {
+        // 只有两张手牌时不能吃
+        if (fangruShoupai.size() == 2) {
+            return;
+        }
+        Pai dapai = dachupaiPlayer.findDachupai(dapaiId);
+        if (MajiangPai.isXushupai(dapai.getPaiType())) {
+            Map<MajiangPai, Set<Pai>> paiMap = makePaiTypeShoupaiMap();
+
+            MajiangPai previousPaiType = null;
+            MajiangPai previousPreviousPaiType = null;
+            MajiangPai nextPaiType = null;
+            MajiangPai nextNextPaiType = null;
+            previousPaiType = MajiangPai.previous(dapai.getPaiType());
+            if (previousPaiType != null) {
+                previousPreviousPaiType = MajiangPai.previous(previousPaiType);
+            }
+            nextPaiType = MajiangPai.next(dapai.getPaiType());
+            if (nextPaiType != null) {
+                nextNextPaiType = MajiangPai.next(nextPaiType);
+            }
+
+            if (nextPaiType != null && nextNextPaiType != null) {
+                Set<Pai> nextPaiSet = paiMap.get(nextPaiType);
+                Set<Pai> nextNextPaiSet = paiMap.get(nextNextPaiType);
+                if (nextPaiSet != null && nextNextPaiSet != null && !nextPaiSet.isEmpty() && !nextNextPaiSet.isEmpty()) {
+                    int[] shunziPaiIds = new int[3];
+                    shunziPaiIds[0] = dapai.getId();
+                    shunziPaiIds[1] = nextPaiSet.iterator().next().getId();
+                    shunziPaiIds[2] = nextNextPaiSet.iterator().next().getId();
+                    addActionCandidate(new ChiAction(id, dachupaiPlayer.getId(), dapaiId, shunziPaiIds));
+                }
+            }
+
+            if (previousPaiType != null && nextPaiType != null) {
+                Set<Pai> previousPaiSet = paiMap.get(previousPaiType);
+                Set<Pai> nextPaiSet = paiMap.get(nextPaiType);
+                if (previousPaiSet != null && nextPaiSet != null && !previousPaiSet.isEmpty() && !nextPaiSet.isEmpty()) {
+                    int[] shunziPaiIds = new int[3];
+                    shunziPaiIds[0] = previousPaiSet.iterator().next().getId();
+                    shunziPaiIds[1] = dapai.getId();
+                    shunziPaiIds[2] = nextPaiSet.iterator().next().getId();
+                    addActionCandidate(new ChiAction(id, dachupaiPlayer.getId(), dapaiId, shunziPaiIds));
+                }
+            }
+
+            if (previousPreviousPaiType != null && previousPaiType != null) {
+                Set<Pai> previousPreviousPaiSet = paiMap.get(previousPreviousPaiType);
+                Set<Pai> previousPaiSet = paiMap.get(previousPaiType);
+                if (previousPreviousPaiSet != null && previousPaiSet != null && !previousPreviousPaiSet.isEmpty() && !previousPaiSet.isEmpty()) {
+                    int[] shunziPaiIds = new int[3];
+                    shunziPaiIds[0] = previousPreviousPaiSet.iterator().next().getId();
+                    shunziPaiIds[1] = previousPaiSet.iterator().next().getId();
+                    shunziPaiIds[2] = dapai.getId();
+                    addActionCandidate(new ChiAction(id, dachupaiPlayer.getId(), dapaiId, shunziPaiIds));
+                }
+            }
+
+        }
+    }
+
+    public void tryPengAndGenerateCandidateAction(PanPlayer dachupaiPlayer, int dapaiId) {
+        Pai dapai = dachupaiPlayer.findDachupai(dapaiId);
+        Map<MajiangPai, Set<Pai>> paiMap = makePaiTypeShoupaiMap();
+        Set<Pai> paiSet = paiMap.get(dapai.getPaiType());
+        if (paiSet != null && paiSet.size() >= 2) {
+            int[] paiIds = new int[3];
+            paiIds[0] = dapaiId;
+            Iterator<Pai> i = paiSet.iterator();
+            int idx = 1;
+            while (idx < 3) {
+                Pai pai = i.next();
+                paiIds[idx++] = pai.getId();
+            }
+            addActionCandidate(new PengAction(id, dachupaiPlayer.getId(), dapaiId, paiIds));
+        }
+    }
+
+    public void tryGangdachuAndGenerateCandidateAction(PanPlayer dachupaiPlayer, int dapaiId) {
+        Pai dapai = dachupaiPlayer.findDachupai(dapaiId);
+        Map<MajiangPai, Set<Pai>> paiMap = makePaiTypeShoupaiMap();
+        Set<Pai> paiSet = paiMap.get(dapai.getPaiType());
+        if (paiSet != null && paiSet.size() >= 3) {
+            int[] paiIds = new int[4];
+            paiIds[0] = dapaiId;
+            Iterator<Pai> i = paiSet.iterator();
+            int idx = 1;
+            while (idx < 4) {
+                Pai pai = i.next();
+                paiIds[idx++] = pai.getId();
+            }
+            addActionCandidate(new GangAction(id, dachupaiPlayer.getId(), dapaiId, paiIds, GangType.gangdachu));
+        }
+    }
+
+    private Pai findDachupai(int dapaiId) {
+        for (Pai pai : dachupaiList) {
+            if (pai.getId() == dapaiId) {
+                return pai;
+            }
+        }
+        return null;
+    }
+
+    private Map<MajiangPai, Set<Pai>> makePaiTypeShoupaiMap() {
+        Map<MajiangPai, Set<Pai>> paiMap = new HashMap<>();
+        fangruShoupai.values().forEach(pai -> {
+            if (paiMap.containsKey(pai.getPaiType())) {
+                paiMap.get(pai.getPaiType()).add(pai);
+            } else {
+                Set<Pai> paiSet = new HashSet<>();
+                paiSet.add(pai);
+                paiMap.put(pai.getPaiType(), paiSet);
+            }
+        });
+        return paiMap;
+    }
+
     public void checkAndGenerateGuoCandidateAction(PanPlayerAction causedByAction) {
         for (int i = 1; i <= actionCandidates.size(); i++) {
             PanPlayerAction action = actionCandidates.get(i);
@@ -219,10 +399,10 @@ public class PanPlayer {
         return false;
     }
 
-    public void chiPai(PanPlayer dachupaiPlayer, int chijinpaiId, int[] chifaShunziPaiIds) {
-        Pai pai1 = chifaShunziPaiIds[0] == chijinpaiId ? dachupaiPlayer.removeDachupai(chijinpaiId) : fangruShoupai.remove(chifaShunziPaiIds[0]);
-        Pai pai2 = chifaShunziPaiIds[1] == chijinpaiId ? dachupaiPlayer.removeDachupai(chijinpaiId) : fangruShoupai.remove(chifaShunziPaiIds[1]);
-        Pai pai3 = chifaShunziPaiIds[2] == chijinpaiId ? dachupaiPlayer.removeDachupai(chijinpaiId) : fangruShoupai.remove(chifaShunziPaiIds[2]);
+    public void chiPai(PanPlayer dachupaiPlayer, int chijinpaiId, int[] shunziPaiIds) {
+        Pai pai1 = shunziPaiIds[0] == chijinpaiId ? dachupaiPlayer.removeDachupai(chijinpaiId) : fangruShoupai.remove(shunziPaiIds[0]);
+        Pai pai2 = shunziPaiIds[1] == chijinpaiId ? dachupaiPlayer.removeDachupai(chijinpaiId) : fangruShoupai.remove(shunziPaiIds[1]);
+        Pai pai3 = shunziPaiIds[2] == chijinpaiId ? dachupaiPlayer.removeDachupai(chijinpaiId) : fangruShoupai.remove(shunziPaiIds[2]);
         Shunzi shunzi = new Shunzi(pai1, pai2, pai3);
         ChichuPaiZu chichuPaiZu = new ChichuPaiZu(chijinpaiId, shunzi, dachupaiPlayer.getId(), id);
         chichupaiZuList.add(chichuPaiZu);
@@ -277,11 +457,11 @@ public class PanPlayer {
         gangmoShoupai = null;
     }
 
-    public void gangSigeshoupai(MajiangPai paiType) {
-        Pai pai1 = removeShoupaiForType(paiType);
-        Pai pai2 = removeShoupaiForType(paiType);
-        Pai pai3 = removeShoupaiForType(paiType);
-        Pai pai4 = removeShoupaiForType(paiType);
+    public void gangSigeshoupai(int[] paiIds) {
+        Pai pai1 = fangruShoupai.remove(paiIds[0]);
+        Pai pai2 = fangruShoupai.remove(paiIds[1]);
+        Pai pai3 = fangruShoupai.remove(paiIds[2]);
+        Pai pai4 = fangruShoupai.remove(paiIds[3]);
         GangchuPaiZu gangchuPaiZu = new GangchuPaiZu(new Gangzi(pai1, pai2, pai3, pai4), null, id, GangType.gangsigeshoupai);
         gangchupaiZuList.add(gangchuPaiZu);
         fangruShoupai();
@@ -306,41 +486,44 @@ public class PanPlayer {
         gangmoShoupai = null;
     }
 
-    public void keziGangShoupai(MajiangPai pai) {
+    public void keziGangShoupai(int paiId) {
+        Pai pai1 = fangruShoupai.remove(paiId);
+        PengchuPaiZu pengchuPai = null;
         Iterator<PengchuPaiZu> i = pengchupaiZuList.iterator();
         while (i.hasNext()) {
-            PengchuPaiZu pengchuPai = i.next();
-            if (pengchuPai.getKezi().getPaiType().equals(pai)) {
+            pengchuPai = i.next();
+            if (pengchuPai.getKezi().getPaiType().equals(pai1.getPaiType())) {
                 i.remove();
                 break;
             }
         }
-        GangchuPaiZu gangchuPaiZu = new GangchuPaiZu(new Gangzi(pai), null, id, GangType.kezigangshoupai);
+        Pai pai2 = pengchuPai.getKezi().getPai1();
+        Pai pai3 = pengchuPai.getKezi().getPai2();
+        Pai pai4 = pengchuPai.getKezi().getPai3();
+        GangchuPaiZu gangchuPaiZu = new GangchuPaiZu(new Gangzi(pai1, pai2, pai3, pai4), null, id, GangType.kezigangshoupai);
         gangchupaiZuList.add(gangchuPaiZu);
-        fangruShoupaiList.remove(pai);
-        shoupaiCalculator.removePai(pai);
         fangruShoupai();
     }
 
-    public List<MajiangPai> findShoupaiForPaiTypes(Set<MajiangPai> paiTypes) {
-        List<MajiangPai> shoupaiList = new ArrayList<>();
-        for (MajiangPai shoupai : fangruShoupaiList) {
-            if (paiTypes.contains(shoupai)) {
-                shoupaiList.add(shoupai);
+    public List<Pai> findShoupaiForPaiTypes(Set<MajiangPai> paiTypes) {
+        List<Pai> shoupaiList = new ArrayList<>();
+        fangruShoupai.values().forEach(pai -> {
+            if (paiTypes.contains(pai.getPaiType())) {
+                shoupaiList.add(pai);
             }
-        }
-        if (gangmoShoupai != null && paiTypes.contains(gangmoShoupai)) {
+        });
+        if (gangmoShoupai != null && paiTypes.contains(gangmoShoupai.getPaiType())) {
             shoupaiList.add(gangmoShoupai);
         }
         return shoupaiList;
     }
 
 
-    public void removeDaActionCandidate(MajiangPai pai) {
+    public void removeDaActionCandidate(int paiId) {
         for (PanPlayerAction action : actionCandidates.values()) {
             if (action instanceof DaAction) {
                 DaAction daAction = (DaAction) action;
-                if (daAction.getPai().equals(pai)) {
+                if (daAction.getPaiId() == paiId) {
                     actionCandidates.remove(action.getId());
                     return;
                 }
@@ -360,7 +543,7 @@ public class PanPlayer {
     }
 
     public int countFangruShoupai() {
-        return fangruShoupaiList.size();
+        return fangruShoupai.size();
     }
 
     public void removeMoActionCandidate() {

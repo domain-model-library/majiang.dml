@@ -1,24 +1,22 @@
 package dml.majiang.core.entity.action.chi;
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.action.PanPlayerAction;
-import dml.majiang.core.entity.fenzu.Shunzi;
 
 public class ChiAction extends PanPlayerAction {
     private String dachupaiPlayerId;
-    private MajiangPai chijinPai;
-    private Shunzi shunzi;
+    private int chijinPaiId;
+    private int[] shunziPaiIds;
 
     private boolean blockedByHigherPriorityAction = false;
 
     public ChiAction() {
     }
 
-    public ChiAction(String actionPlayerId, String dachupaiPlayerId, MajiangPai chijinPai, Shunzi shunzi) {
+    public ChiAction(String actionPlayerId, String dachupaiPlayerId, int chijinPaiId, int[] shunziPaiIds) {
         super(actionPlayerId);
         this.dachupaiPlayerId = dachupaiPlayerId;
-        this.chijinPai = chijinPai;
-        this.shunzi = shunzi;
+        this.chijinPaiId = chijinPaiId;
+        this.shunziPaiIds = shunziPaiIds;
     }
 
     public String getDachupaiPlayerId() {
@@ -29,20 +27,20 @@ public class ChiAction extends PanPlayerAction {
         this.dachupaiPlayerId = dachupaiPlayerId;
     }
 
-    public MajiangPai getChijinPai() {
-        return chijinPai;
+    public int getChijinPaiId() {
+        return chijinPaiId;
     }
 
-    public void setChijinPai(MajiangPai chijinPai) {
-        this.chijinPai = chijinPai;
+    public void setChijinPaiId(int chijinPaiId) {
+        this.chijinPaiId = chijinPaiId;
     }
 
-    public Shunzi getShunzi() {
-        return shunzi;
+    public int[] getShunziPaiIds() {
+        return shunziPaiIds;
     }
 
-    public void setShunzi(Shunzi shunzi) {
-        this.shunzi = shunzi;
+    public void setShunziPaiIds(int[] shunziPaiIds) {
+        this.shunziPaiIds = shunziPaiIds;
     }
 
     public boolean isBlockedByHigherPriorityAction() {

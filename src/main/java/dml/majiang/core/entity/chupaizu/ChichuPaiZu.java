@@ -1,10 +1,9 @@
 package dml.majiang.core.entity.chupaizu;
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.fenzu.Shunzi;
 
 public class ChichuPaiZu {
-    private MajiangPai chijinpai;
+    private int chijinpaiId;
     private Shunzi shunzi;
     private String dachuPlayerId;
     private String chiPlayerId;
@@ -13,18 +12,18 @@ public class ChichuPaiZu {
     }
 
     public ChichuPaiZu(int chijinpaiId, Shunzi shunzi, String dachuPlayerId, String chiPlayerId) {
-        this.chijinpai = chijinpai;
+        this.chijinpaiId = chijinpaiId;
         this.shunzi = shunzi;
         this.dachuPlayerId = dachuPlayerId;
         this.chiPlayerId = chiPlayerId;
     }
 
-    public MajiangPai getChijinpai() {
-        return chijinpai;
+    public int getChijinpaiId() {
+        return chijinpaiId;
     }
 
-    public void setChijinpai(MajiangPai chijinpai) {
-        this.chijinpai = chijinpai;
+    public void setChijinpaiId(int chijinpaiId) {
+        this.chijinpaiId = chijinpaiId;
     }
 
     public Shunzi getShunzi() {

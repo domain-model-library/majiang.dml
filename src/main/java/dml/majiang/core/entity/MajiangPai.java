@@ -40,4 +40,36 @@ public enum MajiangPai {
         System.arraycopy(array, 27, fengpaiArray, 0, 4);
         return fengpaiArray;
     }
+
+    public static MajiangPai next(MajiangPai pai) {
+        int ordinal = pai.ordinal();
+        if (ordinal == 33) {
+            return null;
+        }
+        return array[ordinal + 1];
+    }
+
+    public static MajiangPai previous(MajiangPai pai) {
+        int ordinal = pai.ordinal();
+        if (ordinal == 0) {
+            return null;
+        }
+        return array[ordinal - 1];
+    }
+
+    public static MajiangPai nextXushupai(MajiangPai pai) {
+        int ordinal = pai.ordinal();
+        if (ordinal == 26) {
+            return null;
+        }
+        return array[ordinal + 1];
+    }
+
+    public static MajiangPai previousXushupai(MajiangPai pai) {
+        int ordinal = pai.ordinal();
+        if (ordinal == 0) {
+            return null;
+        }
+        return array[ordinal - 1];
+    }
 }

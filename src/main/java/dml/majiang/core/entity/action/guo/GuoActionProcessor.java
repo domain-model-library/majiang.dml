@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.guo;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
 
@@ -10,5 +11,5 @@ public interface GuoActionProcessor {
 
     public long getPanId();
 
-    public void process(GuoAction guoAction, Pan pan, PanSpecialRulesState panSpecialRulesState);
+    public void process(GuoAction guoAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState);
 }

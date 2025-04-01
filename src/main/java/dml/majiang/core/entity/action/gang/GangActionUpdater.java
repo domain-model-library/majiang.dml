@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.gang;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
 public interface GangActionUpdater {
@@ -8,5 +9,5 @@ public interface GangActionUpdater {
 
     public long getPanId();
 
-    public void updateActions(GangAction gangAction, Pan pan, PanSpecialRulesState panSpecialRulesState);
+    public void updateActions(GangAction gangAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState);
 }

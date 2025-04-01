@@ -1,7 +1,7 @@
 package dml.majiang.core.entity.action.da;
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.mo.LundaoMopai;
@@ -11,14 +11,14 @@ import dml.majiang.core.entity.action.mo.MoAction;
  * 打之后能吃碰杠胡，最常见的打之后的动作
  */
 public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
-    public void updateActions(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(DaAction daAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();
         PanPlayer daPlayer = pan.findPlayerById(daAction.getActionPlayerId());
         PanPlayer xiajiaPlayer = pan.findNextMenFengPlayer(daPlayer);
-        MajiangPai daPai = daAction.getPai();
+        int daPaiId = daAction.getPaiId();
 
         // 下家可以吃
-        xiajiaPlayer.tryChiAndGenerateCandidateActions(daPlayer.getId(), daPai);
+        xiajiaPlayer.tryChiAndGenerateCandidateActions(daPlayer, daPaiId);
 
         // 其他的可以碰杠胡
         while (true) {
@@ -26,10 +26,10 @@ public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
                 break;
             }
             //碰
-            xiajiaPlayer.tryPengAndGenerateCandidateAction(daAction.getActionPlayerId(), daAction.getPai());
+            xiajiaPlayer.tryPengAndGenerateCandidateAction(daPlayer, daAction.getPaiId());
 
             //杠
-            xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daAction.getActionPlayerId(), daAction.getPai());
+            xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daPlayer, daAction.getPaiId());
 
             //胡
             tryAndGenerateHuCandidateAction(daAction, pan, panSpecialRulesState, xiajiaPlayer);

@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.guo;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.PanPlayerAction;
@@ -29,7 +30,7 @@ public class PlayerDaPaiOrXiajiaMoPaiGuoActionUpdater implements GuoActionUpdate
     }
 
     @Override
-    public void updateActions(GuoAction guoAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(GuoAction guoAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.playerClearActionCandidates(guoAction.getActionPlayerId());
         PanPlayer player = pan.findPlayerById(guoAction.getActionPlayerId());
 

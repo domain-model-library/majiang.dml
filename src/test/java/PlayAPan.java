@@ -80,9 +80,6 @@ public class PlayAPan {
         //发牌
         FaPaiService.faPai13Shoupai(pan.getId(), playAPanServiceRepositorySet);
 
-        //排序手牌
-        PanPlayService.sortPlayerShoupai(pan.getId(), playAPanServiceRepositorySet);
-
         //开始一盘
         PanPlayService.start(pan.getId(), new ZhuangMoStartActionUpdater(), playAPanServiceRepositorySet);
 

@@ -1,7 +1,7 @@
 package dml.majiang.core.entity.panplayerview;
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.MenFeng;
+import dml.majiang.core.entity.Pai;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.action.PanPlayerAction;
 import dml.majiang.core.entity.chupaizu.ChichuPaiZu;
@@ -22,18 +22,18 @@ public class CanNotSeeOtherPlayersPlayerView {
     /**
      * 刚摸进待处理的手牌（未放入）
      */
-    private MajiangPai gangmoShoupai;
+    private Pai gangmoShoupai;
 
     /**
      * 已放入的手牌列表
      */
-    private List<MajiangPai> fangruShoupaiList = new ArrayList<>();
+    private List<Pai> fangruShoupaiList = new ArrayList<>();
 
     private Map<Integer, PanPlayerAction> actionCandidates = new HashMap<>();
 
     private int fangruShoupaiCount;
 
-    private List<MajiangPai> dachupaiList;
+    private List<Pai> dachupaiList;
 
     private List<ChichuPaiZu> chichupaiZuList;
     private List<PengchuPaiZu> pengchupaiZuList;
@@ -55,12 +55,12 @@ public class CanNotSeeOtherPlayersPlayerView {
         this.chichupaiZuList = player.getChichupaiZuList();
         this.pengchupaiZuList = player.getPengchupaiZuList();
         if (player.getId().equals(toWiewPlayerId)) {
-            fangruShoupaiList.addAll(player.getFangruShoupaiList());
+            fangruShoupaiList.addAll(player.getFangruShoupai().values());
             gangmoShoupai = player.getGangmoShoupai();
             actionCandidates.putAll(player.getActionCandidates());
             gangchupaiZuList = player.getGangchupaiZuList();
         } else {
-            fangruShoupaiCount = player.getFangruShoupaiList().size();
+            fangruShoupaiCount = player.getFangruShoupai().size();
             //只有明杠可见
             for (GangchuPaiZu gangchuPaiZu : player.getGangchupaiZuList()) {
                 if (gangchuPaiZu.getGangType().equals(GangType.shoupaigangmo)
@@ -89,12 +89,8 @@ public class CanNotSeeOtherPlayersPlayerView {
         this.menFeng = menFeng;
     }
 
-    public List<MajiangPai> getFangruShoupaiList() {
+    public List<Pai> getFangruShoupaiList() {
         return fangruShoupaiList;
-    }
-
-    public void setFangruShoupaiList(List<MajiangPai> fangruShoupaiList) {
-        this.fangruShoupaiList = fangruShoupaiList;
     }
 
     public Map<Integer, PanPlayerAction> getActionCandidates() {
@@ -109,11 +105,11 @@ public class CanNotSeeOtherPlayersPlayerView {
         return fangruShoupaiCount;
     }
 
-    public MajiangPai getGangmoShoupai() {
+    public Pai getGangmoShoupai() {
         return gangmoShoupai;
     }
 
-    public List<MajiangPai> getDachupaiList() {
+    public List<Pai> getDachupaiList() {
         return dachupaiList;
     }
 

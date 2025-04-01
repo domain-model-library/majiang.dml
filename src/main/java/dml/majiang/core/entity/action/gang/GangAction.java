@@ -1,12 +1,12 @@
 package dml.majiang.core.entity.action.gang;
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.action.PanPlayerAction;
 import dml.majiang.core.entity.fenzu.GangType;
 
 public class GangAction extends PanPlayerAction {
     private String dachupaiPlayerId;
-    private MajiangPai pai;
+    private int gangPaiId;
+    private int[] paiIds;
     private GangType gangType;
 
     private boolean blockedByHigherPriorityAction = false;
@@ -14,10 +14,11 @@ public class GangAction extends PanPlayerAction {
     public GangAction() {
     }
 
-    public GangAction(String actionPlayerId, String dachupaiPlayerId, MajiangPai pai, GangType gangType) {
+    public GangAction(String actionPlayerId, String dachupaiPlayerId, int gangPaiId, int[] paiIds, GangType gangType) {
         super(actionPlayerId);
         this.dachupaiPlayerId = dachupaiPlayerId;
-        this.pai = pai;
+        this.gangPaiId = gangPaiId;
+        this.paiIds = paiIds;
         this.gangType = gangType;
     }
 
@@ -29,12 +30,20 @@ public class GangAction extends PanPlayerAction {
         this.dachupaiPlayerId = dachupaiPlayerId;
     }
 
-    public MajiangPai getPai() {
-        return pai;
+    public int getGangPaiId() {
+        return gangPaiId;
     }
 
-    public void setPai(MajiangPai pai) {
-        this.pai = pai;
+    public void setGangPaiId(int gangPaiId) {
+        this.gangPaiId = gangPaiId;
+    }
+
+    public int[] getPaiIds() {
+        return paiIds;
+    }
+
+    public void setPaiIds(int[] paiIds) {
+        this.paiIds = paiIds;
     }
 
     public GangType getGangType() {

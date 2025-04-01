@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.hu;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
 /**
@@ -23,7 +24,7 @@ public class ClearAllActionHuActionUpdater implements HuActionUpdater {
     }
 
     @Override
-    public void updateActions(HuAction huAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(HuAction huAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();
     }
 

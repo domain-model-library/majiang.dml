@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.chi;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
@@ -24,7 +25,7 @@ public class PengganghuFirstChiActionProcessor implements ChiActionProcessor {
     }
 
     @Override
-    public void process(ChiAction chiAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void process(ChiAction chiAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         PanPlayer player = pan.findPlayerById(chiAction.getActionPlayerId());
         PanPlayer xiajia = pan.findNextMenFengPlayer(player);
         while (true) {
@@ -41,8 +42,8 @@ public class PengganghuFirstChiActionProcessor implements ChiActionProcessor {
             xiajia = pan.findNextMenFengPlayer(xiajia);
         }
 
-        pan.playerChiPai(chiAction.getActionPlayerId(), chiAction.getDachupaiPlayerId(), chiAction.getChijinPai(),
-                chiAction.getShunzi());
+        pan.playerChiPai(chiAction.getActionPlayerId(), chiAction.getDachupaiPlayerId(), chiAction.getChijinPaiId(),
+                chiAction.getShunziPaiIds());
     }
 
 }

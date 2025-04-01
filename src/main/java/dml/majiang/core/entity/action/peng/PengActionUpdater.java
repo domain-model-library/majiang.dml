@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.peng;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
 public interface PengActionUpdater {
@@ -8,5 +9,5 @@ public interface PengActionUpdater {
 
     public long getPanId();
 
-    public void updateActions(PengAction pengAction, Pan pan, PanSpecialRulesState panSpecialRulesState);
+    public void updateActions(PengAction pengAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState);
 }

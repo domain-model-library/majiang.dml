@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.da;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
 
@@ -9,5 +10,5 @@ public interface DaActionProcessor {
 
     public long getPanId();
 
-    public void process(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState);
+    public void process(DaAction daAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState);
 }

@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.da;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
 /**
@@ -23,8 +24,8 @@ public class DachushoupaiDaActionProcessor implements DaActionProcessor {
     }
 
     @Override
-    public void process(DaAction action, Pan pan, PanSpecialRulesState panSpecialRulesState) {
-        pan.playerDaChuPai(action.getActionPlayerId(), action.getPai());
+    public void process(DaAction action, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
+        pan.playerDaChuPai(action.getActionPlayerId(), action.getPaiId());
     }
 
 }

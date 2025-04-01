@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.mo;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
@@ -9,7 +10,7 @@ import dml.majiang.core.entity.PanSpecialRulesState;
  */
 public abstract class GangHuDaMoActionUpdater implements MoActionUpdater {
     @Override
-    public void updateActions(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(MoAction moAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();
         int avaliablePaiLeft = pan.countAvaliablePai();
         if (avaliablePaiLeft <= 0) {// 没牌了

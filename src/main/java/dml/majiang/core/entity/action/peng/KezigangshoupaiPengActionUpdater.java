@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.action.peng;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
@@ -22,7 +23,7 @@ public class KezigangshoupaiPengActionUpdater implements PengActionUpdater {
     }
 
     @Override
-    public void updateActions(PengAction pengAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(PengAction pengAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         if (pengAction.isBlockedByHigherPriorityAction()) {
             return;
         }

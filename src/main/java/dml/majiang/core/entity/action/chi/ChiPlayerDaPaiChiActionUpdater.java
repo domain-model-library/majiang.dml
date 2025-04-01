@@ -2,6 +2,7 @@ package dml.majiang.core.entity.action.chi;
 
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
@@ -26,7 +27,7 @@ public class ChiPlayerDaPaiChiActionUpdater implements ChiActionUpdater {
     }
 
     @Override
-    public void updateActions(ChiAction chiAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(ChiAction chiAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         //如果吃的动作阻塞了，就不用更新动作了
         if (chiAction.isBlockedByHigherPriorityAction()) {
             return;
