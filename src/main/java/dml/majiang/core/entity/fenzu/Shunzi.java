@@ -1,11 +1,9 @@
 package dml.majiang.core.entity.fenzu;
 
 
-import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pai;
-import dml.majiang.core.entity.shoupai.ShoupaiShunziZu;
 
-public class Shunzi implements MajiangPaiFenZu {
+public class Shunzi {
 
     private Pai pai1;
     private Pai pai2;
@@ -18,27 +16,6 @@ public class Shunzi implements MajiangPaiFenZu {
         this.pai1 = pai1;
         this.pai2 = pai2;
         this.pai3 = pai3;
-    }
-
-    @Override
-    public ShoupaiShunziZu generateShoupaiMajiangPaiFenZuSkeleton() {
-        ShoupaiShunziZu shoupaiShunziZu = new ShoupaiShunziZu();
-        shoupaiShunziZu.setShunzi(this);
-        return shoupaiShunziZu;
-    }
-
-    @Override
-    public int countPai(MajiangPai paiType) {
-        if (paiType.equals(pai1) || paiType.equals(pai2) || paiType.equals(pai3)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    @Override
-    public MajiangPai[] toPaiArray() {
-        return new MajiangPai[]{pai1.getPaiType(), pai2.getPaiType(), pai3.getPaiType()};
     }
 
     public Pai getPai1() {

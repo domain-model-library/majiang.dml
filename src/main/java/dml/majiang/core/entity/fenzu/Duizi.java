@@ -1,48 +1,34 @@
 package dml.majiang.core.entity.fenzu;
 
 
-import dml.majiang.core.entity.MajiangPai;
-import dml.majiang.core.entity.shoupai.ShoupaiDuiziZu;
+import dml.majiang.core.entity.Pai;
 
-public class Duizi implements MajiangPaiFenZu {
+public class Duizi {
 
-    private MajiangPai paiType;
+    private Pai pai1;
+    private Pai pai2;
 
     public Duizi() {
     }
 
-    public Duizi(MajiangPai paiType) {
-        this.paiType = paiType;
+    public Duizi(Pai pai1, Pai pai2) {
+        this.pai1 = pai1;
+        this.pai2 = pai2;
     }
 
-    @Override
-    public ShoupaiDuiziZu generateShoupaiMajiangPaiFenZuSkeleton() {
-        ShoupaiDuiziZu shoupaiDuiziZu = new ShoupaiDuiziZu();
-        shoupaiDuiziZu.setDuiziType(paiType);
-        return shoupaiDuiziZu;
+    public Pai getPai1() {
+        return pai1;
     }
 
-    @Override
-    public int countPai(MajiangPai paiType) {
-        if (paiType.equals(this.paiType)) {
-            return 2;
-        } else {
-            return 0;
-        }
+    public void setPai1(Pai pai1) {
+        this.pai1 = pai1;
     }
 
-    @Override
-    public MajiangPai[] toPaiArray() {
-        return new MajiangPai[]{paiType, paiType};
+    public Pai getPai2() {
+        return pai2;
     }
 
-    public MajiangPai getPaiType() {
-        return paiType;
+    public void setPai2(Pai pai2) {
+        this.pai2 = pai2;
     }
-
-    public void setPaiType(MajiangPai paiType) {
-        this.paiType = paiType;
-    }
-
-
 }
