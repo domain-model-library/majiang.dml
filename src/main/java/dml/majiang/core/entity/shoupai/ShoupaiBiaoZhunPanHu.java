@@ -83,43 +83,179 @@ public class ShoupaiBiaoZhunPanHu {
             MajiangPai startPaiType = amountGroup.getStartPaiType();
             List<LianxuPaiGroupPaiXingCombination> lianxuPaiGroupPaiXingCombinationList = new ArrayList();
             lianxuPaiGroupPaiXingCombinations.add(lianxuPaiGroupPaiXingCombinationList);
-            generateLianxuPaiGroupPaiXingCombinations(new LianxuPaiGroupPaiXingCombination(), amountArray, startPaiType, lianxuPaiGroupPaiXingCombinationList);
+            generateLianxuPaiGroupPaiXingCombinations(new LianxuPaiGroupPaiXingCombination(), 0, 1,
+                    amountArray, startPaiType, lianxuPaiGroupPaiXingCombinationList);
         }
     }
 
     private static void generateLianxuPaiGroupPaiXingCombinations(LianxuPaiGroupPaiXingCombination combination,
+                                                                  int checkIndex, int minAmount,
                                                                   int[] amountArray, MajiangPai startPaiType,
                                                                   List<LianxuPaiGroupPaiXingCombination> combinationStore) {
-        //已不能形成顺子
-        if (amountArray.length < 3) {
-            for (int i = 0; i < amountArray.length; i++) {
-                int amount = amountArray[i];
-                MajiangPai paiType = MajiangPai.valueOf(startPaiType.ordinal() + i);
-                if (amount == 1) {
-                    //单牌不能胡，放弃该组合
+        //minAmount为1，代表要取顺子
+        if (minAmount == 1) {
+            //可以组成顺子
+            if (amountArray[checkIndex] > 0 && amountArray[checkIndex + 1] > 0 && amountArray[checkIndex + 2] > 0) {
+                combination.addShunzi(MajiangPai.valueOf(startPaiType.ordinal() + checkIndex));
+                //取完顺子后，数量减1
+                amountArray[checkIndex]--;
+                amountArray[checkIndex + 1]--;
+                amountArray[checkIndex + 2]--;
+                //取完顺子后正好没有剩余牌了，成功记录一个组合
+                if (amountArray[checkIndex] == 0 && amountArray[checkIndex + 1] == 0 && amountArray[checkIndex + 2] == 0) {
+                    combinationStore.add(combination);
+                } else {
+                    //继续递推
+                    LianxuPaiGroupPaiXingCombination newCombination = new LianxuPaiGroupPaiXingCombination();
+                    newCombination.getDuiziMap().putAll(combination.getDuiziMap());
+                    newCombination.getKeziMap().putAll(combination.getKeziMap());
+                    newCombination.getGangziMap().putAll(combination.getGangziMap());
+                    newCombination.getShunziMap().putAll(combination.getShunziMap());
+                    int[] newAmountArray = new int[amountArray.length];
+                    System.arraycopy(amountArray, 0, newAmountArray, 0, amountArray.length);
+                    generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex, minAmount, newAmountArray, startPaiType, combinationStore);
+                }
+            } else {//不能组成顺子
+                int amount = amountArray[checkIndex];
+                if (amount == 0) {
+                    //递推
+                    LianxuPaiGroupPaiXingCombination newCombination = new LianxuPaiGroupPaiXingCombination();
+                    newCombination.getDuiziMap().putAll(combination.getDuiziMap());
+                    newCombination.getKeziMap().putAll(combination.getKeziMap());
+                    newCombination.getGangziMap().putAll(combination.getGangziMap());
+                    newCombination.getShunziMap().putAll(combination.getShunziMap());
+                    int[] newAmountArray = new int[amountArray.length];
+                    System.arraycopy(amountArray, 0, newAmountArray, 0, amountArray.length);
+                    if (amountArray.length - (checkIndex + 1) >= 3) {
+                        generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 1, newAmountArray, startPaiType, combinationStore);
+                    } else {
+                        generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 2, newAmountArray, startPaiType, combinationStore);
+                    }
+                } else if (amount == 1) {
+                    //如果是单牌，放弃该组合
                     return;
                 } else if (amount == 2) {
-                    //如果combination中已经有对子了，放弃该组合
                     if (combination.hasDuizi()) {
+                        //已经有对子了，放弃该组合
                         return;
+                    } else {
+                        //取对子
+                        combination.addDuizi(MajiangPai.valueOf(startPaiType.ordinal() + checkIndex));
+                        //取完对子后，清空数量
+                        amountArray[checkIndex] = 0;
+                        //继续递推
+                        LianxuPaiGroupPaiXingCombination newCombination = new LianxuPaiGroupPaiXingCombination();
+                        newCombination.getDuiziMap().putAll(combination.getDuiziMap());
+                        newCombination.getKeziMap().putAll(combination.getKeziMap());
+                        newCombination.getGangziMap().putAll(combination.getGangziMap());
+                        newCombination.getShunziMap().putAll(combination.getShunziMap());
+                        int[] newAmountArray = new int[amountArray.length];
+                        System.arraycopy(amountArray, 0, newAmountArray, 0, amountArray.length);
+                        if (amountArray.length - (checkIndex + 1) >= 3) {
+                            generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 1, newAmountArray, startPaiType, combinationStore);
+                        } else {
+                            generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 2, newAmountArray, startPaiType, combinationStore);
+                        }
                     }
-                    combination.addDuizi(paiType);
-                    //成功记录一个组合
-                    combinationStore.add(combination);
-                    return;
                 } else if (amount == 3) {
-                    combination.addKezi(paiType);
-                    //成功记录一个组合
-                    combinationStore.add(combination);
-                    return;
+                    //取刻子
+                    combination.addKezi(MajiangPai.valueOf(startPaiType.ordinal() + checkIndex));
+                    //取完刻子后，清空数量
+                    amountArray[checkIndex] = 0;
+                    //继续递推
+                    LianxuPaiGroupPaiXingCombination newCombination = new LianxuPaiGroupPaiXingCombination();
+                    newCombination.getDuiziMap().putAll(combination.getDuiziMap());
+                    newCombination.getKeziMap().putAll(combination.getKeziMap());
+                    newCombination.getGangziMap().putAll(combination.getGangziMap());
+                    newCombination.getShunziMap().putAll(combination.getShunziMap());
+                    int[] newAmountArray = new int[amountArray.length];
+                    System.arraycopy(amountArray, 0, newAmountArray, 0, amountArray.length);
+                    if (amountArray.length - (checkIndex + 1) >= 3) {
+                        generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 1, newAmountArray, startPaiType, combinationStore);
+                    } else {
+                        generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 2, newAmountArray, startPaiType, combinationStore);
+                    }
                 } else if (amount == 4) {
-                    combination.addGangzi(paiType);
+                    //取杠子
+                    combination.addGangzi(MajiangPai.valueOf(startPaiType.ordinal() + checkIndex));
+                    //取完杠子后，清空数量
+                    amountArray[checkIndex] = 0;
+                    //继续递推
+                    LianxuPaiGroupPaiXingCombination newCombination = new LianxuPaiGroupPaiXingCombination();
+                    newCombination.getDuiziMap().putAll(combination.getDuiziMap());
+                    newCombination.getKeziMap().putAll(combination.getKeziMap());
+                    newCombination.getGangziMap().putAll(combination.getGangziMap());
+                    newCombination.getShunziMap().putAll(combination.getShunziMap());
+                    int[] newAmountArray = new int[amountArray.length];
+                    System.arraycopy(amountArray, 0, newAmountArray, 0, amountArray.length);
+                    if (amountArray.length - (checkIndex + 1) >= 3) {
+                        generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 1, newAmountArray, startPaiType, combinationStore);
+                    } else {
+                        generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 2, newAmountArray, startPaiType, combinationStore);
+                    }
+                } else {
+                    //继续递推,从尝试吃掉对子开始
+                    LianxuPaiGroupPaiXingCombination newCombination = new LianxuPaiGroupPaiXingCombination();
+                    newCombination.getDuiziMap().putAll(combination.getDuiziMap());
+                    newCombination.getKeziMap().putAll(combination.getKeziMap());
+                    newCombination.getGangziMap().putAll(combination.getGangziMap());
+                    newCombination.getShunziMap().putAll(combination.getShunziMap());
+                    int[] newAmountArray = new int[amountArray.length];
+                    System.arraycopy(amountArray, 0, newAmountArray, 0, amountArray.length);
+                    generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex, 2, newAmountArray, startPaiType, combinationStore);
+                }
+            }
+        } else if (minAmount == 2) {//minAmount为2,代表要取对子
+            int amount = amountArray[checkIndex];
+            if (amount == 0) {
+                //到底了，保存组合
+                if (checkIndex == amountArray.length - 1) {
                     //成功记录一个组合
                     combinationStore.add(combination);
-                    return;
                 } else {
-
+                    //继续递推
+                    LianxuPaiGroupPaiXingCombination newCombination = new LianxuPaiGroupPaiXingCombination();
+                    newCombination.getDuiziMap().putAll(combination.getDuiziMap());
+                    newCombination.getKeziMap().putAll(combination.getKeziMap());
+                    newCombination.getGangziMap().putAll(combination.getGangziMap());
+                    newCombination.getShunziMap().putAll(combination.getShunziMap());
+                    int[] newAmountArray = new int[amountArray.length];
+                    System.arraycopy(amountArray, 0, newAmountArray, 0, amountArray.length);
+                    if (amountArray.length - (checkIndex + 1) >= 3) {
+                        generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 1, newAmountArray, startPaiType, combinationStore);
+                    } else {
+                        generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 2, newAmountArray, startPaiType, combinationStore);
+                    }
                 }
+            } else if (amount == 1) {
+                //单牌不能胡，放弃该组合
+                return;
+            } else if (amount == 2) {
+                //取对子
+                combination.addDuizi(MajiangPai.valueOf(startPaiType.ordinal() + checkIndex));
+                //取完对子后，清空数量
+                amountArray[checkIndex] = 0;
+                //继续递推
+                LianxuPaiGroupPaiXingCombination newCombination = new LianxuPaiGroupPaiXingCombination();
+                newCombination.getDuiziMap().putAll(combination.getDuiziMap());
+                newCombination.getKeziMap().putAll(combination.getKeziMap());
+                newCombination.getGangziMap().putAll(combination.getGangziMap());
+                newCombination.getShunziMap().putAll(combination.getShunziMap());
+                int[] newAmountArray = new int[amountArray.length];
+                System.arraycopy(amountArray, 0, newAmountArray, 0, amountArray.length);
+                if (amountArray.length - (checkIndex + 1) >= 3) {
+                    generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 1, newAmountArray, startPaiType, combinationStore);
+                } else {
+                    generateLianxuPaiGroupPaiXingCombinations(newCombination, checkIndex + 1, 2, newAmountArray, startPaiType, combinationStore);
+                }
+            } else if (amount == 3) {
+                //取完对子就剩单牌了，放弃该组合
+                return;
+            } else if (amount == 4) {
+                //取完对子又是对子，放弃该组合
+                return;
+            } else {
+                //取对子，，直到杠子
             }
         }
     }
