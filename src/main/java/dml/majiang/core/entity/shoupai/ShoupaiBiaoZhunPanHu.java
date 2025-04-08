@@ -124,7 +124,66 @@ public class ShoupaiBiaoZhunPanHu {
             }
         }
 
-        //TODO 计算连续牌组能形成的所有牌型组合
+        //计算连续牌组能形成的所有牌型组合
+        List<PaiXingCombination> paiXingCombinationsForLianxu = new ArrayList<>();
+        if (!lianxuPaiGroupPaiXingCombinations.isEmpty()) {
+            int totalpaiXingCombinationsForLianxu = 1;
+            int[] modArrayForLianxu = new int[lianxuPaiGroupPaiXingCombinations.size()];
+            for (int i = 0; i < modArrayForLianxu.length; i++) {
+                if (i == 0) {
+                    modArrayForLianxu[i] = 1;
+                } else {
+                    modArrayForLianxu[i] = totalpaiXingCombinationsForLianxu;
+                }
+                int lianxuPaiGroupPaiXingCombinationCount = lianxuPaiGroupPaiXingCombinations.get(i).size();
+                totalpaiXingCombinationsForLianxu *= lianxuPaiGroupPaiXingCombinationCount;
+            }
+            for (int combinationCode = 0; combinationCode < totalpaiXingCombinationsForLianxu; combinationCode++) {
+                PaiXingCombination paiXingCombination = new PaiXingCombination();
+                //反向遍历modArrayForLianxu
+                int subCode = combinationCode;
+                for (int i = modArrayForLianxu.length - 1; i >= 0; i--) {
+                    int mod = modArrayForLianxu[i];
+                    int combinationsIndex = subCode / mod;
+                    subCode = subCode % mod;
+                    LianxuPaiGroupPaiXingCombination combination = lianxuPaiGroupPaiXingCombinations.get(i).get(combinationsIndex);
+                    paiXingCombination.acceptLianxuPaiGroupPaiXingCombination(combination);
+                }
+                if (paiXingCombination.countDuizi() > 1) {
+                    //对子数量超过1个，不能胡
+                    continue;
+                }
+                paiXingCombinationsForLianxu.add(paiXingCombination);
+            }
+        }
+        //组合独立牌组和连续牌组的所有牌型组合
+        List<PaiXingCombination> paiXingCombinations;
+        if (paiXingCombinationsForDuli.isEmpty() && paiXingCombinationsForLianxu.isEmpty()) {
+            return null;
+        } else if (paiXingCombinationsForDuli.isEmpty()) {
+            paiXingCombinations = paiXingCombinationsForLianxu;
+        } else if (paiXingCombinationsForLianxu.isEmpty()) {
+            paiXingCombinations = paiXingCombinationsForDuli;
+        } else {
+            paiXingCombinations = new ArrayList<>();
+            for (PaiXingCombination duliCombination : paiXingCombinationsForDuli) {
+                for (PaiXingCombination lianxuCombination : paiXingCombinationsForLianxu) {
+                    PaiXingCombination combination = duliCombination.copy();
+                    combination.combine(lianxuCombination);
+                    if (combination.countDuizi() > 1) {
+                        //对子数量超过1个，不能胡
+                        continue;
+                    }
+                    paiXingCombinations.add(combination);
+                }
+            }
+        }
+
+        //牌型组合生成手牌型
+        List<ShoupaiPaiXing> shoupaiPaiXingList = new ArrayList<>();
+        for (PaiXingCombination paiXingCombination : paiXingCombinations) {
+
+        }
     }
 
     private static void generateLianxuPaiGroupPaiXingCombinations(int[] amountArray, MajiangPai startPaiType,
@@ -612,6 +671,131 @@ public class ShoupaiBiaoZhunPanHu {
         }
 
 
+        public void acceptDuliPaiGroupPaiXingCombination(DuliPaiGroupPaiXingCombination combination) {
+            Integer duiziAmount = duiziMap.get(combination.getPaiType());
+            if (duiziAmount == null) {
+                duiziAmount = 0;
+            }
+            duiziAmount += combination.getDuiziAmount();
+            duiziMap.put(combination.getPaiType(), duiziAmount);
+
+            Integer keziAmount = keziMap.get(combination.getPaiType());
+            if (keziAmount == null) {
+                keziAmount = 0;
+            }
+            keziAmount += combination.getKeziAmount();
+            keziMap.put(combination.getPaiType(), keziAmount);
+
+            Integer gangziAmount = gangziMap.get(combination.getPaiType());
+            if (gangziAmount == null) {
+                gangziAmount = 0;
+            }
+            gangziAmount += combination.getGangziAmount();
+            gangziMap.put(combination.getPaiType(), gangziAmount);
+        }
+
+        public int countDuizi() {
+            int count = 0;
+            for (Map.Entry<MajiangPai, Integer> entry : duiziMap.entrySet()) {
+                count += entry.getValue();
+            }
+            return count;
+        }
+
+        public void acceptLianxuPaiGroupPaiXingCombination(LianxuPaiGroupPaiXingCombination combination) {
+            Map<MajiangPai, Integer> shunziMapInCombination = combination.getShunziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : shunziMapInCombination.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Integer amount = shunziMap.get(paiType);
+                if (amount == null) {
+                    amount = 0;
+                }
+                amount += entry.getValue();
+                shunziMap.put(paiType, amount);
+            }
+            Map<MajiangPai, Integer> duiziMapInCombination = combination.getDuiziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : duiziMapInCombination.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Integer amount = duiziMap.get(paiType);
+                if (amount == null) {
+                    amount = 0;
+                }
+                amount += entry.getValue();
+                duiziMap.put(paiType, amount);
+            }
+            Map<MajiangPai, Integer> keziMapInCombination = combination.getKeziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : keziMapInCombination.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Integer amount = keziMap.get(paiType);
+                if (amount == null) {
+                    amount = 0;
+                }
+                amount += entry.getValue();
+                keziMap.put(paiType, amount);
+            }
+            Map<MajiangPai, Integer> gangziMapInCombination = combination.getGangziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : gangziMapInCombination.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Integer amount = gangziMap.get(paiType);
+                if (amount == null) {
+                    amount = 0;
+                }
+                amount += entry.getValue();
+                gangziMap.put(paiType, amount);
+            }
+        }
+
+        public void combine(PaiXingCombination combination) {
+            Map<MajiangPai, Integer> shunziMapInCombination = combination.getShunziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : shunziMapInCombination.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Integer amount = shunziMap.get(paiType);
+                if (amount == null) {
+                    amount = 0;
+                }
+                amount += entry.getValue();
+                shunziMap.put(paiType, amount);
+            }
+            Map<MajiangPai, Integer> duiziMapInCombination = combination.getDuiziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : duiziMapInCombination.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Integer amount = duiziMap.get(paiType);
+                if (amount == null) {
+                    amount = 0;
+                }
+                amount += entry.getValue();
+                duiziMap.put(paiType, amount);
+            }
+            Map<MajiangPai, Integer> keziMapInCombination = combination.getKeziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : keziMapInCombination.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Integer amount = keziMap.get(paiType);
+                if (amount == null) {
+                    amount = 0;
+                }
+                amount += entry.getValue();
+                keziMap.put(paiType, amount);
+            }
+            Map<MajiangPai, Integer> gangziMapInCombination = combination.getGangziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : gangziMapInCombination.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Integer amount = gangziMap.get(paiType);
+                if (amount == null) {
+                    amount = 0;
+                }
+                amount += entry.getValue();
+                gangziMap.put(paiType, amount);
+            }
+        }
+
+        public PaiXingCombination copy() {
+            PaiXingCombination newCombination = new PaiXingCombination();
+            newCombination.setShunziMap(new HashMap<>(shunziMap));
+            newCombination.setDuiziMap(new HashMap<>(duiziMap));
+            newCombination.setKeziMap(new HashMap<>(keziMap));
+            newCombination.setGangziMap(new HashMap<>(gangziMap));
+            return newCombination;
+        }
     }
 
     /**
