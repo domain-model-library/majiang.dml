@@ -2,6 +2,10 @@ package dml.majiang.core.entity.shoupai;
 
 import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pai;
+import dml.majiang.core.entity.fenzu.Duizi;
+import dml.majiang.core.entity.fenzu.Gangzi;
+import dml.majiang.core.entity.fenzu.Kezi;
+import dml.majiang.core.entity.fenzu.Shunzi;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -182,8 +186,67 @@ public class ShoupaiBiaoZhunPanHu {
         //牌型组合生成手牌型
         List<ShoupaiPaiXing> shoupaiPaiXingList = new ArrayList<>();
         for (PaiXingCombination paiXingCombination : paiXingCombinations) {
-
+            Map<MajiangPai, List<Pai>> paiTypeListMap = new HashMap<>();
+            for (Map.Entry<MajiangPai, Set<Pai>> entry : paiTypeMap.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                Set<Pai> paiSet = entry.getValue();
+                List<Pai> paiList = new ArrayList<>(paiSet);
+                paiTypeListMap.put(paiType, paiList);
+            }
+            ShoupaiPaiXing shoupaiPaiXing = new ShoupaiPaiXing();
+            Map<MajiangPai, Integer> shunziMap = paiXingCombination.getShunziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : shunziMap.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                int amount = entry.getValue();
+                for (int i = 0; i < amount; i++) {
+                    List<Pai> paiList1 = paiTypeListMap.get(paiType);
+                    Pai pai1 = paiList1.remove(0);
+                    List<Pai> paiList2 = paiTypeListMap.get(MajiangPai.valueOf(paiType.ordinal() + 1));
+                    Pai pai2 = paiList2.remove(0);
+                    List<Pai> paiList3 = paiTypeListMap.get(MajiangPai.valueOf(paiType.ordinal() + 2));
+                    Pai pai3 = paiList3.remove(0);
+                    shoupaiPaiXing.addShunzi(new Shunzi(pai1, pai2, pai3));
+                }
+            }
+            Map<MajiangPai, Integer> duiziMap = paiXingCombination.getDuiziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : duiziMap.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                int amount = entry.getValue();
+                for (int i = 0; i < amount; i++) {
+                    List<Pai> paiList = paiTypeListMap.get(paiType);
+                    Pai pai1 = paiList.remove(0);
+                    Pai pai2 = paiList.remove(0);
+                    shoupaiPaiXing.addDuizi(new Duizi(pai1, pai2));
+                }
+            }
+            Map<MajiangPai, Integer> keziMap = paiXingCombination.getKeziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : keziMap.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                int amount = entry.getValue();
+                for (int i = 0; i < amount; i++) {
+                    List<Pai> paiList = paiTypeListMap.get(paiType);
+                    Pai pai1 = paiList.remove(0);
+                    Pai pai2 = paiList.remove(0);
+                    Pai pai3 = paiList.remove(0);
+                    shoupaiPaiXing.addKezi(new Kezi(pai1, pai2, pai3));
+                }
+            }
+            Map<MajiangPai, Integer> gangziMap = paiXingCombination.getGangziMap();
+            for (Map.Entry<MajiangPai, Integer> entry : gangziMap.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                int amount = entry.getValue();
+                for (int i = 0; i < amount; i++) {
+                    List<Pai> paiList = paiTypeListMap.get(paiType);
+                    Pai pai1 = paiList.remove(0);
+                    Pai pai2 = paiList.remove(0);
+                    Pai pai3 = paiList.remove(0);
+                    Pai pai4 = paiList.remove(0);
+                    shoupaiPaiXing.addGangzi(new Gangzi(pai1, pai2, pai3, pai4));
+                }
+            }
+            shoupaiPaiXingList.add(shoupaiPaiXing);
         }
+        return shoupaiPaiXingList;
     }
 
     private static void generateLianxuPaiGroupPaiXingCombinations(int[] amountArray, MajiangPai startPaiType,
@@ -264,8 +327,23 @@ public class ShoupaiBiaoZhunPanHu {
                                                                          List<PaiXingPattern> paiXingPatterns, int paiXingPatternsIndex,
                                                                          LianxuPaiGroupPaiXingCombination combinationPattern,
                                                                          List<LianxuPaiGroupPaiXingCombination> combinationPatternStore) {
+        //可以直接掠过当前的PaiXingPattern（既不选），选下一个
+        if (paiXingPatternsIndex < paiXingPatterns.size() - 1) {
+            //递推下一个PaiXingPattern
+            int nextPaiXingPatternsIndex = paiXingPatternsIndex + 1;
+            int[] newAmountArray = Arrays.copyOf(amountArray, amountArray.length);
+            LianxuPaiGroupPaiXingCombination newCombinationPattern = combinationPattern.copy();
+            caculateLianxuPaiGroupPaiXingCombinationsPattern(newAmountArray, totalAmountLeft,
+                    paiXingPatterns, nextPaiXingPatternsIndex,
+                    newCombinationPattern, combinationPatternStore);
+        }
+
         PaiXingPattern paiXingPattern = paiXingPatterns.get(paiXingPatternsIndex);
         int amountTaken = paiXingPattern.addToCombination(combinationPattern, amountArray);
+        //如果 amountTaken==0 就是paiXingPattern没干成，等同于不选跳下一个。那前面已经有了，这里直接返回
+        if (amountTaken == 0) {
+            return;
+        }
         totalAmountLeft -= amountTaken;
         if (totalAmountLeft == 0) {
             //组合完成
@@ -279,19 +357,15 @@ public class ShoupaiBiaoZhunPanHu {
             caculateLianxuPaiGroupPaiXingCombinationsPattern(newAmountArray, totalAmountLeft,
                     paiXingPatterns, paiXingPatternsIndex,
                     newCombinationPattern, combinationPatternStore);
-        } else {
-            if (paiXingPatternsIndex == paiXingPatterns.size() - 1) {
-                //已经是最后一个了，不能再递推了
-                return;
-            } else {
-                //递推下一个PaiXingPattern
-                int nextPaiXingPatternsIndex = paiXingPatternsIndex + 1;
-                int[] newAmountArray = Arrays.copyOf(amountArray, amountArray.length);
-                LianxuPaiGroupPaiXingCombination newCombinationPattern = combinationPattern.copy();
-                caculateLianxuPaiGroupPaiXingCombinationsPattern(newAmountArray, totalAmountLeft,
-                        paiXingPatterns, nextPaiXingPatternsIndex,
-                        newCombinationPattern, combinationPatternStore);
-            }
+        }
+        if (paiXingPatternsIndex < paiXingPatterns.size() - 1) {
+            //递推下一个PaiXingPattern
+            int nextPaiXingPatternsIndex = paiXingPatternsIndex + 1;
+            int[] newAmountArray = Arrays.copyOf(amountArray, amountArray.length);
+            LianxuPaiGroupPaiXingCombination newCombinationPattern = combinationPattern.copy();
+            caculateLianxuPaiGroupPaiXingCombinationsPattern(newAmountArray, totalAmountLeft,
+                    paiXingPatterns, nextPaiXingPatternsIndex,
+                    newCombinationPattern, combinationPatternStore);
         }
     }
 

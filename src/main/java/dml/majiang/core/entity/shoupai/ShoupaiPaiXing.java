@@ -7,15 +7,36 @@ import dml.majiang.core.entity.fenzu.Gangzi;
 import dml.majiang.core.entity.fenzu.Kezi;
 import dml.majiang.core.entity.fenzu.Shunzi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShoupaiPaiXing {
 
-    private List<Pai> danpaiList;
-    private List<Duizi> duiziList;
-    private List<Kezi> keziList;
-    private List<Gangzi> gangziList;
-    private List<Shunzi> shunziList;
+    private List<Pai> danpaiList = new ArrayList<>();
+    private List<Duizi> duiziList = new ArrayList<>();
+    private List<Kezi> keziList = new ArrayList<>();
+    private List<Gangzi> gangziList = new ArrayList<>();
+    private List<Shunzi> shunziList = new ArrayList<>();
+
+    public void addShunzi(Shunzi shunzi) {
+        shunziList.add(shunzi);
+    }
+
+    public void addDuizi(Duizi duizi) {
+        duiziList.add(duizi);
+    }
+
+    public void addKezi(Kezi kezi) {
+        keziList.add(kezi);
+    }
+
+    public void addGangzi(Gangzi gangzi) {
+        gangziList.add(gangzi);
+    }
+
+    public void addDanpai(Pai danpai) {
+        danpaiList.add(danpai);
+    }
 
     public List<Pai> getDanpaiList() {
         return danpaiList;
@@ -56,4 +77,5 @@ public class ShoupaiPaiXing {
     public void setShunziList(List<Shunzi> shunziList) {
         this.shunziList = shunziList;
     }
+
 }

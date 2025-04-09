@@ -1,6 +1,7 @@
 package dml.majiang.specialrules.guipai.entity;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.chi.ChiAction;
@@ -22,7 +23,7 @@ public class GuipaiChiActionUpdater implements ChiActionUpdater {
     }
 
     @Override
-    public void updateActions(ChiAction chiAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(ChiAction chiAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         //如果吃的动作阻塞了，就不用更新动作了
         if (chiAction.isBlockedByHigherPriorityAction()) {
             return;
@@ -34,7 +35,7 @@ public class GuipaiChiActionUpdater implements ChiActionUpdater {
         // 吃的那个人要打出牌
         player.generateDaActions();
         GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
-        player.removeDaActionCandidate(guipaiState.getGuipaiType());
+        player.removeDaActionCandidateForPaiType(guipaiState.getGuipaiType());
     }
 
 }

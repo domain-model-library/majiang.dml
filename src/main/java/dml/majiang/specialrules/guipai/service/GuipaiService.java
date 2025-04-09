@@ -1,9 +1,6 @@
 package dml.majiang.specialrules.guipai.service;
 
-import dml.majiang.core.entity.MajiangPai;
-import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanPlayer;
-import dml.majiang.core.entity.PanSpecialRulesState;
+import dml.majiang.core.entity.*;
 import dml.majiang.core.repository.PanRepository;
 import dml.majiang.core.repository.PanSpecialRulesStateRepository;
 import dml.majiang.specialrules.guipai.entity.ActGuipaiBenpaiState;
@@ -59,7 +56,7 @@ public class GuipaiService {
      * @param panId
      * @param guipaiServiceRepositorySet
      */
-    public static void sortPlayerShoupai(long panId, GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
+    public static List<Pai> sortPlayerShoupai(long panId, String playerId, GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
         PanRepository panRepository = guipaiServiceRepositorySet.getPanRepository();
         PanSpecialRulesStateRepository panSpecialRulesStateRepository = guipaiServiceRepositorySet.getPanSpecialRulesStateRepository();
 
@@ -67,21 +64,22 @@ public class GuipaiService {
         GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
         MajiangPai guipaiType = guipaiState.getGuipaiType();
         Pan pan = panRepository.take(panId);
-        for (PanPlayer player : pan.allPlayers()) {
-            List<MajiangPai> fangruShoupaiList = player.getFangruShoupaiList();
-            fangruShoupaiList.sort((pai1, pai2) -> {
-                if (pai1.equals(guipaiType) && !pai2.equals(guipaiType)) {
-                    return -1;
-                } else if (!pai1.equals(guipaiType) && pai2.equals(guipaiType)) {
-                    return 1;
-                } else if (pai1.equals(guipaiType) && pai2.equals(guipaiType)) {
-                    return 0;
-                } else {
-                    return pai1.compareTo(pai2);
-                }
-            });
-        }
-
+        PanPlayer player = pan.findPlayerById(playerId);
+        List<Pai> fangruShoupaiList = player.getFangruShoupaiList();
+        fangruShoupaiList.sort((pai1, pai2) -> {
+            MajiangPai pai1Type = pai1.getPaiType();
+            MajiangPai pai2Type = pai2.getPaiType();
+            if (pai1Type.equals(guipaiType) && !pai2Type.equals(guipaiType)) {
+                return -1;
+            } else if (!pai1Type.equals(guipaiType) && pai2Type.equals(guipaiType)) {
+                return 1;
+            } else if (pai1Type.equals(guipaiType) && pai2Type.equals(guipaiType)) {
+                return 0;
+            } else {
+                return pai1Type.compareTo(pai2Type);
+            }
+        });
+        return fangruShoupaiList;
     }
 
     public static void setActGuipaiBenpaiPai(long panId, MajiangPai actGuipaiBenpaiPai,
@@ -100,7 +98,7 @@ public class GuipaiService {
      * @param panId
      * @param guipaiServiceRepositorySet
      */
-    public static void sortPlayerShoupaiWithActGuipaiBenpaiPai(long panId, GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
+    public static void sortPlayerShoupaiWithActGuipaiBenpaiPai(long panId, String playerId, GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
         PanRepository panRepository = guipaiServiceRepositorySet.getPanRepository();
         PanSpecialRulesStateRepository panSpecialRulesStateRepository = guipaiServiceRepositorySet.getPanSpecialRulesStateRepository();
 
@@ -110,26 +108,27 @@ public class GuipaiService {
         MajiangPai guipaiType = guipaiState.getGuipaiType();
         MajiangPai actGuipaiBenpaiPai = actGuipaiBenpaiState.getActGuipaiBenpaiPai();
         Pan pan = panRepository.take(panId);
-        for (PanPlayer player : pan.allPlayers()) {
-            List<MajiangPai> fangruShoupaiList = player.getFangruShoupaiList();
-            fangruShoupaiList.sort((pai1, pai2) -> {
-                if (pai1.equals(guipaiType) && !pai2.equals(guipaiType)) {
-                    return -1;
-                } else if (!pai1.equals(guipaiType) && pai2.equals(guipaiType)) {
-                    return 1;
-                } else if (pai1.equals(guipaiType) && pai2.equals(guipaiType)) {
-                    return 0;
-                } else {
-                    if (pai1.equals(actGuipaiBenpaiPai)) {
-                        pai1 = guipaiType;
-                    }
-                    if (pai2.equals(actGuipaiBenpaiPai)) {
-                        pai2 = guipaiType;
-                    }
-                    return pai1.compareTo(pai2);
+        PanPlayer player = pan.findPlayerById(playerId);
+        List<Pai> fangruShoupaiList = player.getFangruShoupaiList();
+        fangruShoupaiList.sort((pai1, pai2) -> {
+            MajiangPai pai1Type = pai1.getPaiType();
+            MajiangPai pai2Type = pai2.getPaiType();
+            if (pai1Type.equals(guipaiType) && !pai2Type.equals(guipaiType)) {
+                return -1;
+            } else if (!pai1Type.equals(guipaiType) && pai2Type.equals(guipaiType)) {
+                return 1;
+            } else if (pai1Type.equals(guipaiType) && pai2Type.equals(guipaiType)) {
+                return 0;
+            } else {
+                if (pai1Type.equals(actGuipaiBenpaiPai)) {
+                    pai1Type = guipaiType;
                 }
-            });
-        }
+                if (pai2Type.equals(actGuipaiBenpaiPai)) {
+                    pai2Type = guipaiType;
+                }
+                return pai1Type.compareTo(pai2Type);
+            }
+        });
 
     }
 

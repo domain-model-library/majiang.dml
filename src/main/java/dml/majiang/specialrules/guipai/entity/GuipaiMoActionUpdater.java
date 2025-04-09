@@ -1,6 +1,7 @@
 package dml.majiang.specialrules.guipai.entity;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.mo.MoAction;
@@ -8,7 +9,7 @@ import dml.majiang.core.entity.action.mo.MoActionUpdater;
 
 public abstract class GuipaiMoActionUpdater implements MoActionUpdater {
     @Override
-    public void updateActions(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(MoAction moAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();
         int avaliablePaiLeft = pan.countAvaliablePai();
         if (avaliablePaiLeft <= 0) {// 没牌了
@@ -36,7 +37,7 @@ public abstract class GuipaiMoActionUpdater implements MoActionUpdater {
             player.generateDaActions();
             //不能打财神，过滤掉
             GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
-            player.removeDaActionCandidate(guipaiState.getGuipaiType());
+            player.removeDaActionCandidateForPaiType(guipaiState.getGuipaiType());
         }
     }
 

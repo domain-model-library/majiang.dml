@@ -1,50 +1,48 @@
 package dml.majiang.specialrules.guipai.entity;
 
-import dml.majiang.core.entity.MajiangPai;
-import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanPlayer;
-import dml.majiang.core.entity.PanSpecialRulesState;
+import dml.majiang.core.entity.*;
 import dml.majiang.core.entity.action.chi.ChiAction;
 import dml.majiang.core.entity.action.da.DaAction;
 import dml.majiang.core.entity.action.da.DaActionUpdater;
 import dml.majiang.core.entity.action.mo.LundaoMopai;
 import dml.majiang.core.entity.action.mo.MoAction;
-import dml.majiang.core.entity.fenzu.Shunzi;
-import dml.majiang.core.entity.shoupai.ShoupaiCalculator;
+import dml.majiang.core.entity.shoupai.ShoupaiShunziCalculator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater {
-    public void updateActions(DaAction daAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(DaAction daAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();
         PanPlayer daPlayer = pan.findPlayerById(daAction.getActionPlayerId());
         PanPlayer xiajiaPlayer = pan.findNextMenFengPlayer(daPlayer);
-        MajiangPai daPai = daAction.getPai();
+        int daPaiId = daAction.getPaiId();
 
         // 下家可以吃
         GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
         ActGuipaiBenpaiState actGuipaiBenpaiState = panSpecialRulesState.findSpecialRuleState(ActGuipaiBenpaiState.class);
-        ShoupaiCalculator shoupaiCalculator = xiajiaPlayer.getShoupaiCalculator();
-        Shunzi shunzi1 = shoupaiCalculator.tryAndMakeShunziWithPai1(daPai,
-                guipaiState.getGuipaiType(), actGuipaiBenpaiState.getActGuipaiBenpaiPai());
-        if (shunzi1 != null) {
-            shunzi1.setPai1(daPai);
-            xiajiaPlayer.addActionCandidate(
-                    new ChiAction(xiajiaPlayer.getId(), daAction.getActionPlayerId(), daPai, shunzi1));
+        //把扮演鬼牌本牌的牌的花色设置为鬼牌本牌的花色，和其他手牌一起放入shoupaiList
+        List<Pai> shoupaiList = new ArrayList<>();
+        for (Pai pai : xiajiaPlayer.getFangruShoupai().values()) {
+            if (pai.getPaiType().equals(actGuipaiBenpaiState.getActGuipaiBenpaiPai())) {
+                Pai newPai = new Pai(pai.getId(), guipaiState.getGuipaiType());
+                shoupaiList.add(newPai);
+            } else {
+                shoupaiList.add(pai);
+            }
         }
-
-        Shunzi shunzi2 = shoupaiCalculator.tryAndMakeShunziWithPai2(daPai,
-                guipaiState.getGuipaiType(), actGuipaiBenpaiState.getActGuipaiBenpaiPai());
-        if (shunzi2 != null) {
-            shunzi2.setPai2(daPai);
-            xiajiaPlayer.addActionCandidate(
-                    new ChiAction(xiajiaPlayer.getId(), daAction.getActionPlayerId(), daPai, shunzi2));
+        Pai daPai = daPlayer.findDachupai(daPaiId);
+        Pai paiToAdd;
+        if (daPai.getPaiType().equals(actGuipaiBenpaiState.getActGuipaiBenpaiPai())) {
+            paiToAdd = new Pai(daPai.getId(), guipaiState.getGuipaiType());
+        } else {
+            paiToAdd = daPai;
         }
-
-        Shunzi shunzi3 = shoupaiCalculator.tryAndMakeShunziWithPai3(daPai,
-                guipaiState.getGuipaiType(), actGuipaiBenpaiState.getActGuipaiBenpaiPai());
-        if (shunzi3 != null) {
-            shunzi3.setPai3(daPai);
-            xiajiaPlayer.addActionCandidate(
-                    new ChiAction(xiajiaPlayer.getId(), daAction.getActionPlayerId(), daPai, shunzi3));
+        List<int[]> shunziPaiIdList = ShoupaiShunziCalculator.tryAndMakeShunziWithPai(shoupaiList, paiToAdd);
+        if (shunziPaiIdList != null) {
+            for (int[] shunziPaiId : shunziPaiIdList) {
+                xiajiaPlayer.addActionCandidate(new ChiAction(xiajiaPlayer.getId(), daAction.getActionPlayerId(), daPaiId, shunziPaiId));
+            }
         }
 
         // 其他的可以碰杠胡
@@ -53,10 +51,10 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
                 break;
             }
             //碰
-            xiajiaPlayer.tryPengAndGenerateCandidateAction(daAction.getActionPlayerId(), daAction.getPai());
+            xiajiaPlayer.tryPengAndGenerateCandidateAction(daPlayer, daAction.getPaiId());
 
             //杠
-            xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daAction.getActionPlayerId(), daAction.getPai());
+            xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daPlayer, daAction.getPaiId());
 
             //胡
             tryAndGenerateHuCandidateAction(daAction, pan, panSpecialRulesState, xiajiaPlayer);

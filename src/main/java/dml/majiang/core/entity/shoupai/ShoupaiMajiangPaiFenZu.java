@@ -7,16 +7,16 @@ package dml.majiang.core.entity.shoupai;
  */
 public interface ShoupaiMajiangPaiFenZu {
 
-    public void addShoupaiJiesuanPai(ShoupaiJiesuanPai shoupaiJiesuanPai);
-
-    public void fillAllBlankPaiWithBenPai();
-
-    public <T extends ShoupaiMajiangPaiFenZu> T copy();
-
-    public boolean containsLastActionPai();
-
-    public boolean yuanPaiFenZu();
-
-    public int countDangPai(String dangType);
+//    public void addShoupaiJiesuanPai(ShoupaiJiesuanPai shoupaiJiesuanPai);
+//
+//    public void fillAllBlankPaiWithBenPai();
+//
+//    public <T extends ShoupaiMajiangPaiFenZu> T copy();
+//
+//    public boolean containsLastActionPai();
+//
+//    public boolean yuanPaiFenZu();
+//
+//    public int countDangPai(String dangType);
 
 }

@@ -7,6 +7,14 @@ public class Pai {
     private int id;
     private MajiangPai paiType;
 
+    public Pai() {
+    }
+
+    public Pai(int id, MajiangPai paiType) {
+        this.id = id;
+        this.paiType = paiType;
+    }
+
     public int getId() {
         return id;
     }

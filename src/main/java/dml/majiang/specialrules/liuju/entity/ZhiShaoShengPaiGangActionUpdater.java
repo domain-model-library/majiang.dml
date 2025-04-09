@@ -1,6 +1,7 @@
 package dml.majiang.specialrules.liuju.entity;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.gang.GangAction;
 import dml.majiang.core.entity.action.gang.GangActionUpdater;
@@ -26,8 +27,8 @@ public class ZhiShaoShengPaiGangActionUpdater implements GangActionUpdater {
     }
 
     @Override
-    public void updateActions(GangAction gangAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
-        gangActionUpdater.updateActions(gangAction, pan, panSpecialRulesState);
+    public void updateActions(GangAction gangAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
+        gangActionUpdater.updateActions(gangAction, pan, panFrames, panSpecialRulesState);
         ZhiShaoShengPaiRuleState zhiShaoShengPaiRuleState = panSpecialRulesState.findSpecialRuleState(ZhiShaoShengPaiRuleState.class);
         if (pan.countAvaliablePai() <= zhiShaoShengPaiRuleState.getZhiShaoShengPai()) {
             //删除mo的action

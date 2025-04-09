@@ -1,6 +1,7 @@
 package dml.majiang.specialrules.guipai.entity;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.PanPlayerAction;
@@ -26,7 +27,7 @@ public class GuipaiGuoActionUpdater implements GuoActionUpdater {
     }
 
     @Override
-    public void updateActions(GuoAction guoAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(GuoAction guoAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.playerClearActionCandidates(guoAction.getActionPlayerId());
         PanPlayer player = pan.findPlayerById(guoAction.getActionPlayerId());
 
@@ -36,7 +37,7 @@ public class GuipaiGuoActionUpdater implements GuoActionUpdater {
             // 那要我打牌
             player.generateDaActions();
             GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
-            player.removeDaActionCandidate(guipaiState.getGuipaiType());
+            player.removeDaActionCandidateForPaiType(guipaiState.getGuipaiType());
         } else if (causedByAction instanceof DaAction) {// 过的是别人打出牌之后我可以吃碰杠胡
             if (pan.allPlayerHasNoActionCandidates()) {// 如果所有玩家啥也干不了
                 // 打牌那家的下家摸牌 TODO 还没处理牌摸完
@@ -52,7 +53,7 @@ public class GuipaiGuoActionUpdater implements GuoActionUpdater {
             // 那要我打牌
             player.generateDaActions();
             GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
-            player.removeDaActionCandidate(guipaiState.getGuipaiType());
+            player.removeDaActionCandidateForPaiType(guipaiState.getGuipaiType());
         } else {
         }
     }

@@ -1,6 +1,7 @@
 package dml.majiang.specialrules.guipai.entity;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.peng.PengAction;
@@ -21,7 +22,7 @@ public class GuipaiPengActionUpdater implements PengActionUpdater {
     }
 
     @Override
-    public void updateActions(PengAction pengAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
+    public void updateActions(PengAction pengAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         if (pengAction.isBlockedByHigherPriorityAction()) {
             return;
         }
@@ -38,7 +39,7 @@ public class GuipaiPengActionUpdater implements PengActionUpdater {
         if (player.getActionCandidates().isEmpty()) {
             player.generateDaActions();
             GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
-            player.removeDaActionCandidate(guipaiState.getGuipaiType());
+            player.removeDaActionCandidateForPaiType(guipaiState.getGuipaiType());
         }
 
     }

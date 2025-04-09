@@ -1,6 +1,7 @@
 package dml.majiang.specialrules.genfeng.entity;
 
 import dml.majiang.core.entity.Pan;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.mo.MoAction;
 import dml.majiang.core.entity.action.mo.MoActionUpdater;
@@ -31,8 +32,8 @@ public class GenfengMoActionUpdater implements MoActionUpdater {
     }
 
     @Override
-    public void updateActions(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
-        moActionUpdater.updateActions(moAction, pan, panSpecialRulesState);
+    public void updateActions(MoAction moAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
+        moActionUpdater.updateActions(moAction, pan, panFrames, panSpecialRulesState);
         //TODO 实现跟风规则
     }
 }
