@@ -4,6 +4,11 @@ import dml.majiang.core.entity.Pan;
 import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
+import dml.majiang.core.entity.action.hu.Hu;
+import dml.majiang.core.entity.action.hu.HuAction;
+import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
+
+import java.util.List;
 
 /**
  * 摸完之后可以杠胡，也可以过，什么也没有那就打了。最常见的摸后操作
@@ -28,7 +33,7 @@ public abstract class GangHuDaMoActionUpdater implements MoActionUpdater {
         player.tryKezigangshoupaiAndGenerateCandidateAction();
 
         // 胡
-        tryAndGenerateHuCandidateAction(moAction, pan, panSpecialRulesState);
+        tryAndGenerateHuCandidateAction(moAction, player, pan, panFrames, panSpecialRulesState);
 
         // 需要有“过”
         player.checkAndGenerateGuoCandidateAction(moAction);
@@ -39,5 +44,15 @@ public abstract class GangHuDaMoActionUpdater implements MoActionUpdater {
         }
     }
 
-    protected abstract void tryAndGenerateHuCandidateAction(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState);
+    private void tryAndGenerateHuCandidateAction(MoAction moAction, PanPlayer moPlayer, Pan pan, PanFrames panFrames,
+                                                 PanSpecialRulesState panSpecialRulesState) {
+        List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = moPlayer.calculateAllHuPaiShoupaiPaiXingForZimoHu();
+        Hu hu = makeHu(moAction, pan, panFrames, hupaiShoupaiPaiXingList, panSpecialRulesState);
+        if (hu != null) {
+            moPlayer.addActionCandidate(new HuAction(moAction.getActionPlayerId(), hu));
+        }
+    }
+
+    protected abstract Hu makeHu(MoAction moAction, Pan pan, PanFrames panFrames,
+                                 List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState);
 }

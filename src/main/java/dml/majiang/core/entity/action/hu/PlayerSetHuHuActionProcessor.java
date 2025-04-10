@@ -4,7 +4,7 @@ import dml.majiang.core.entity.Pan;
 import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 
-public class PanSetHuHuActionProcessor implements HuActionProcessor {
+public class PlayerSetHuHuActionProcessor implements HuActionProcessor {
 
     private long panId;
 
@@ -21,7 +21,7 @@ public class PanSetHuHuActionProcessor implements HuActionProcessor {
     @Override
     public void process(HuAction huAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         Hu hu = huAction.getHu();
-        pan.setHu(hu);
+        pan.setPlayerHu(huAction.getActionPlayerId(), hu);
     }
 
 }

@@ -88,7 +88,7 @@ public class GuipaiService {
 
         PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.take(panId);
         ActGuipaiBenpaiState actGuipaiBenpaiState = new ActGuipaiBenpaiState();
-        actGuipaiBenpaiState.setActGuipaiBenpaiPai(actGuipaiBenpaiPai);
+        actGuipaiBenpaiState.setActGuipaiBenpaiPaiType(actGuipaiBenpaiPai);
         panSpecialRulesState.addSpecialRuleState(actGuipaiBenpaiState);
     }
 
@@ -106,7 +106,7 @@ public class GuipaiService {
         GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
         ActGuipaiBenpaiState actGuipaiBenpaiState = panSpecialRulesState.findSpecialRuleState(ActGuipaiBenpaiState.class);
         MajiangPai guipaiType = guipaiState.getGuipaiType();
-        MajiangPai actGuipaiBenpaiPai = actGuipaiBenpaiState.getActGuipaiBenpaiPai();
+        MajiangPai actGuipaiBenpaiPai = actGuipaiBenpaiState.getActGuipaiBenpaiPaiType();
         Pan pan = panRepository.take(panId);
         PanPlayer player = pan.findPlayerById(playerId);
         List<Pai> fangruShoupaiList = player.getFangruShoupaiList();

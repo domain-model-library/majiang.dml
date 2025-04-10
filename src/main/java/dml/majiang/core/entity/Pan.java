@@ -34,18 +34,6 @@ public class Pan {
      */
     private List<MajiangPai> playPaiTypeList;
 
-    /**
-     * 胡牌
-     */
-    private Hu hu;//TODO 血战到底有很多胡
-
-    public void setHu(Hu hu) {
-        this.hu = hu;
-    }
-
-    public Hu getHu() {
-        return hu;
-    }
 
     public long getId() {
         return id;
@@ -296,6 +284,13 @@ public class Pan {
     public void removeMoActionCandidate() {
         for (PanPlayer player : playerIdPanPlayerMap.values()) {
             player.removeMoActionCandidate();
+        }
+    }
+
+    public void setPlayerHu(String playerId, Hu hu) {
+        PanPlayer player = playerIdPanPlayerMap.get(playerId);
+        if (player != null) {
+            player.setHu(hu);
         }
     }
 }

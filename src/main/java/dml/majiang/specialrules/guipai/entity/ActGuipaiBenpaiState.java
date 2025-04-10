@@ -4,13 +4,13 @@ import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.SpecialRuleState;
 
 public class ActGuipaiBenpaiState implements SpecialRuleState {
-    private MajiangPai actGuipaiBenpaiPai;
+    private MajiangPai actGuipaiBenpaiPaiType;
 
-    public MajiangPai getActGuipaiBenpaiPai() {
-        return actGuipaiBenpaiPai;
+    public MajiangPai getActGuipaiBenpaiPaiType() {
+        return actGuipaiBenpaiPaiType;
     }
 
-    public void setActGuipaiBenpaiPai(MajiangPai actGuipaiBenpaiPai) {
-        this.actGuipaiBenpaiPai = actGuipaiBenpaiPai;
+    public void setActGuipaiBenpaiPaiType(MajiangPai actGuipaiBenpaiPaiType) {
+        this.actGuipaiBenpaiPaiType = actGuipaiBenpaiPaiType;
     }
 }

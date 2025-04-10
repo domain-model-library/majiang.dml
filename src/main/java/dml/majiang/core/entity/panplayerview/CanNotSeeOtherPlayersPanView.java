@@ -2,7 +2,6 @@ package dml.majiang.core.entity.panplayerview;
 
 import dml.majiang.core.entity.Pan;
 import dml.majiang.core.entity.PanPlayer;
-import dml.majiang.core.entity.action.hu.Hu;
 
 /**
  * 最常见的盘视图，只能看到自己的牌和公开的牌
@@ -20,8 +19,6 @@ public class CanNotSeeOtherPlayersPanView {
 
     private String zhuangPlayerId;
 
-    private Hu hu;
-
     public CanNotSeeOtherPlayersPanView() {
     }
 
@@ -38,7 +35,6 @@ public class CanNotSeeOtherPlayersPanView {
         this.zhuangPlayerId = pan.getZhuangPlayerId();
 
         this.avaliablePaiLeft = pan.countAvaliablePai();
-        this.hu = pan.getHu();
     }
 
     public long getId() {
@@ -67,10 +63,6 @@ public class CanNotSeeOtherPlayersPanView {
 
     public int getAvaliablePaiLeft() {
         return avaliablePaiLeft;
-    }
-
-    public Hu getHu() {
-        return hu;
     }
 
 }

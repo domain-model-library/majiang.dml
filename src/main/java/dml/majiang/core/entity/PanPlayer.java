@@ -5,6 +5,7 @@ import dml.majiang.core.entity.action.chi.ChiAction;
 import dml.majiang.core.entity.action.da.DaAction;
 import dml.majiang.core.entity.action.gang.GangAction;
 import dml.majiang.core.entity.action.guo.GuoAction;
+import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.action.hu.HuAction;
 import dml.majiang.core.entity.action.mo.MoAction;
 import dml.majiang.core.entity.action.peng.PengAction;
@@ -15,6 +16,8 @@ import dml.majiang.core.entity.fenzu.GangType;
 import dml.majiang.core.entity.fenzu.Gangzi;
 import dml.majiang.core.entity.fenzu.Kezi;
 import dml.majiang.core.entity.fenzu.Shunzi;
+import dml.majiang.core.entity.shoupai.ShoupaiBiaoZhunPanHu;
+import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
 import dml.majiang.core.entity.shoupai.ShoupaiShunziCalculator;
 
 import java.util.*;
@@ -44,6 +47,19 @@ public class PanPlayer {
     private List<ChichuPaiZu> chichupaiZuList = new ArrayList<>();
     private List<PengchuPaiZu> pengchupaiZuList = new ArrayList<>();
     private List<GangchuPaiZu> gangchupaiZuList = new ArrayList<>();
+
+    /**
+     * 胡牌
+     */
+    private Hu hu;
+
+    public void setHu(Hu hu) {
+        this.hu = hu;
+    }
+
+    public Hu getHu() {
+        return hu;
+    }
 
 
     public void addShoupai(Pai pai) {
@@ -526,5 +542,17 @@ public class PanPlayer {
             shoupaiList.add(shoupai);
         });
         return shoupaiList;
+    }
+
+    public List<ShoupaiPaiXing> calculateAllHuPaiShoupaiPaiXingForZimoHu() {
+        List<Pai> shoupaiList = getFangruShoupaiList();
+        shoupaiList.add(gangmoShoupai);
+        return ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
+    }
+
+    public List<ShoupaiPaiXing> calculateAllHuPaiShoupaiPaiXingForDianpaoHu(Pai dachupai) {
+        List<Pai> shoupaiList = getFangruShoupaiList();
+        shoupaiList.add(dachupai);
+        return ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
     }
 }

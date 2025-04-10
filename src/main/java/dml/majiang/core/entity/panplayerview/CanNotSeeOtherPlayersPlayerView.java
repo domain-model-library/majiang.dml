@@ -4,6 +4,7 @@ import dml.majiang.core.entity.MenFeng;
 import dml.majiang.core.entity.Pai;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.action.PanPlayerAction;
+import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.chupaizu.ChichuPaiZu;
 import dml.majiang.core.entity.chupaizu.GangchuPaiZu;
 import dml.majiang.core.entity.chupaizu.PengchuPaiZu;
@@ -43,6 +44,7 @@ public class CanNotSeeOtherPlayersPlayerView {
      */
     private List<GangchuPaiZu> gangchupaiZuList = new ArrayList<>();
     private int angangCount;
+    private Hu hu;
 
 
     public CanNotSeeOtherPlayersPlayerView() {
@@ -71,6 +73,7 @@ public class CanNotSeeOtherPlayersPlayerView {
                 }
             }
         }
+        this.hu = player.getHu();
     }
 
     public String getId() {
@@ -127,5 +130,9 @@ public class CanNotSeeOtherPlayersPlayerView {
 
     public int getAngangCount() {
         return angangCount;
+    }
+
+    public Hu getHu() {
+        return hu;
     }
 }

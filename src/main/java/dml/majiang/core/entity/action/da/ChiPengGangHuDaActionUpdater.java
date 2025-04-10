@@ -4,8 +4,13 @@ import dml.majiang.core.entity.Pan;
 import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanPlayer;
 import dml.majiang.core.entity.PanSpecialRulesState;
+import dml.majiang.core.entity.action.hu.Hu;
+import dml.majiang.core.entity.action.hu.HuAction;
 import dml.majiang.core.entity.action.mo.LundaoMopai;
 import dml.majiang.core.entity.action.mo.MoAction;
+import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
+
+import java.util.List;
 
 /**
  * 打之后能吃碰杠胡，最常见的打之后的动作
@@ -32,7 +37,7 @@ public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
             xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daPlayer, daAction.getPaiId());
 
             //胡
-            tryAndGenerateHuCandidateAction(daAction, pan, panSpecialRulesState, xiajiaPlayer);
+            tryAndGenerateHuCandidateAction(daAction, daPlayer, daPaiId, pan, panFrames, panSpecialRulesState, xiajiaPlayer);
 
             // 需要有“过”
             xiajiaPlayer.checkAndGenerateGuoCandidateAction(daAction);
@@ -47,6 +52,15 @@ public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
         }
     }
 
-    protected abstract void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan,
-                                                            PanSpecialRulesState panSpecialRulesState, PanPlayer panPlayer);
+    private void tryAndGenerateHuCandidateAction(DaAction daAction, PanPlayer daPlayer, int daPaiId, Pan pan, PanFrames panFrames,
+                                                 PanSpecialRulesState panSpecialRulesState, PanPlayer panPlayer) {
+        List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = panPlayer.calculateAllHuPaiShoupaiPaiXingForDianpaoHu(daPlayer.findDachupai(daPaiId));
+        Hu hu = makeHu(daAction, pan, panFrames, panPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState);
+        if (hu != null) {
+            panPlayer.addActionCandidate(new HuAction(panPlayer.getId(), hu));
+        }
+    }
+
+    protected abstract Hu makeHu(DaAction daAction, Pan pan, PanFrames panFrames, String huPlayerId,
+                                 List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState);
 }

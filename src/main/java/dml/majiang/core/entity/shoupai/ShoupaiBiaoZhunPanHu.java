@@ -246,7 +246,7 @@ public class ShoupaiBiaoZhunPanHu {
             }
             shoupaiPaiXingList.add(shoupaiPaiXing);
         }
-        return shoupaiPaiXingList;
+        return shoupaiPaiXingList.isEmpty() ? null : shoupaiPaiXingList;
     }
 
     private static void generateLianxuPaiGroupPaiXingCombinations(int[] amountArray, MajiangPai startPaiType,

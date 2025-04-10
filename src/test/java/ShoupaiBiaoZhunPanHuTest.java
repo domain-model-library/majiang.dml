@@ -30,5 +30,30 @@ public class ShoupaiBiaoZhunPanHuTest {
         );
         hupaiShoupaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
         assert hupaiShoupaiXingList.size() == 5;
+
+        shoupaiList = List.of(
+                new Pai(1, MajiangPai.yiwan), new Pai(2, MajiangPai.yiwan), new Pai(3, MajiangPai.yiwan),
+                new Pai(4, MajiangPai.erwan),
+                new Pai(5, MajiangPai.sanwan),
+                new Pai(6, MajiangPai.siwan), new Pai(7, MajiangPai.siwan), new Pai(8, MajiangPai.siwan),
+                new Pai(9, MajiangPai.liuwan), new Pai(10, MajiangPai.liuwan),
+                new Pai(11, MajiangPai.qiwan), new Pai(12, MajiangPai.qiwan), new Pai(13, MajiangPai.qiwan),
+                new Pai(14, MajiangPai.qiwan), new Pai(15, MajiangPai.qiwan), new Pai(16, MajiangPai.qiwan),
+                new Pai(17, MajiangPai.qiwan)
+        );
+        hupaiShoupaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
+        assert hupaiShoupaiXingList == null;
+
+        shoupaiList = List.of(
+                new Pai(1, MajiangPai.erwan), new Pai(2, MajiangPai.erwan), new Pai(3, MajiangPai.erwan),
+                new Pai(4, MajiangPai.sanwan),
+                new Pai(5, MajiangPai.siwan),
+                new Pai(6, MajiangPai.wuwan), new Pai(7, MajiangPai.wuwan), new Pai(8, MajiangPai.wuwan),
+                new Pai(9, MajiangPai.qiwan), new Pai(10, MajiangPai.qiwan), new Pai(17, MajiangPai.qiwan),
+                new Pai(11, MajiangPai.bawan), new Pai(12, MajiangPai.bawan), new Pai(13, MajiangPai.bawan),
+                new Pai(14, MajiangPai.bawan), new Pai(15, MajiangPai.bawan), new Pai(16, MajiangPai.bawan)
+        );
+        hupaiShoupaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
+        assert hupaiShoupaiXingList.size() == 2;
     }
 }
