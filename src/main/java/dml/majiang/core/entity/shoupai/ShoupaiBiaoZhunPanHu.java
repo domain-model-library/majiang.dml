@@ -18,8 +18,13 @@ public class ShoupaiBiaoZhunPanHu {
     private static Map<Integer, List<DuliPaiGroupPaiXingCombination>> duliPaiGroupPaiXingCombinationsPatternCache = new ConcurrentHashMap<>();
     private static Map<String, List<LianxuPaiGroupPaiXingCombination>> lianxuPaiGroupPaiXingCombinationsPatternCache = new ConcurrentHashMap<>();
 
-    public static List<ShoupaiPaiXing> getAllHuPaiShoupaiPaiXing(List<Pai> shoupaiList) {
+    public static List<ShoupaiPaiXing> getAllHuPaiShoupaiPaiXing(List<Pai> inputShoupaiList) {
         //把shoupaiList按照牌的类型分组
+        //先复制输入list
+        List<Pai> shoupaiList = new ArrayList<>(inputShoupaiList.size());
+        for (Pai pai : inputShoupaiList) {
+            shoupaiList.add(new Pai(pai.getId(), pai.getPaiType()));
+        }
         Map<MajiangPai, Set<Pai>> paiTypeMap = new HashMap<>();
         for (Pai pai : shoupaiList) {
             MajiangPai paiType = pai.getPaiType();

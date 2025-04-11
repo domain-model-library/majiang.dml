@@ -1,6 +1,6 @@
 import dml.common.repository.TestCommonRepository;
 import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanPlayer;
+import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.chi.ChiActionProcessor;
 import dml.majiang.core.entity.action.chi.ChiActionUpdater;
@@ -15,10 +15,7 @@ import dml.majiang.core.entity.action.guo.DoNothingGuoActionProcessor;
 import dml.majiang.core.entity.action.guo.GuoActionProcessor;
 import dml.majiang.core.entity.action.guo.GuoActionUpdater;
 import dml.majiang.core.entity.action.guo.PlayerDaPaiOrXiajiaMoPaiGuoActionUpdater;
-import dml.majiang.core.entity.action.hu.ClearAllActionHuActionUpdater;
-import dml.majiang.core.entity.action.hu.HuActionProcessor;
-import dml.majiang.core.entity.action.hu.HuActionUpdater;
-import dml.majiang.core.entity.action.hu.PlayerSetHuHuActionProcessor;
+import dml.majiang.core.entity.action.hu.*;
 import dml.majiang.core.entity.action.mo.*;
 import dml.majiang.core.entity.action.peng.HuFirstPengActionProcessor;
 import dml.majiang.core.entity.action.peng.KezigangshoupaiPengActionUpdater;
@@ -26,6 +23,7 @@ import dml.majiang.core.entity.action.peng.PengActionProcessor;
 import dml.majiang.core.entity.action.peng.PengActionUpdater;
 import dml.majiang.core.entity.action.start.ZhuangMoStartActionUpdater;
 import dml.majiang.core.entity.panplayerview.CanNotSeeOtherPlayersPanView;
+import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
 import dml.majiang.core.repository.*;
 import dml.majiang.core.service.*;
 import dml.majiang.core.service.repositoryset.*;
@@ -310,9 +308,6 @@ class PlayAPanServiceRepositorySet implements PanPlayServiceRepositorySet,
 class TestGangHuDaMoActionUpdater extends GangHuDaMoActionUpdater {
     private long panId;
 
-    @Override
-    protected void tryAndGenerateHuCandidateAction(MoAction moAction, Pan pan, PanSpecialRulesState panSpecialRulesState) {
-    }
 
     @Override
     public void setPanId(long panId) {
@@ -322,6 +317,11 @@ class TestGangHuDaMoActionUpdater extends GangHuDaMoActionUpdater {
     @Override
     public long getPanId() {
         return panId;
+    }
+
+    @Override
+    protected Hu makeHu(MoAction moAction, Pan pan, PanFrames panFrames, List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState) {
+        return null;
     }
 }
 
@@ -329,11 +329,6 @@ class TestChiPengGangHuDaActionUpdater extends ChiPengGangHuDaActionUpdater {
     private long panId;
 
     @Override
-    protected void tryAndGenerateHuCandidateAction(DaAction daAction, Pan pan,
-                                                   PanSpecialRulesState panSpecialRulesState, PanPlayer panPlayer) {
-    }
-
-    @Override
     public void setPanId(long panId) {
         this.panId = panId;
     }
@@ -341,5 +336,10 @@ class TestChiPengGangHuDaActionUpdater extends ChiPengGangHuDaActionUpdater {
     @Override
     public long getPanId() {
         return panId;
+    }
+
+    @Override
+    protected Hu makeHu(DaAction daAction, Pan pan, PanFrames panFrames, String huPlayerId, List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState) {
+        return null;
     }
 }

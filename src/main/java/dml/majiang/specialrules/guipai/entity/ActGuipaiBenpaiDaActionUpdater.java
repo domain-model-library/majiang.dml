@@ -13,9 +13,14 @@ import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
 import dml.majiang.core.entity.shoupai.ShoupaiShunziCalculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater {
+    private static Map<String, List<MajiangPai[]>> guipaiActPaiTypeCombinationCache = new ConcurrentHashMap<>();
+
     public void updateActions(DaAction daAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         pan.clearAllPlayersActionCandidates();
         PanPlayer daPlayer = pan.findPlayerById(daAction.getActionPlayerId());
@@ -125,6 +130,70 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
                 guipaiActPaiTypeList.remove(actGuipaiBenpaiPaiType);
             }
             //生成所有鬼牌当的组合
+            String key = guipaiList.size() + "@" + Arrays.toString(guipaiActPaiTypeList.toArray());
+            List<MajiangPai[]> guipaiActPaiTypeCombinationList = guipaiActPaiTypeCombinationCache.get(key);
+            if (guipaiActPaiTypeCombinationList == null) {
+                guipaiActPaiTypeCombinationList = new ArrayList<>();
+                caculateGuipaiActPaiTypeCombination(guipaiActPaiTypeList, 0,
+                        new MajiangPai[guipaiList.size()], 0,
+                        guipaiActPaiTypeCombinationList);
+                guipaiActPaiTypeCombinationCache.putIfAbsent(key, guipaiActPaiTypeCombinationList);
+            }
+            List<HupaiShoupaiPaiXingListWithGuipaiAct> hupaiShoupaiPaiXingListWithGuipaiActList = new ArrayList<>();
+            for (MajiangPai[] guipaiActPaiTypeCombination : guipaiActPaiTypeCombinationList) {
+                HupaiShoupaiPaiXingListWithGuipaiAct hupaiShoupaiPaiXingListWithGuipaiAct = new HupaiShoupaiPaiXingListWithGuipaiAct();
+                for (int i = 0; i < guipaiList.size(); i++) {
+                    Pai guipai = guipaiList.get(i);
+                    MajiangPai actPaiType = guipaiActPaiTypeCombination[i];
+                    guipai.setPaiType(actPaiType);
+                    hupaiShoupaiPaiXingListWithGuipaiAct.addGuipaiAct(guipai.getId(), actPaiType);
+                }
+                List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
+                if (hupaiShoupaiPaiXingList != null) {
+                    for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
+                        //还原鬼牌为其本花色
+                        for (Pai guipai : guipaiList) {
+                            shoupaiPaiXing.setPaiType(guipai.getId(), guipaiType);
+                        }
+                        //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
+                        shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
+                    }
+                    hupaiShoupaiPaiXingListWithGuipaiAct.setHupaiShoupaiPaiXingList(hupaiShoupaiPaiXingList);
+                    hupaiShoupaiPaiXingListWithGuipaiActList.add(hupaiShoupaiPaiXingListWithGuipaiAct);
+                }
+            }
+            Hu hu = makeHuWithGuipai(daAction, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingListWithGuipaiActList, panSpecialRulesState,
+                    guipaiType, actGuipaiBenpaiPaiType);
+            if (hu != null) {
+                hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
+            }
+        }
+    }
+
+    protected abstract Hu makeHuWithGuipai(DaAction daAction, Pan pan, PanFrames panFrames, String huPlayerId,
+                                           List<HupaiShoupaiPaiXingListWithGuipaiAct> hupaiShoupaiPaiXingListWithGuipaiActList,
+                                           PanSpecialRulesState panSpecialRulesState, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType);
+
+    private void caculateGuipaiActPaiTypeCombination(List<MajiangPai> guipaiActPaiTypeList, int guipaiActPaiTypeListIndex,
+                                                     MajiangPai[] combination, int guipaiIndex,
+                                                     List<MajiangPai[]> combinationStor) {
+        combination[guipaiIndex] = guipaiActPaiTypeList.get(guipaiActPaiTypeListIndex);
+        if (guipaiIndex == combination.length - 1) {
+            //保存组合
+            combinationStor.add(combination);
+        } else {//combination鬼牌还没取满
+            //递推给combination下一个格位取鬼牌，从同一个guipaiActPaiTypeListIndex开始取起
+            MajiangPai[] newCombination = Arrays.copyOf(combination, combination.length);
+            int newGuipaiIndex = guipaiIndex + 1;
+            caculateGuipaiActPaiTypeCombination(guipaiActPaiTypeList, guipaiActPaiTypeListIndex,
+                    newCombination, newGuipaiIndex, combinationStor);
+        }
+        //guipaiActPaiTypeCombinationList没有尝试完就递推
+        if (guipaiActPaiTypeListIndex < guipaiActPaiTypeList.size() - 1) {
+            int newGuipaiActPaiTypeListIndex = guipaiActPaiTypeListIndex + 1;
+            MajiangPai[] newCombination = Arrays.copyOf(combination, combination.length);
+            caculateGuipaiActPaiTypeCombination(guipaiActPaiTypeList, newGuipaiActPaiTypeListIndex,
+                    newCombination, guipaiIndex, combinationStor);
         }
     }
 

@@ -91,6 +91,71 @@ public class ShoupaiPaiXing {
         }
     }
 
+    public void setPaiType(int paiId, MajiangPai paiType) {
+        for (Pai danpai : danpaiList) {
+            if (danpai.getId() == paiId) {
+                danpai.setPaiType(paiType);
+                return;
+            }
+        }
+        for (Duizi duizi : duiziList) {
+            if (duizi.getPai1().getId() == paiId) {
+                duizi.getPai1().setPaiType(paiType);
+                return;
+            }
+            if (duizi.getPai2().getId() == paiId) {
+                duizi.getPai2().setPaiType(paiType);
+                return;
+            }
+        }
+        for (Kezi kezi : keziList) {
+            if (kezi.getPai1().getId() == paiId) {
+                kezi.getPai1().setPaiType(paiType);
+                return;
+            }
+            if (kezi.getPai2().getId() == paiId) {
+                kezi.getPai2().setPaiType(paiType);
+                return;
+            }
+            if (kezi.getPai3().getId() == paiId) {
+                kezi.getPai3().setPaiType(paiType);
+                return;
+            }
+        }
+        for (Gangzi gangzi : gangziList) {
+            if (gangzi.getPai1().getId() == paiId) {
+                gangzi.getPai1().setPaiType(paiType);
+                return;
+            }
+            if (gangzi.getPai2().getId() == paiId) {
+                gangzi.getPai2().setPaiType(paiType);
+                return;
+            }
+            if (gangzi.getPai3().getId() == paiId) {
+                gangzi.getPai3().setPaiType(paiType);
+                return;
+            }
+            if (gangzi.getPai4().getId() == paiId) {
+                gangzi.getPai4().setPaiType(paiType);
+                return;
+            }
+        }
+        for (Shunzi shunzi : shunziList) {
+            if (shunzi.getPai1().getId() == paiId) {
+                shunzi.getPai1().setPaiType(paiType);
+                return;
+            }
+            if (shunzi.getPai2().getId() == paiId) {
+                shunzi.getPai2().setPaiType(paiType);
+                return;
+            }
+            if (shunzi.getPai3().getId() == paiId) {
+                shunzi.getPai3().setPaiType(paiType);
+                return;
+            }
+        }
+    }
+
     public List<Pai> getDanpaiList() {
         return danpaiList;
     }
