@@ -9,7 +9,8 @@ import dml.majiang.core.service.repositoryset.AvaliablePaiServiceRepositorySet;
 import java.util.*;
 
 public class AvaliablePaiService {
-    public static void fillAvaliablePaiWithNoHuapai(long panId, AvaliablePaiServiceRepositorySet avaliablePaiServiceRepositorySet) {
+    public static void fillAvaliablePaiWithNoHuapai(long panId, AvaliablePaiServiceRepositorySet avaliablePaiServiceRepositorySet,
+                                                    MajiangPai... excludedPaiTypes) {
         PanRepository panRepository = avaliablePaiServiceRepositorySet.getPanRepository();
 
         Pan pan = panRepository.take(panId);
@@ -22,6 +23,11 @@ public class AvaliablePaiService {
         notPlaySet.add(MajiangPai.lan);
         notPlaySet.add(MajiangPai.zhu);
         notPlaySet.add(MajiangPai.ju);
+        if (excludedPaiTypes != null) {
+            for (MajiangPai excludedPaiType : excludedPaiTypes) {
+                notPlaySet.add(excludedPaiType);
+            }
+        }
         MajiangPai[] allMajiangPaiArray = MajiangPai.values();
         List<MajiangPai> playPaiTypeList = new ArrayList<>();
         for (int i = 0; i < allMajiangPaiArray.length; i++) {
