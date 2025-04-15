@@ -1,9 +1,6 @@
 package dml.majiang.core.entity.action.mo;
 
-import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanFrames;
-import dml.majiang.core.entity.PanPlayer;
-import dml.majiang.core.entity.PanSpecialRulesState;
+import dml.majiang.core.entity.*;
 import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.action.hu.HuAction;
 import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
@@ -47,12 +44,12 @@ public abstract class GangHuDaMoActionUpdater implements MoActionUpdater {
     private void tryAndGenerateHuCandidateAction(MoAction moAction, PanPlayer moPlayer, Pan pan, PanFrames panFrames,
                                                  PanSpecialRulesState panSpecialRulesState) {
         List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = moPlayer.calculateAllHuPaiShoupaiPaiXingForZimoHu();
-        Hu hu = makeHu(moAction, pan, panFrames, hupaiShoupaiPaiXingList, panSpecialRulesState);
+        Hu hu = makeHu(moAction, moPlayer.getGangmoShoupai(), pan, panFrames, hupaiShoupaiPaiXingList, panSpecialRulesState);
         if (hu != null) {
             moPlayer.addActionCandidate(new HuAction(moAction.getActionPlayerId(), hu));
         }
     }
 
-    protected abstract Hu makeHu(MoAction moAction, Pan pan, PanFrames panFrames,
+    protected abstract Hu makeHu(MoAction moAction, Pai moPai, Pan pan, PanFrames panFrames,
                                  List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState);
 }

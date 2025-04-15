@@ -1,4 +1,5 @@
 import dml.common.repository.TestCommonRepository;
+import dml.majiang.core.entity.Pai;
 import dml.majiang.core.entity.Pan;
 import dml.majiang.core.entity.PanFrames;
 import dml.majiang.core.entity.PanSpecialRulesState;
@@ -320,7 +321,7 @@ class TestGangHuDaMoActionUpdater extends GangHuDaMoActionUpdater {
     }
 
     @Override
-    protected Hu makeHu(MoAction moAction, Pan pan, PanFrames panFrames, List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState) {
+    protected Hu makeHu(MoAction moAction, Pai moPai, Pan pan, PanFrames panFrames, List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState) {
         return null;
     }
 }
@@ -339,7 +340,7 @@ class TestChiPengGangHuDaActionUpdater extends ChiPengGangHuDaActionUpdater {
     }
 
     @Override
-    protected Hu makeHu(DaAction daAction, Pan pan, PanFrames panFrames, String huPlayerId, List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState) {
+    protected Hu makeHu(DaAction daAction, Pai daPai, Pan pan, PanFrames panFrames, String huPlayerId, List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState) {
         return null;
     }
 }

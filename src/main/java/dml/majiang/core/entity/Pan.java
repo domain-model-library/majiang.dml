@@ -255,6 +255,16 @@ public class Pan {
         return playerIdPanPlayerMap.get(duijiaPlayerId);
     }
 
+    public Hu findHuIfExists() {
+        for (PanPlayer player : playerIdPanPlayerMap.values()) {
+            Hu hu = player.getHu();
+            if (hu != null) {
+                return hu;
+            }
+        }
+        return null;
+    }
+
     public List<MajiangPai> getPlayPaiTypeList() {
         return playPaiTypeList;
     }

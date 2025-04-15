@@ -555,4 +555,28 @@ public class PanPlayer {
         shoupaiList.add(dachupai);
         return ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
     }
+
+    public List<ShoupaiPaiXing> calculateAllHuPaiShoupaiPaiXingForQianggangHu(Pai gangpai) {
+        List<Pai> shoupaiList = getFangruShoupaiList();
+        shoupaiList.add(gangpai);
+        return ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
+    }
+
+    public Pai findGangchuPai(int gangPaiId) {
+        for (GangchuPaiZu gangchuPaiZu : gangchupaiZuList) {
+            if (gangchuPaiZu.getGangzi().getPai1().getId() == gangPaiId) {
+                return gangchuPaiZu.getGangzi().getPai1();
+            }
+            if (gangchuPaiZu.getGangzi().getPai2().getId() == gangPaiId) {
+                return gangchuPaiZu.getGangzi().getPai2();
+            }
+            if (gangchuPaiZu.getGangzi().getPai3().getId() == gangPaiId) {
+                return gangchuPaiZu.getGangzi().getPai3();
+            }
+            if (gangchuPaiZu.getGangzi().getPai4().getId() == gangPaiId) {
+                return gangchuPaiZu.getGangzi().getPai4();
+            }
+        }
+        return null;
+    }
 }

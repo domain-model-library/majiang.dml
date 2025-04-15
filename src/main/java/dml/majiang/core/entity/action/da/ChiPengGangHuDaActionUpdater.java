@@ -1,9 +1,6 @@
 package dml.majiang.core.entity.action.da;
 
-import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanFrames;
-import dml.majiang.core.entity.PanPlayer;
-import dml.majiang.core.entity.PanSpecialRulesState;
+import dml.majiang.core.entity.*;
 import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.action.hu.HuAction;
 import dml.majiang.core.entity.action.mo.LundaoMopai;
@@ -21,6 +18,7 @@ public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
         PanPlayer daPlayer = pan.findPlayerById(daAction.getActionPlayerId());
         PanPlayer xiajiaPlayer = pan.findNextMenFengPlayer(daPlayer);
         int daPaiId = daAction.getPaiId();
+        Pai daPai = daPlayer.findDachupai(daPaiId);
 
         // 下家可以吃
         xiajiaPlayer.tryChiAndGenerateCandidateActions(daPlayer, daPaiId);
@@ -37,7 +35,7 @@ public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
             xiajiaPlayer.tryGangdachuAndGenerateCandidateAction(daPlayer, daAction.getPaiId());
 
             //胡
-            tryAndGenerateHuCandidateAction(daAction, daPlayer, daPaiId, pan, panFrames, panSpecialRulesState, xiajiaPlayer);
+            tryAndGenerateHuCandidateAction(daAction, daPai, daPlayer, daPaiId, pan, panFrames, panSpecialRulesState, xiajiaPlayer);
 
             // 需要有“过”
             xiajiaPlayer.checkAndGenerateGuoCandidateAction(daAction);
@@ -52,15 +50,15 @@ public abstract class ChiPengGangHuDaActionUpdater implements DaActionUpdater {
         }
     }
 
-    private void tryAndGenerateHuCandidateAction(DaAction daAction, PanPlayer daPlayer, int daPaiId, Pan pan, PanFrames panFrames,
+    private void tryAndGenerateHuCandidateAction(DaAction daAction, Pai daPai, PanPlayer daPlayer, int daPaiId, Pan pan, PanFrames panFrames,
                                                  PanSpecialRulesState panSpecialRulesState, PanPlayer panPlayer) {
         List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = panPlayer.calculateAllHuPaiShoupaiPaiXingForDianpaoHu(daPlayer.findDachupai(daPaiId));
-        Hu hu = makeHu(daAction, pan, panFrames, panPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState);
+        Hu hu = makeHu(daAction, daPai, pan, panFrames, panPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState);
         if (hu != null) {
             panPlayer.addActionCandidate(new HuAction(panPlayer.getId(), hu));
         }
     }
 
-    protected abstract Hu makeHu(DaAction daAction, Pan pan, PanFrames panFrames, String huPlayerId,
+    protected abstract Hu makeHu(DaAction daAction, Pai daPai, Pan pan, PanFrames panFrames, String huPlayerId,
                                  List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState);
 }

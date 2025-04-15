@@ -120,7 +120,7 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
             for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
                 shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
             }
-            Hu hu = makeHuWithoutGuipai(daAction, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState,
+            Hu hu = makeHuWithoutGuipai(daAction, daPai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState,
                     guipaiType, actGuipaiBenpaiPaiType);
             if (hu != null) {
                 hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
@@ -151,7 +151,7 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
                     hupaiShoupaiPaiXingListWithGuipaiActList.add(hupaiShoupaiPaiXingListWithGuipaiAct);
                 }
             }
-            Hu hu = makeHuWithGuipai(daAction, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingListWithGuipaiActList, panSpecialRulesState,
+            Hu hu = makeHuWithGuipai(daAction, daPai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingListWithGuipaiActList, panSpecialRulesState,
                     guipaiType, actGuipaiBenpaiPaiType);
             if (hu != null) {
                 hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
@@ -159,11 +159,11 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
         }
     }
 
-    protected abstract Hu makeHuWithGuipai(DaAction daAction, Pan pan, PanFrames panFrames, String huPlayerId,
+    protected abstract Hu makeHuWithGuipai(DaAction daAction, Pai daPai, Pan pan, PanFrames panFrames, String huPlayerId,
                                            List<HupaiShoupaiPaiXingListWithGuipaiAct> hupaiShoupaiPaiXingListWithGuipaiActList,
                                            PanSpecialRulesState panSpecialRulesState, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType);
 
-    protected abstract Hu makeHuWithoutGuipai(DaAction daAction, Pan pan, PanFrames panFrames, String huPlayerId,
+    protected abstract Hu makeHuWithoutGuipai(DaAction daAction, Pai daPai, Pan pan, PanFrames panFrames, String huPlayerId,
                                               List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState,
                                               MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType);
 
