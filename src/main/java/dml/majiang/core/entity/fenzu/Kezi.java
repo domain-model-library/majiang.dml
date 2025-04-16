@@ -19,6 +19,12 @@ public class Kezi {
         this.pai3 = pai3;
     }
 
+    public void replacePaiType(MajiangPai paiType, MajiangPai toReplaceType) {
+        pai1.replacePaiType(paiType, toReplaceType);
+        pai2.replacePaiType(paiType, toReplaceType);
+        pai3.replacePaiType(paiType, toReplaceType);
+    }
+
     public MajiangPai getPaiType() {
         return pai1.getPaiType();
     }

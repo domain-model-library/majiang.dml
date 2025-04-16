@@ -8,6 +8,7 @@ import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.action.hu.HuAction;
 import dml.majiang.core.entity.action.mo.LundaoMopai;
 import dml.majiang.core.entity.action.mo.MoAction;
+import dml.majiang.core.entity.fenzu.Shunzi;
 import dml.majiang.core.entity.shoupai.ShoupaiBiaoZhunPanHu;
 import dml.majiang.core.entity.shoupai.ShoupaiPaiXing;
 import dml.majiang.core.entity.shoupai.ShoupaiShunziCalculator;
@@ -39,7 +40,9 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
                 Pai newPai = new Pai(pai.getId(), guipaiType);
                 shoupaiList.add(newPai);
             } else {
-                shoupaiList.add(pai);
+                if (!pai.getPaiType().equals(guipaiType)) {
+                    shoupaiList.add(pai);
+                }
             }
         }
         Pai daPai = daPlayer.findDachupai(daPaiId);
@@ -49,10 +52,12 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
         } else {
             paiToAdd = daPai;
         }
-        List<int[]> shunziPaiIdList = ShoupaiShunziCalculator.tryAndMakeShunziWithPai(shoupaiList, paiToAdd);
-        if (shunziPaiIdList != null) {
-            for (int[] shunziPaiId : shunziPaiIdList) {
-                xiajiaPlayer.addActionCandidate(new ChiAction(xiajiaPlayer.getId(), daAction.getActionPlayerId(), daPaiId, shunziPaiId));
+        List<Shunzi> shunziList = ShoupaiShunziCalculator.tryAndMakeShunziWithPai(shoupaiList, paiToAdd);
+        if (shunziList != null) {
+            for (Shunzi shunzi : shunziList) {
+                //把扮演鬼牌本牌的牌的花色还原为其本花色
+                shunzi.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
+                xiajiaPlayer.addActionCandidate(new ChiAction(xiajiaPlayer.getId(), daAction.getActionPlayerId(), daPaiId, shunzi));
             }
         }
 

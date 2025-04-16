@@ -1,22 +1,23 @@
 package dml.majiang.core.entity.action.chi;
 
 import dml.majiang.core.entity.action.PanPlayerAction;
+import dml.majiang.core.entity.fenzu.Shunzi;
 
 public class ChiAction extends PanPlayerAction {
     private String dachupaiPlayerId;
     private int chijinPaiId;
-    private int[] shunziPaiIds;
+    private Shunzi shunzi;
 
     private boolean blockedByHigherPriorityAction = false;
 
     public ChiAction() {
     }
 
-    public ChiAction(String actionPlayerId, String dachupaiPlayerId, int chijinPaiId, int[] shunziPaiIds) {
+    public ChiAction(String actionPlayerId, String dachupaiPlayerId, int chijinPaiId, Shunzi shunzi) {
         super(actionPlayerId);
         this.dachupaiPlayerId = dachupaiPlayerId;
         this.chijinPaiId = chijinPaiId;
-        this.shunziPaiIds = shunziPaiIds;
+        this.shunzi = shunzi;
     }
 
     public String getDachupaiPlayerId() {
@@ -35,12 +36,12 @@ public class ChiAction extends PanPlayerAction {
         this.chijinPaiId = chijinPaiId;
     }
 
-    public int[] getShunziPaiIds() {
-        return shunziPaiIds;
+    public Shunzi getShunzi() {
+        return shunzi;
     }
 
-    public void setShunziPaiIds(int[] shunziPaiIds) {
-        this.shunziPaiIds = shunziPaiIds;
+    public void setShunzi(Shunzi shunzi) {
+        this.shunzi = shunzi;
     }
 
     public boolean isBlockedByHigherPriorityAction() {

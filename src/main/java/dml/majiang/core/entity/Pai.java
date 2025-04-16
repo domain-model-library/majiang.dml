@@ -15,6 +15,12 @@ public class Pai {
         this.paiType = paiType;
     }
 
+    public void replacePaiType(MajiangPai paiType, MajiangPai toReplaceType) {
+        if (this.paiType.equals(toReplaceType)) {
+            this.paiType = paiType;
+        }
+    }
+
     public int getId() {
         return id;
     }
@@ -42,5 +48,6 @@ public class Pai {
     public int hashCode() {
         return id;
     }
+
 
 }

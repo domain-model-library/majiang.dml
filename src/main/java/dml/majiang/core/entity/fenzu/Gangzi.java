@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.fenzu;
 
 
+import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pai;
 
 public class Gangzi {
@@ -17,6 +18,13 @@ public class Gangzi {
         this.pai2 = pai2;
         this.pai3 = pai3;
         this.pai4 = pai4;
+    }
+
+    public void replacePaiType(MajiangPai paiType, MajiangPai toReplaceType) {
+        pai1.replacePaiType(paiType, toReplaceType);
+        pai2.replacePaiType(paiType, toReplaceType);
+        pai3.replacePaiType(paiType, toReplaceType);
+        pai4.replacePaiType(paiType, toReplaceType);
     }
 
     public Pai getPai1() {
@@ -50,4 +58,6 @@ public class Gangzi {
     public void setPai4(Pai pai4) {
         this.pai4 = pai4;
     }
+
+
 }

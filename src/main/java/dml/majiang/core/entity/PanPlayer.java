@@ -232,10 +232,10 @@ public class PanPlayer {
             shoupaiList.add(pai);
         }
         Pai daPai = dachupaiPlayer.findDachupai(dapaiId);
-        List<int[]> shunziPaiIdList = ShoupaiShunziCalculator.tryAndMakeShunziWithPai(shoupaiList, daPai);
-        if (shunziPaiIdList == null) {
-            for (int[] shunziPaiId : shunziPaiIdList) {
-                addActionCandidate(new ChiAction(id, dachupaiPlayer.getId(), dapaiId, shunziPaiId));
+        List<Shunzi> shunziList = ShoupaiShunziCalculator.tryAndMakeShunziWithPai(shoupaiList, daPai);
+        if (shunziList == null) {
+            for (Shunzi shunzi : shunziList) {
+                addActionCandidate(new ChiAction(id, dachupaiPlayer.getId(), dapaiId, shunzi));
             }
         }
     }

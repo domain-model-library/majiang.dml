@@ -43,7 +43,7 @@ public class PengganghuFirstChiActionProcessor implements ChiActionProcessor {
         }
 
         pan.playerChiPai(chiAction.getActionPlayerId(), chiAction.getDachupaiPlayerId(), chiAction.getChijinPaiId(),
-                chiAction.getShunziPaiIds());
+                chiAction.getShunzi().getShunziPaiIds());
     }
 
 }

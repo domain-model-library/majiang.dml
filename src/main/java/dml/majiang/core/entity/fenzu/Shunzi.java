@@ -1,6 +1,7 @@
 package dml.majiang.core.entity.fenzu;
 
 
+import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pai;
 
 public class Shunzi {
@@ -16,6 +17,16 @@ public class Shunzi {
         this.pai1 = pai1;
         this.pai2 = pai2;
         this.pai3 = pai3;
+    }
+
+    public void replacePaiType(MajiangPai paiType, MajiangPai toReplaceType) {
+        pai1.replacePaiType(paiType, toReplaceType);
+        pai2.replacePaiType(paiType, toReplaceType);
+        pai3.replacePaiType(paiType, toReplaceType);
+    }
+
+    public int[] getShunziPaiIds() {
+        return new int[]{pai1.getId(), pai2.getId(), pai3.getId()};
     }
 
     public Pai getPai1() {
@@ -50,5 +61,6 @@ public class Shunzi {
     public int hashCode() {
         return pai1.hashCode() * 100 + pai2.hashCode() * 10 + pai3.hashCode();
     }
+
 
 }

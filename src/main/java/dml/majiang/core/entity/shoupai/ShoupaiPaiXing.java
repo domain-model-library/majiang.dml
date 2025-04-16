@@ -41,53 +41,19 @@ public class ShoupaiPaiXing {
 
     public void replacePaiType(MajiangPai paiType, MajiangPai toReplaceType) {
         for (Pai danpai : danpaiList) {
-            if (danpai.getPaiType().equals(paiType)) {
-                danpai.setPaiType(toReplaceType);
-            }
+            danpai.replacePaiType(paiType, toReplaceType);
         }
         for (Duizi duizi : duiziList) {
-            if (duizi.getPai1().getPaiType().equals(paiType)) {
-                duizi.getPai1().setPaiType(toReplaceType);
-            }
-            if (duizi.getPai2().getPaiType().equals(paiType)) {
-                duizi.getPai2().setPaiType(toReplaceType);
-            }
+            duizi.replacePaiType(paiType, toReplaceType);
         }
         for (Kezi kezi : keziList) {
-            if (kezi.getPai1().getPaiType().equals(paiType)) {
-                kezi.getPai1().setPaiType(toReplaceType);
-            }
-            if (kezi.getPai2().getPaiType().equals(paiType)) {
-                kezi.getPai2().setPaiType(toReplaceType);
-            }
-            if (kezi.getPai3().getPaiType().equals(paiType)) {
-                kezi.getPai3().setPaiType(toReplaceType);
-            }
+            kezi.replacePaiType(paiType, toReplaceType);
         }
         for (Gangzi gangzi : gangziList) {
-            if (gangzi.getPai1().getPaiType().equals(paiType)) {
-                gangzi.getPai1().setPaiType(toReplaceType);
-            }
-            if (gangzi.getPai2().getPaiType().equals(paiType)) {
-                gangzi.getPai2().setPaiType(toReplaceType);
-            }
-            if (gangzi.getPai3().getPaiType().equals(paiType)) {
-                gangzi.getPai3().setPaiType(toReplaceType);
-            }
-            if (gangzi.getPai4().getPaiType().equals(paiType)) {
-                gangzi.getPai4().setPaiType(toReplaceType);
-            }
+            gangzi.replacePaiType(paiType, toReplaceType);
         }
         for (Shunzi shunzi : shunziList) {
-            if (shunzi.getPai1().getPaiType().equals(paiType)) {
-                shunzi.getPai1().setPaiType(toReplaceType);
-            }
-            if (shunzi.getPai2().getPaiType().equals(paiType)) {
-                shunzi.getPai2().setPaiType(toReplaceType);
-            }
-            if (shunzi.getPai3().getPaiType().equals(paiType)) {
-                shunzi.getPai3().setPaiType(toReplaceType);
-            }
+            shunzi.replacePaiType(paiType, toReplaceType);
         }
     }
 
