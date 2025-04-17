@@ -22,13 +22,13 @@ public class ShoupaiShunziCalculator {
         MajiangPai previousPreviousPaiType = null;
         MajiangPai nextPaiType = null;
         MajiangPai nextNextPaiType = null;
-        previousPaiType = MajiangPai.previous(paiToAdd.getPaiType());
+        previousPaiType = MajiangPai.previousTongzuXushupai(paiToAdd.getPaiType());
         if (previousPaiType != null) {
-            previousPreviousPaiType = MajiangPai.previous(previousPaiType);
+            previousPreviousPaiType = MajiangPai.previousTongzuXushupai(previousPaiType);
         }
-        nextPaiType = MajiangPai.next(paiToAdd.getPaiType());
+        nextPaiType = MajiangPai.nextTongzuXushupai(paiToAdd.getPaiType());
         if (nextPaiType != null) {
-            nextNextPaiType = MajiangPai.next(nextPaiType);
+            nextNextPaiType = MajiangPai.nextTongzuXushupai(nextPaiType);
         }
         List<Shunzi> shunziList = null;
         if (nextPaiType != null && nextNextPaiType != null) {

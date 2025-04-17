@@ -73,4 +73,31 @@ public enum MajiangPai {
         }
         return array[ordinal - 1];
     }
+
+    public static MajiangPai nextTongzuXushupai(MajiangPai pai) {
+        if (!isXushupai(pai)) {
+            return null;
+        }
+        int ordinal = pai.ordinal();
+        int zuMinOrdinal = (ordinal / 9) * 9;
+        int zuMaxOrdinal = zuMinOrdinal + 8;
+        if (ordinal == zuMaxOrdinal) {
+            return null;
+        }
+        int nextOrdinal = ordinal + 1;
+        return array[nextOrdinal];
+    }
+
+    public static MajiangPai previousTongzuXushupai(MajiangPai pai) {
+        if (!isXushupai(pai)) {
+            return null;
+        }
+        int ordinal = pai.ordinal();
+        int zuMinOrdinal = (ordinal / 9) * 9;
+        if (ordinal == zuMinOrdinal) {
+            return null;
+        }
+        int previousOrdinal = ordinal - 1;
+        return array[previousOrdinal];
+    }
 }

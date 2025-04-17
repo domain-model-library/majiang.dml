@@ -47,33 +47,17 @@ public class ShoupaiBiaoZhunPanHu {
         //遍历paiAmounts，解析出独立牌组和连续牌组
         List<DuliPaiAmountGroup> duliPaiAmountGroups = new ArrayList<>();
         List<LianxuPaiAmountGroup> lianxuPaiAmountGroups = new ArrayList<>();
-        int lianxuCount = 0;
-        for (int paiTypeOrdinal = 0; paiTypeOrdinal < MajiangPai.count; paiTypeOrdinal++) {
-            int amount = paiAmounts[paiTypeOrdinal];
-            if (amount == 0 || paiTypeOrdinal == (MajiangPai.count - 1)) {
-                if (lianxuCount == 0) {
-                    //前面没有未处理的牌，过
-                    continue;
-                }
-                //看下之前遍历的是否形成连续牌组
-                if (lianxuCount >= 3) {
-                    int[] lianxupaizu = new int[lianxuCount];
-                    System.arraycopy(paiAmounts, paiTypeOrdinal - lianxuCount, lianxupaizu, 0, lianxuCount);
-                    lianxuPaiAmountGroups.add(new LianxuPaiAmountGroup(lianxupaizu, MajiangPai.valueOf(paiTypeOrdinal - lianxuCount)));
-                    //断连
-                    lianxuCount = 0;
-                    continue;
-                }
-                //之前遍历的既然没有形成连续牌组，那就挨个放入独立牌组
-                for (int i = paiTypeOrdinal - lianxuCount; i < paiTypeOrdinal; i++) {
-                    duliPaiAmountGroups.add(new DuliPaiAmountGroup(paiAmounts[i], MajiangPai.valueOf(i)));
-                }
-                //断连
-                lianxuCount = 0;
+        parseXushuPaiAmountGroup(paiAmounts, duliPaiAmountGroups, lianxuPaiAmountGroups, MajiangPai.yiwan, MajiangPai.jiuwan);
+        parseXushuPaiAmountGroup(paiAmounts, duliPaiAmountGroups, lianxuPaiAmountGroups, MajiangPai.yitong, MajiangPai.jiutiao);
+        parseXushuPaiAmountGroup(paiAmounts, duliPaiAmountGroups, lianxuPaiAmountGroups, MajiangPai.yitiao, MajiangPai.jiutiao);
+        for (int i = MajiangPai.dongfeng.ordinal(); i < MajiangPai.count; i++) {
+            int amount = paiAmounts[i];
+            if (amount == 0) {
                 continue;
             }
-            lianxuCount++;
+            duliPaiAmountGroups.add(new DuliPaiAmountGroup(amount, MajiangPai.valueOf(i)));
         }
+
 
         //计算每个独立牌组的所有牌型组合，比如对于独立牌组“6个一万”，可以是 牌型组合：“两个一万刻子” 或者 牌型组合：“一个一万杠子+一个一万对子”
         List<List<DuliPaiGroupPaiXingCombination>> duliPaiGroupPaiXingCombinations = new ArrayList<>();
@@ -252,6 +236,40 @@ public class ShoupaiBiaoZhunPanHu {
             shoupaiPaiXingList.add(shoupaiPaiXing);
         }
         return shoupaiPaiXingList.isEmpty() ? null : shoupaiPaiXingList;
+    }
+
+    private static void parseXushuPaiAmountGroup(int[] paiAmounts,
+                                                 List<DuliPaiAmountGroup> duliPaiAmountGroups,
+                                                 List<LianxuPaiAmountGroup> lianxuPaiAmountGroups,
+                                                 MajiangPai startXushuPai, MajiangPai endXushuPai) {
+        int lianxuCount = 0;
+        for (int paiTypeOrdinal = startXushuPai.ordinal(); paiTypeOrdinal <= endXushuPai.ordinal(); paiTypeOrdinal++) {
+            int amount = paiAmounts[paiTypeOrdinal];
+            if (amount == 0 || paiTypeOrdinal == (MajiangPai.count - 1)) {
+                if (lianxuCount == 0) {
+                    //前面没有未处理的牌，过
+                    continue;
+                }
+                //看下之前遍历的是否形成连续牌组
+                if (lianxuCount >= 3) {
+                    int[] lianxupaizu = new int[lianxuCount];
+                    System.arraycopy(paiAmounts, paiTypeOrdinal - lianxuCount, lianxupaizu, 0, lianxuCount);
+                    lianxuPaiAmountGroups.add(new LianxuPaiAmountGroup(lianxupaizu, MajiangPai.valueOf(paiTypeOrdinal - lianxuCount)));
+                    //断连
+                    lianxuCount = 0;
+                    continue;
+                }
+                //之前遍历的既然没有形成连续牌组，那就挨个放入独立牌组
+                for (int i = paiTypeOrdinal - lianxuCount; i < paiTypeOrdinal; i++) {
+                    duliPaiAmountGroups.add(new DuliPaiAmountGroup(paiAmounts[i], MajiangPai.valueOf(i)));
+                }
+                //断连
+                lianxuCount = 0;
+                continue;
+            }
+            lianxuCount++;
+        }
+
     }
 
     private static void generateLianxuPaiGroupPaiXingCombinations(int[] amountArray, MajiangPai startPaiType,
