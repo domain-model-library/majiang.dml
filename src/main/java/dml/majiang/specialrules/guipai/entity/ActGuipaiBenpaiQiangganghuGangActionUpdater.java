@@ -86,17 +86,22 @@ public abstract class ActGuipaiBenpaiQiangganghuGangActionUpdater implements Gan
         if (guipaiList.isEmpty()) {
             shoupaiList.add(gangpai);
             List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
-            //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
-            for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
-                shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
+            if (hupaiShoupaiPaiXingList != null) {
+                //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
+                for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
+                    shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
+                }
+                Hu hu = makeHuWithoutGuipai(gangAction, gangpai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState,
+                        guipaiType, actGuipaiBenpaiPaiType);
+                if (hu != null) {
+                    hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
+                    return true;
+                }
+                return false;
+            } else {
+                //没有胡牌
+                return false;
             }
-            Hu hu = makeHuWithoutGuipai(gangAction, gangpai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState,
-                    guipaiType, actGuipaiBenpaiPaiType);
-            if (hu != null) {
-                hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
-                return true;
-            }
-            return false;
         } else {
             //生成所有鬼牌当的组合
             List<MajiangPai[]> guipaiActPaiTypeCombinationList = GuipaiActPaiTypeCombinationCaculator.get(guipaiList.size(), guipaiActPaiTypeList);

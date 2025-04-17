@@ -86,14 +86,16 @@ public abstract class ActGuipaiBenpaiMoActionUpdater implements MoActionUpdater 
         if (guipaiList.isEmpty()) {
             shoupaiList.add(player.getGangmoShoupai());
             List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
-            //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
-            for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
-                shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
-            }
-            Hu hu = makeHuWithoutGuipai(moAction, player.getGangmoShoupai(), pan, panFrames, hupaiShoupaiPaiXingList, panSpecialRulesState,
-                    guipaiType, actGuipaiBenpaiPaiType);
-            if (hu != null) {
-                player.addActionCandidate(new HuAction(player.getId(), hu));
+            if (hupaiShoupaiPaiXingList != null) {
+                //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
+                for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
+                    shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
+                }
+                Hu hu = makeHuWithoutGuipai(moAction, player.getGangmoShoupai(), pan, panFrames, hupaiShoupaiPaiXingList, panSpecialRulesState,
+                        guipaiType, actGuipaiBenpaiPaiType);
+                if (hu != null) {
+                    player.addActionCandidate(new HuAction(player.getId(), hu));
+                }
             }
         } else {
             //生成所有鬼牌当的组合

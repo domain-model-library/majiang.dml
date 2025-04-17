@@ -121,14 +121,16 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
         if (guipaiList.isEmpty()) {
             shoupaiList.add(daPai);
             List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
-            //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
-            for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
-                shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
-            }
-            Hu hu = makeHuWithoutGuipai(daAction, daPai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState,
-                    guipaiType, actGuipaiBenpaiPaiType);
-            if (hu != null) {
-                hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
+            if (hupaiShoupaiPaiXingList != null) {
+                //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
+                for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
+                    shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
+                }
+                Hu hu = makeHuWithoutGuipai(daAction, daPai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState,
+                        guipaiType, actGuipaiBenpaiPaiType);
+                if (hu != null) {
+                    hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
+                }
             }
         } else {
             //生成所有鬼牌当的组合
