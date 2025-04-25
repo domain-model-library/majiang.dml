@@ -16,6 +16,15 @@ public class AvaliablePaiExchanger extends PaiExchanger {
     }
 
     @Override
+    public void exchange(PaiExchanger other) {
+        if (other instanceof AvaliablePaiExchanger &&
+                this.pai.equals(((AvaliablePaiExchanger) other).pai)) {
+            return;
+        }
+        super.exchange(other);
+    }
+
+    @Override
     protected void putPai(Pai otherPai) {
         avaliablePaiList.add(paiIndex, otherPai);
     }

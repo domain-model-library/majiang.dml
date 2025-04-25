@@ -2,6 +2,7 @@ package test.dml.majiang.simulator.base.service;
 
 import dml.common.repository.TestCommonRepository;
 import dml.common.repository.TestCommonSingletonRepository;
+import dml.majiang.core.entity.Pai;
 import dml.majiang.core.entity.Pan;
 import dml.majiang.core.entity.action.PanPlayerAction;
 import dml.majiang.core.entity.action.chi.ChiActionProcessor;
@@ -25,7 +26,6 @@ import dml.majiang.core.repository.*;
 import dml.majiang.core.service.PanPlayService;
 import dml.majiang.core.service.WaitingPlayerCursorService;
 import dml.majiang.core.service.repositoryset.*;
-import test.dml.majiang.simulator.base.entity.AvaliablePaiExchanger;
 import test.dml.majiang.simulator.base.entity.PlayConfig;
 import test.dml.majiang.simulator.base.entity.PlayStateContainer;
 import test.dml.majiang.simulator.base.entity.PlayStateEnum;
@@ -219,11 +219,16 @@ public abstract class PlayService implements
 
     public void specificMoPai(int paiId) {
         Pan pan = panRepository.take(1L);
-        AvaliablePaiExchanger firstAvaliablePaiExchanger =
-                new AvaliablePaiExchanger(pan.getFirstAvaliablePai(), pan.getAvaliablePaiList());
-        AvaliablePaiExchanger moPaiExchanger =
-                new AvaliablePaiExchanger(pan.getAvaliablePai(paiId), pan.getAvaliablePaiList());
-        firstAvaliablePaiExchanger.exchange(moPaiExchanger);
+        Pai moPai = null;
+        List<Pai> avaliablePaiList = pan.getAvaliablePaiList();
+        for (Pai pai : avaliablePaiList) {
+            if (pai.getId() == paiId) {
+                moPai = pai;
+                break;
+            }
+        }
+        avaliablePaiList.remove(moPai);
+        avaliablePaiList.add(0, moPai);
         MoAction moAction = pan.findMoCandidateAction();
         PanPlayService.action(pan.getId(), moAction.getActionPlayerId(), moAction.getId(), this);
         WaitingPlayerCursorService.updateWaitingPlayerIdToDaPlayer(pan.getId(), this);

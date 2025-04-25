@@ -48,7 +48,7 @@ public class ShoupaiBiaoZhunPanHu {
         List<DuliPaiAmountGroup> duliPaiAmountGroups = new ArrayList<>();
         List<LianxuPaiAmountGroup> lianxuPaiAmountGroups = new ArrayList<>();
         parseXushuPaiAmountGroup(paiAmounts, duliPaiAmountGroups, lianxuPaiAmountGroups, MajiangPai.yiwan, MajiangPai.jiuwan);
-        parseXushuPaiAmountGroup(paiAmounts, duliPaiAmountGroups, lianxuPaiAmountGroups, MajiangPai.yitong, MajiangPai.jiutiao);
+        parseXushuPaiAmountGroup(paiAmounts, duliPaiAmountGroups, lianxuPaiAmountGroups, MajiangPai.yitong, MajiangPai.jiutong);
         parseXushuPaiAmountGroup(paiAmounts, duliPaiAmountGroups, lianxuPaiAmountGroups, MajiangPai.yitiao, MajiangPai.jiutiao);
         for (int i = MajiangPai.dongfeng.ordinal(); i < MajiangPai.count; i++) {
             int amount = paiAmounts[i];
@@ -79,8 +79,12 @@ public class ShoupaiBiaoZhunPanHu {
             int[] amountArray = amountGroup.getAmountArray();
             MajiangPai startPaiType = amountGroup.getStartPaiType();
             List<LianxuPaiGroupPaiXingCombination> lianxuPaiGroupPaiXingCombinationList = new ArrayList();
-            lianxuPaiGroupPaiXingCombinations.add(lianxuPaiGroupPaiXingCombinationList);
             generateLianxuPaiGroupPaiXingCombinations(amountArray, startPaiType, lianxuPaiGroupPaiXingCombinationList);
+            //对应的LianxuPaiAmountGroup如果没有生成任何牌型组合，说明这个牌组不能组合出任何一种合法胡的一部分（比如必定有单牌或者必定有两个对子等），总体结论是不能胡
+            if (lianxuPaiGroupPaiXingCombinationList.isEmpty()) {
+                return null;
+            }
+            lianxuPaiGroupPaiXingCombinations.add(lianxuPaiGroupPaiXingCombinationList);
         }
 
         //组合独立牌组和连续牌组的所有牌型组合，过滤掉不能胡的，形成最终的牌型组合
@@ -245,7 +249,7 @@ public class ShoupaiBiaoZhunPanHu {
         int lianxuCount = 0;
         for (int paiTypeOrdinal = startXushuPai.ordinal(); paiTypeOrdinal <= endXushuPai.ordinal(); paiTypeOrdinal++) {
             int amount = paiAmounts[paiTypeOrdinal];
-            if (amount == 0 || paiTypeOrdinal == (MajiangPai.count - 1)) {
+            if (amount == 0 || paiTypeOrdinal == endXushuPai.ordinal()) {
                 if (lianxuCount == 0) {
                     //前面没有未处理的牌，过
                     continue;
