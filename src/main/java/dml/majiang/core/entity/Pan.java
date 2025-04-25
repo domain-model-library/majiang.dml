@@ -1,7 +1,9 @@
 package dml.majiang.core.entity;
 
 import dml.majiang.core.entity.action.PanPlayerAction;
+import dml.majiang.core.entity.action.da.DaAction;
 import dml.majiang.core.entity.action.hu.Hu;
+import dml.majiang.core.entity.action.mo.MoAction;
 import dml.majiang.core.entity.cursor.PaiCursor;
 import dml.majiang.core.entity.cursor.PlayerLatestDachupaiCursor;
 
@@ -297,10 +299,46 @@ public class Pan {
         }
     }
 
+    public MoAction findMoCandidateAction() {
+        for (PanPlayer player : playerIdPanPlayerMap.values()) {
+            MoAction moAction = player.findMoCandidateAction();
+            if (moAction != null) {
+                return moAction;
+            }
+        }
+        return null;
+    }
+
     public void setPlayerHu(String playerId, Hu hu) {
         PanPlayer player = playerIdPanPlayerMap.get(playerId);
         if (player != null) {
             player.setHu(hu);
         }
+    }
+
+    public Pai getFirstAvaliablePai() {
+        if (avaliablePaiList != null && !avaliablePaiList.isEmpty()) {
+            return avaliablePaiList.get(0);
+        }
+        return null;
+    }
+
+    public Pai getAvaliablePai(int paiId) {
+        for (Pai pai : avaliablePaiList) {
+            if (pai.getId() == paiId) {
+                return pai;
+            }
+        }
+        return null;
+    }
+
+    public DaAction findDaCandidateAction(int paiId) {
+        for (PanPlayer player : playerIdPanPlayerMap.values()) {
+            DaAction daAction = player.findDaCandidateAction(paiId);
+            if (daAction != null) {
+                return daAction;
+            }
+        }
+        return null;
     }
 }

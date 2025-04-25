@@ -1,3 +1,5 @@
+package test.dml.majiang;
+
 import dml.common.repository.TestCommonRepository;
 import dml.majiang.core.entity.Pai;
 import dml.majiang.core.entity.Pan;

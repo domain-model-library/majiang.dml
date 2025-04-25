@@ -198,4 +198,13 @@ public class PanPlayService {
         return action;
     }
 
+    public static void removePan(long panId, PanPlayServiceRepositorySet panPlayServiceRepositorySet) {
+        PanRepository panRepository = panPlayServiceRepositorySet.getPanRepository();
+        PanFramesRepository panFramesRepository = panPlayServiceRepositorySet.getPanFramesRepository();
+        PanSpecialRulesStateRepository panSpecialRulesStateRepository = panPlayServiceRepositorySet.getPanSpecialRulesStateRepository();
+        panRepository.remove(panId);
+        panFramesRepository.remove(panId);
+        panSpecialRulesStateRepository.remove(panId);
+    }
+
 }

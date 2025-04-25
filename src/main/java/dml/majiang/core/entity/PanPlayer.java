@@ -233,7 +233,7 @@ public class PanPlayer {
         }
         Pai daPai = dachupaiPlayer.findDachupai(dapaiId);
         List<Shunzi> shunziList = ShoupaiShunziCalculator.tryAndMakeShunziWithPai(shoupaiList, daPai);
-        if (shunziList == null) {
+        if (shunziList != null) {
             for (Shunzi shunzi : shunziList) {
                 addActionCandidate(new ChiAction(id, dachupaiPlayer.getId(), dapaiId, shunzi));
             }
@@ -578,5 +578,49 @@ public class PanPlayer {
             }
         }
         return null;
+    }
+
+    public MoAction findMoCandidateAction() {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof MoAction) {
+                return (MoAction) action;
+            }
+        }
+        return null;
+    }
+
+    public List<Pai> getShoupaiList() {
+        List<Pai> shoupaiList = new ArrayList<>();
+        fangruShoupai.values().forEach(shoupai -> {
+            shoupaiList.add(shoupai);
+        });
+        if (gangmoShoupai != null) {
+            shoupaiList.add(gangmoShoupai);
+        }
+        return shoupaiList;
+    }
+
+    public DaAction findDaCandidateAction(int paiId) {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof DaAction) {
+                DaAction daAction = (DaAction) action;
+                if (daAction.getPaiId() == paiId) {
+                    return daAction;
+                }
+            }
+        }
+        return null;
+    }
+
+    public List<PanPlayerAction> getActionList() {
+        List<PanPlayerAction> actionList = new ArrayList<>();
+        for (PanPlayerAction action : actionCandidates.values()) {
+            actionList.add(action);
+        }
+        return actionList;
+    }
+
+    public Pai removeFangruShoupai(int paiId) {
+        return fangruShoupai.remove(paiId);
     }
 }

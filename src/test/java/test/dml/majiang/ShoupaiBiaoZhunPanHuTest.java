@@ -1,3 +1,5 @@
+package test.dml.majiang;
+
 import dml.majiang.core.entity.MajiangPai;
 import dml.majiang.core.entity.Pai;
 import dml.majiang.core.entity.shoupai.ShoupaiBiaoZhunPanHu;
