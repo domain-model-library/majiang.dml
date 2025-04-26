@@ -247,9 +247,12 @@ public class ShoupaiBiaoZhunPanHu {
                                                  List<LianxuPaiAmountGroup> lianxuPaiAmountGroups,
                                                  MajiangPai startXushuPai, MajiangPai endXushuPai) {
         int lianxuCount = 0;
-        for (int paiTypeOrdinal = startXushuPai.ordinal(); paiTypeOrdinal <= endXushuPai.ordinal(); paiTypeOrdinal++) {
-            int amount = paiAmounts[paiTypeOrdinal];
-            if (amount == 0 || paiTypeOrdinal == endXushuPai.ordinal()) {
+        for (int paiTypeOrdinal = startXushuPai.ordinal(); paiTypeOrdinal <= (endXushuPai.ordinal() + 1); paiTypeOrdinal++) {
+            int amount = 0;
+            if (paiTypeOrdinal < endXushuPai.ordinal() + 1) {
+                amount = paiAmounts[paiTypeOrdinal];
+            }
+            if (amount == 0) {
                 if (lianxuCount == 0) {
                     //前面没有未处理的牌，过
                     continue;
