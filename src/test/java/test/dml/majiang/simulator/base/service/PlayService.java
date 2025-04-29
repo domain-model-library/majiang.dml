@@ -43,26 +43,26 @@ public abstract class PlayService implements
         FaPaiServiceRepositorySet,
         WaitingPlayerCursorServiceRepositorySet {
 
-    private PanRepository panRepository;
-    private PanFramesRepository panFramesRepository;
-    private PanSpecialRulesStateRepository panSpecialRulesStateRepository;
-    private MoActionProcessorRepository<?> moActionProcessorRepository;
-    private MoActionUpdaterRepository<?> moActionUpdaterRepository;
-    private PengActionProcessorRepository<?> pengActionProcessorRepository;
-    private PengActionUpdaterRepository<?> pengActionUpdaterRepository;
-    private HuActionProcessorRepository<?> huActionProcessorRepository;
-    private HuActionUpdaterRepository<?> huActionUpdaterRepository;
-    private GangActionProcessorRepository<?> gangActionProcessorRepository;
-    private GangActionUpdaterRepository<?> gangActionUpdaterRepository;
-    private ChiActionProcessorRepository<?> chiActionProcessorRepository;
-    private ChiActionUpdaterRepository<?> chiActionUpdaterRepository;
-    private DaActionProcessorRepository<?> daActionProcessorRepository;
-    private DaActionUpdaterRepository<?> daActionUpdaterRepository;
-    private GuoActionProcessorRepository<?> guoActionProcessorRepository;
-    private GuoActionUpdaterRepository<?> guoActionUpdaterRepository;
-    private WaitingPlayerCursorRepository waitingPlayerCursorRepository;
-    private PlayConfigRepository playConfigRepository;
-    private PlayStateContainerRepository playStateContainerRepository;
+    protected PanRepository panRepository;
+    protected PanFramesRepository panFramesRepository;
+    protected PanSpecialRulesStateRepository panSpecialRulesStateRepository;
+    protected MoActionProcessorRepository<?> moActionProcessorRepository;
+    protected MoActionUpdaterRepository<?> moActionUpdaterRepository;
+    protected PengActionProcessorRepository<?> pengActionProcessorRepository;
+    protected PengActionUpdaterRepository<?> pengActionUpdaterRepository;
+    protected HuActionProcessorRepository<?> huActionProcessorRepository;
+    protected HuActionUpdaterRepository<?> huActionUpdaterRepository;
+    protected GangActionProcessorRepository<?> gangActionProcessorRepository;
+    protected GangActionUpdaterRepository<?> gangActionUpdaterRepository;
+    protected ChiActionProcessorRepository<?> chiActionProcessorRepository;
+    protected ChiActionUpdaterRepository<?> chiActionUpdaterRepository;
+    protected DaActionProcessorRepository<?> daActionProcessorRepository;
+    protected DaActionUpdaterRepository<?> daActionUpdaterRepository;
+    protected GuoActionProcessorRepository<?> guoActionProcessorRepository;
+    protected GuoActionUpdaterRepository<?> guoActionUpdaterRepository;
+    protected WaitingPlayerCursorRepository waitingPlayerCursorRepository;
+    protected PlayConfigRepository playConfigRepository;
+    protected PlayStateContainerRepository playStateContainerRepository;
 
     public PlayService() {
         panRepository = TestCommonRepository.instance(PanRepository.class);
@@ -127,6 +127,9 @@ public abstract class PlayService implements
 
         //设置玩家为庄家
         setZhuangPlayer(panId);
+
+        //设置特殊规则
+        setPanSpecialRules(panId);
 
         //发牌
         faPai(panId);
@@ -375,5 +378,7 @@ public abstract class PlayService implements
 
     protected abstract void fillAvaliablePai(long panId);
 
+    protected abstract void setPanSpecialRules(long panId);
 
+    public abstract List<String[]> getPanSpecialRulesStateView();
 }

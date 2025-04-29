@@ -1,20 +1,19 @@
-package test.dml.majiang.simulator.impl.biaozhun.service;
+package test.dml.majiang.simulator.impl.guipai.service;
 
+import dml.majiang.core.entity.MajiangPai;
+import dml.majiang.core.entity.PanSpecialRulesState;
 import dml.majiang.core.entity.action.chi.ChiActionProcessor;
 import dml.majiang.core.entity.action.chi.ChiActionUpdater;
-import dml.majiang.core.entity.action.chi.ChiPlayerDaPaiChiActionUpdater;
 import dml.majiang.core.entity.action.chi.PengganghuFirstChiActionProcessor;
 import dml.majiang.core.entity.action.da.DaActionProcessor;
 import dml.majiang.core.entity.action.da.DaActionUpdater;
 import dml.majiang.core.entity.action.da.DachushoupaiDaActionProcessor;
 import dml.majiang.core.entity.action.gang.GangActionProcessor;
 import dml.majiang.core.entity.action.gang.GangActionUpdater;
-import dml.majiang.core.entity.action.gang.GangPlayerMoPaiGangActionUpdater;
 import dml.majiang.core.entity.action.gang.HuFirstGangActionProcessor;
 import dml.majiang.core.entity.action.guo.DoNothingGuoActionProcessor;
 import dml.majiang.core.entity.action.guo.GuoActionProcessor;
 import dml.majiang.core.entity.action.guo.GuoActionUpdater;
-import dml.majiang.core.entity.action.guo.PlayerDaPaiOrXiajiaMoPaiGuoActionUpdater;
 import dml.majiang.core.entity.action.hu.ClearAllActionHuActionUpdater;
 import dml.majiang.core.entity.action.hu.HuActionProcessor;
 import dml.majiang.core.entity.action.hu.HuActionUpdater;
@@ -23,7 +22,6 @@ import dml.majiang.core.entity.action.mo.MoActionProcessor;
 import dml.majiang.core.entity.action.mo.MoActionUpdater;
 import dml.majiang.core.entity.action.mo.PlayerMoPaiMoActionProcessor;
 import dml.majiang.core.entity.action.peng.HuFirstPengActionProcessor;
-import dml.majiang.core.entity.action.peng.KezigangshoupaiPengActionUpdater;
 import dml.majiang.core.entity.action.peng.PengActionProcessor;
 import dml.majiang.core.entity.action.peng.PengActionUpdater;
 import dml.majiang.core.entity.action.start.PanStartActionUpdater;
@@ -32,14 +30,21 @@ import dml.majiang.core.service.AvaliablePaiService;
 import dml.majiang.core.service.FaPaiService;
 import dml.majiang.core.service.MenFengService;
 import dml.majiang.core.service.ZhuangService;
+import dml.majiang.specialrules.guipai.entity.*;
+import dml.majiang.specialrules.guipai.service.GuipaiService;
+import dml.majiang.specialrules.guipai.service.repositoryset.GuipaiServiceRepositorySet;
 import test.dml.majiang.simulator.base.service.PlayService;
-import test.dml.majiang.simulator.impl.biaozhun.entity.BiaozhunDaActionUpdater;
-import test.dml.majiang.simulator.impl.biaozhun.entity.BiaozhunGangHuDaMoActionUpdater;
+import test.dml.majiang.simulator.impl.guipai.entity.ActGuipaiBenpaiDaActionUpdaterImpl;
+import test.dml.majiang.simulator.impl.guipai.entity.ActGuipaiBenpaiMoActionUpdaterImpl;
+import test.dml.majiang.simulator.impl.guipai.entity.ActGuipaiBenpaiQiangganghuGangActionUpdaterImpl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class BiaozhunPlayService extends PlayService {
+import static dml.majiang.core.entity.MajiangPai.baiban;
 
+public class GuipaiPlayService extends PlayService implements GuipaiServiceRepositorySet {
     @Override
     protected MoActionProcessor createMoActionProcessor() {
         return new PlayerMoPaiMoActionProcessor();
@@ -47,7 +52,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected MoActionUpdater createMoActionUpdater() {
-        return new BiaozhunGangHuDaMoActionUpdater();
+        return new ActGuipaiBenpaiMoActionUpdaterImpl();
     }
 
     @Override
@@ -57,7 +62,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected DaActionUpdater createDaActionUpdater() {
-        return new BiaozhunDaActionUpdater();
+        return new ActGuipaiBenpaiDaActionUpdaterImpl();
     }
 
     @Override
@@ -67,7 +72,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected ChiActionUpdater createChiActionUpdater() {
-        return new ChiPlayerDaPaiChiActionUpdater();
+        return new GuipaiChiActionUpdater();
     }
 
     @Override
@@ -77,7 +82,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected PengActionUpdater createPengActionUpdater() {
-        return new KezigangshoupaiPengActionUpdater();
+        return new GuipaiPengActionUpdater();
     }
 
     @Override
@@ -87,7 +92,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected GangActionUpdater createGangActionUpdater() {
-        return new GangPlayerMoPaiGangActionUpdater();
+        return new ActGuipaiBenpaiQiangganghuGangActionUpdaterImpl();
     }
 
     @Override
@@ -107,7 +112,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected GuoActionUpdater createGuoActionUpdater() {
-        return new PlayerDaPaiOrXiajiaMoPaiGuoActionUpdater();
+        return new GuipaiGuoActionUpdater();
     }
 
     @Override
@@ -117,7 +122,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected void faPai(long panId) {
-        FaPaiService.faPai13Shoupai(panId, this);
+        FaPaiService.faPai16Shoupai(panId, this);
     }
 
     @Override
@@ -140,11 +145,29 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected void setPanSpecialRules(long panId) {
+        //决定财神
+        GuipaiService.determineGuipai(panId, this);
+        GuipaiService.setActGuipaiBenpaiPai(panId, baiban, this);
+        MajiangPai[] xushupaiArray = MajiangPai.xushupaiArray();
+        MajiangPai[] fengpaiArray = MajiangPai.fengpaiArray();
+        MajiangPai[] paiTypesForGuipaiAct;
+
+        paiTypesForGuipaiAct = new MajiangPai[xushupaiArray.length + fengpaiArray.length + 2];
+        System.arraycopy(xushupaiArray, 0, paiTypesForGuipaiAct, 0, xushupaiArray.length);
+        System.arraycopy(fengpaiArray, 0, paiTypesForGuipaiAct, xushupaiArray.length, fengpaiArray.length);
+        paiTypesForGuipaiAct[31] = MajiangPai.hongzhong;
+        paiTypesForGuipaiAct[32] = MajiangPai.facai;
+        GuipaiService.setGuipaiActPaiTypes(panId, new ArrayList<>(Arrays.asList(paiTypesForGuipaiAct)), this);
     }
 
     @Override
     public List<String[]> getPanSpecialRulesStateView() {
-        return null;
+        List<String[]> panSpecialRulesStateView = new ArrayList<>();
+        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.find(1L);
+        GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
+        ActGuipaiBenpaiState actGuipaiBenpaiState = panSpecialRulesState.findSpecialRuleState(ActGuipaiBenpaiState.class);
+        panSpecialRulesStateView.add(new String[]{"guipai", guipaiState.getGuipaiType().name()});
+        panSpecialRulesStateView.add(new String[]{"actGuipaiBenpai", actGuipaiBenpaiState.getActGuipaiBenpaiPaiType().name()});
+        return panSpecialRulesStateView;
     }
-
 }

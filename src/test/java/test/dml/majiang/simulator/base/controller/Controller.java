@@ -12,6 +12,8 @@ import test.dml.majiang.simulator.base.ui.CommandPanel;
 import test.dml.majiang.simulator.base.ui.MainFrame;
 import test.dml.majiang.simulator.base.ui.PanPanel;
 
+import java.util.List;
+
 public class Controller {
     private static MainFrame mainFrame;
     private static PlayService playService;
@@ -53,7 +55,8 @@ public class Controller {
     public static void startPan() {
         Pan pan = playService.startPan();
         PlayStateEnum playState = playService.getPlayState();
-        panPanel.showPan(pan, playState);
+        List<String[]> panSpecialRulesStateView = playService.getPanSpecialRulesStateView();
+        panPanel.showPan(pan, playState, panSpecialRulesStateView);
         PlayConfig playConfig = playService.getPlayConfig();
         commandPanel.updateModifyShoupaiDoneButton(playConfig, playState);
     }
@@ -87,7 +90,8 @@ public class Controller {
                     ((SecondPaiSelected) paiExchangeState).getSecondPaiId());
             Pan pan = playService.getPan();
             PlayStateEnum playState = playService.getPlayState();
-            panPanel.showPan(pan, playState);
+            List<String[]> panSpecialRulesStateView = playService.getPanSpecialRulesStateView();
+            panPanel.showPan(pan, playState, panSpecialRulesStateView);
             PlayConfig playConfig = playService.getPlayConfig();
             commandPanel.updateModifyShoupaiDoneButton(playConfig, playState);
         } else {
@@ -115,7 +119,8 @@ public class Controller {
         playService.specificMoPai(paiId);
         Pan pan = playService.getPan();
         PlayStateEnum playState = playService.getPlayState();
-        panPanel.showPan(pan, playState);
+        List<String[]> panSpecialRulesStateView = playService.getPanSpecialRulesStateView();
+        panPanel.showPan(pan, playState, panSpecialRulesStateView);
         PlayConfig playConfig = playService.getPlayConfig();
         commandPanel.updateModifyShoupaiDoneButton(playConfig, playState);
     }
@@ -125,7 +130,8 @@ public class Controller {
         playService.action(1L, daAction.getActionPlayerId(), daAction.getId());
         Pan pan = playService.getPan();
         PlayStateEnum playState = playService.getPlayState();
-        panPanel.showPan(pan, playState);
+        List<String[]> panSpecialRulesStateView = playService.getPanSpecialRulesStateView();
+        panPanel.showPan(pan, playState, panSpecialRulesStateView);
         PlayConfig playConfig = playService.getPlayConfig();
         commandPanel.updateModifyShoupaiDoneButton(playConfig, playState);
     }
@@ -134,7 +140,8 @@ public class Controller {
         playService.modifyShoupaiDone();
         Pan pan = playService.getPan();
         PlayStateEnum playState = playService.getPlayState();
-        panPanel.showPan(pan, playState);
+        List<String[]> panSpecialRulesStateView = playService.getPanSpecialRulesStateView();
+        panPanel.showPan(pan, playState, panSpecialRulesStateView);
         PlayConfig playConfig = playService.getPlayConfig();
         commandPanel.updateModifyShoupaiDoneButton(playConfig, playState);
     }
@@ -143,7 +150,8 @@ public class Controller {
         playService.action(1L, playerId, actionId);
         Pan pan = playService.getPan();
         PlayStateEnum playState = playService.getPlayState();
-        panPanel.showPan(pan, playState);
+        List<String[]> panSpecialRulesStateView = playService.getPanSpecialRulesStateView();
+        panPanel.showPan(pan, playState, panSpecialRulesStateView);
         PlayConfig playConfig = playService.getPlayConfig();
         commandPanel.updateModifyShoupaiDoneButton(playConfig, playState);
         //TODO 胡的展示和pan结束

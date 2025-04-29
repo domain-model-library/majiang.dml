@@ -95,7 +95,7 @@ public class PanPanel extends javax.swing.JPanel {
     private test.dml.majiang.simulator.base.ui.SpecialRuleStatePanel specialRuleStatePanel;
     // End of variables declaration//GEN-END:variables
 
-    public void showPan(Pan pan, PlayStateEnum playState) {
+    public void showPan(Pan pan, PlayStateEnum playState, List<String[]> panSpecialRulesStateView) {
         List<Pai> avaliablePai = pan.getAvaliablePaiList();
         avaliablePaiPanel.showAvaliablePai(avaliablePai, playState);
         panPlayerPanelDong.showPanPlayer(pan.findPlayerByMenFeng(MenFeng.dong), playState);
