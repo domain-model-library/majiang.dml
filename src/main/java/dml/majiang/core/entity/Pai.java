@@ -16,8 +16,8 @@ public class Pai {
     }
 
     public void replacePaiType(MajiangPai paiType, MajiangPai toReplaceType) {
-        if (this.paiType.equals(toReplaceType)) {
-            this.paiType = paiType;
+        if (this.paiType.equals(paiType)) {
+            this.paiType = toReplaceType;
         }
     }
 
