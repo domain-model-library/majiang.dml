@@ -102,6 +102,7 @@ public class PanPanel extends javax.swing.JPanel {
         panPlayerPanelNan.showPanPlayer(pan.findPlayerByMenFeng(MenFeng.nan), playState);
         panPlayerPanelXi.showPanPlayer(pan.findPlayerByMenFeng(MenFeng.xi), playState);
         panPlayerPanelBei.showPanPlayer(pan.findPlayerByMenFeng(MenFeng.bei), playState);
+        specialRuleStatePanel.showSpecialRuleState(panSpecialRulesStateView);
     }
 
     public void updateForPaiExchange(PaiExchangeState paiExchangeState) {

@@ -4,6 +4,9 @@
  */
 package test.dml.majiang.simulator.base.ui;
 
+import javax.swing.*;
+import java.util.List;
+
 /**
  * @author DELL
  */
@@ -25,14 +28,18 @@ public class SpecialRuleStatePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-
-        jLabel1.setText("特殊规则状态占位符");
-        add(jLabel1);
+        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+    public void showSpecialRuleState(List<String[]> panSpecialRulesStateView) {
+        removeAll();
+        for (String[] specialRuleState : panSpecialRulesStateView) {
+            add(new JLabel(specialRuleState[0] + ": " + specialRuleState[1]));
+        }
+        revalidate();
+        repaint();
+    }
 }
