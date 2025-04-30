@@ -72,6 +72,15 @@ public abstract class ActGuipaiBenpaiMoActionUpdater implements MoActionUpdater 
                     shoupaiList.add(pai);
                 }
             }
+            if (player.getGangmoShoupai().getPaiType().equals(guipaiType)) {
+                Pai paiCopy = new Pai(player.getGangmoShoupai().getId(), player.getGangmoShoupai().getPaiType());
+                shoupaiList.add(paiCopy);
+                guipaiList.add(paiCopy);
+            } else if (player.getGangmoShoupai().getPaiType().equals(actGuipaiBenpaiPaiType)) {
+                shoupaiList.add(new Pai(player.getGangmoShoupai().getId(), guipaiType));
+            } else {
+                shoupaiList.add(player.getGangmoShoupai());
+            }
         } else {
             for (Pai pai : player.getFangruShoupaiList()) {
                 if (pai.getPaiType().equals(guipaiType)) {
@@ -82,9 +91,15 @@ public abstract class ActGuipaiBenpaiMoActionUpdater implements MoActionUpdater 
                     shoupaiList.add(pai);
                 }
             }
+            if (player.getGangmoShoupai().getPaiType().equals(guipaiType)) {
+                Pai paiCopy = new Pai(player.getGangmoShoupai().getId(), player.getGangmoShoupai().getPaiType());
+                shoupaiList.add(paiCopy);
+                guipaiList.add(paiCopy);
+            } else {
+                shoupaiList.add(player.getGangmoShoupai());
+            }
         }
         if (guipaiList.isEmpty()) {
-            shoupaiList.add(player.getGangmoShoupai());
             List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
             if (hupaiShoupaiPaiXingList != null) {
                 //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
