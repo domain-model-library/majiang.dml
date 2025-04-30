@@ -128,7 +128,7 @@ public class Controller {
 
     public static void daPai(int paiId) {
         PanPlayerAction daAction = playService.findDaCandidateAction(paiId);
-        playService.action(1L, daAction.getActionPlayerId(), daAction.getId());
+        playService.action(daAction.getActionPlayerId(), daAction.getId());
         Pan pan = playService.getPan();
         PlayStateEnum playState = playService.getPlayState();
         List<String[]> panSpecialRulesStateView = playService.getPanSpecialRulesStateView();
@@ -148,7 +148,7 @@ public class Controller {
     }
 
     public static void action(String playerId, int actionId) {
-        playService.action(1L, playerId, actionId);
+        playService.action(playerId, actionId);
         Pan pan = playService.getPan();
         PlayStateEnum playState = playService.getPlayState();
         List<String[]> panSpecialRulesStateView = playService.getPanSpecialRulesStateView();

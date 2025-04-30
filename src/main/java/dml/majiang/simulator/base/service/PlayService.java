@@ -153,7 +153,7 @@ public abstract class PlayService implements
         MoAction moAction = pan.findMoCandidateAction();
         if (moAction != null) {
             if (!playConfig.isCanSpecifyMoPai()) {
-                action(pan.getId(), moAction.getActionPlayerId(), moAction.getId());
+                action(moAction.getActionPlayerId(), moAction.getId());
                 playStateContainer.setPlayState(PlayStateEnum.waitingForOtherAction);
                 return pan;
             } else {
@@ -165,7 +165,7 @@ public abstract class PlayService implements
         return pan;
     }
 
-    public void action(long panId, String playerId, int actionId) {
+    public void action(String playerId, int actionId) {
         PanPlayerAction action = PanPlayService.action(panId, playerId, actionId, this);
         WaitingPlayerCursorService.updateWaitingPlayerIdToDaPlayer(panId, this);
 
@@ -175,7 +175,7 @@ public abstract class PlayService implements
         MoAction moAction = pan.findMoCandidateAction();
         if (moAction != null) {
             if (!playConfig.isCanSpecifyMoPai()) {
-                action(pan.getId(), moAction.getActionPlayerId(), moAction.getId());
+                action(moAction.getActionPlayerId(), moAction.getId());
                 playStateContainer.setPlayState(PlayStateEnum.waitingForOtherAction);
             } else {
                 playStateContainer.setPlayState(PlayStateEnum.waitingForMoAction);
@@ -197,7 +197,7 @@ public abstract class PlayService implements
         MoAction moAction = pan.findMoCandidateAction();
         if (moAction != null) {
             if (!playConfig.isCanSpecifyMoPai()) {
-                action(pan.getId(), moAction.getActionPlayerId(), moAction.getId());
+                action(moAction.getActionPlayerId(), moAction.getId());
                 playStateContainer.setPlayState(PlayStateEnum.waitingForOtherAction);
             } else {
                 playStateContainer.setPlayState(PlayStateEnum.waitingForMoAction);
