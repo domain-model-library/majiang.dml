@@ -42,6 +42,7 @@ public abstract class PlayService implements
         ZhuangServiceRepositorySet,
         FaPaiServiceRepositorySet,
         WaitingPlayerCursorServiceRepositorySet {
+    protected long panId;
 
     protected PanRepository panRepository;
     protected PanFramesRepository panFramesRepository;
@@ -89,8 +90,11 @@ public abstract class PlayService implements
                 new PlayStateContainer());
     }
 
+    public void setPanId(long panId) {
+        this.panId = panId;
+    }
+
     public Pan startPan() {
-        long panId = 1L;
         List<String> playerIdList = new ArrayList<>();
         playerIdList.add("player1");
         playerIdList.add("player2");
@@ -186,7 +190,7 @@ public abstract class PlayService implements
     }
 
     public void modifyShoupaiDone() {
-        Pan pan = panRepository.find(1L);
+        Pan pan = panRepository.find(panId);
         PlayConfig playConfig = playConfigRepository.get();
         PlayStateContainer playStateContainer = playStateContainerRepository.take();
         //如果有人摸牌，就直接摸牌了
@@ -202,7 +206,7 @@ public abstract class PlayService implements
     }
 
     public Pan getPan() {
-        return panRepository.find(1L);
+        return panRepository.find(panId);
     }
 
     public void setCanModifyShoupai(boolean canModifyShoupai) {
@@ -221,7 +225,7 @@ public abstract class PlayService implements
     }
 
     public void specificMoPai(int paiId) {
-        Pan pan = panRepository.take(1L);
+        Pan pan = panRepository.take(panId);
         Pai moPai = null;
         List<Pai> avaliablePaiList = pan.getAvaliablePaiList();
         for (Pai pai : avaliablePaiList) {
@@ -240,7 +244,7 @@ public abstract class PlayService implements
     }
 
     public DaAction findDaCandidateAction(int paiId) {
-        Pan pan = panRepository.find(1L);
+        Pan pan = panRepository.find(panId);
         DaAction daAction = pan.findDaCandidateAction(paiId);
         return daAction;
     }

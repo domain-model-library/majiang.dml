@@ -21,7 +21,8 @@ public class Controller {
     private static PanPanel panPanel;
     private static CommandPanel commandPanel;
 
-    public static void startup(PlayService playService) {
+    public static void startup(PlayService playService, long panId) {
+        playService.setPanId(panId);
         Controller.playService = playService;
         Controller.paiExchangeService = new PaiExchangeService(playService.getPanRepository());
         // 启动UI
