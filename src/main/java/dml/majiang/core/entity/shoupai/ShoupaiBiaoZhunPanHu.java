@@ -119,6 +119,10 @@ public class ShoupaiBiaoZhunPanHu {
                 }
                 paiXingCombinationsForDuli.add(paiXingCombination);
             }
+            if (paiXingCombinationsForDuli.isEmpty()) {
+                //独立牌组组合没有合法的胡牌方式
+                return null;
+            }
         }
 
         //计算连续牌组能形成的所有牌型组合
@@ -151,6 +155,10 @@ public class ShoupaiBiaoZhunPanHu {
                     continue;
                 }
                 paiXingCombinationsForLianxu.add(paiXingCombination);
+            }
+            if (paiXingCombinationsForLianxu.isEmpty()) {
+                //连续牌组组合没有合法的胡牌方式
+                return null;
             }
         }
         //组合独立牌组和连续牌组的所有牌型组合
