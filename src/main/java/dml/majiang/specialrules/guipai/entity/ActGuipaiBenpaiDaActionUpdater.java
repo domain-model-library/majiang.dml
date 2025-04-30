@@ -118,8 +118,8 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
                 }
             }
         }
+        shoupaiList.add(daPai);
         if (guipaiList.isEmpty()) {
-            shoupaiList.add(daPai);
             List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
             if (hupaiShoupaiPaiXingList != null) {
                 //把ShoupaiPaiXing中的扮演鬼牌本牌的牌的花色还原为其本花色
