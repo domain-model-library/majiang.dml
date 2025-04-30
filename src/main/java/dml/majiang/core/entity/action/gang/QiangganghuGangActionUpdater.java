@@ -17,6 +17,7 @@ public abstract class QiangganghuGangActionUpdater implements GangActionUpdater 
 
     @Override
     public void updateActions(GangAction gangAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
+        pan.clearAllPlayersActionCandidates();
         PanPlayer player = pan.findPlayerById(gangAction.getActionPlayerId());
         //抢杠胡
         boolean qiangganghu = false;

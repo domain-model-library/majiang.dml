@@ -18,6 +18,7 @@ public abstract class ActGuipaiBenpaiQiangganghuGangActionUpdater implements Gan
 
     @Override
     public void updateActions(GangAction gangAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
+        pan.clearAllPlayersActionCandidates();
         PanPlayer player = pan.findPlayerById(gangAction.getActionPlayerId());
         GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
         ActGuipaiBenpaiState actGuipaiBenpaiState = panSpecialRulesState.findSpecialRuleState(ActGuipaiBenpaiState.class);
