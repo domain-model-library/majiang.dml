@@ -124,7 +124,7 @@ public abstract class PlayService implements
         fillAvaliablePai(panId);
 
         // 加入玩家
-        PanPlayService.addPlayers(panId, playerIdList, this);
+        addPlayers(panId);
 
         //设置玩家门风
         setPlayerMenFeng(panId);
@@ -164,6 +164,8 @@ public abstract class PlayService implements
 
         return pan;
     }
+
+    protected abstract void addPlayers(long panId);
 
     public void action(String playerId, int actionId) {
         PanPlayerAction action = PanPlayService.action(panId, playerId, actionId, this);

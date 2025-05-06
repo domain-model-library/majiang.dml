@@ -26,10 +26,7 @@ import dml.majiang.core.entity.action.peng.PengActionProcessor;
 import dml.majiang.core.entity.action.peng.PengActionUpdater;
 import dml.majiang.core.entity.action.start.PanStartActionUpdater;
 import dml.majiang.core.entity.action.start.ZhuangMoStartActionUpdater;
-import dml.majiang.core.service.AvaliablePaiService;
-import dml.majiang.core.service.FaPaiService;
-import dml.majiang.core.service.MenFengService;
-import dml.majiang.core.service.ZhuangService;
+import dml.majiang.core.service.*;
 import dml.majiang.simulator.base.service.PlayService;
 import dml.majiang.simulator.impl.guipai.entity.ActGuipaiBenpaiDaActionUpdaterImpl;
 import dml.majiang.simulator.impl.guipai.entity.ActGuipaiBenpaiMoActionUpdaterImpl;
@@ -45,6 +42,16 @@ import java.util.List;
 import static dml.majiang.core.entity.MajiangPai.baiban;
 
 public class GuipaiPlayService extends PlayService implements GuipaiServiceRepositorySet {
+    @Override
+    protected void addPlayers(long panId) {
+        List<String> playerIdList = new ArrayList<>();
+        playerIdList.add("1");
+        playerIdList.add("2");
+        playerIdList.add("3");
+        playerIdList.add("4");
+        PanPlayService.addPlayers(panId, playerIdList, this);
+    }
+
     @Override
     protected MoActionProcessor createMoActionProcessor() {
         return new PlayerMoPaiMoActionProcessor();
