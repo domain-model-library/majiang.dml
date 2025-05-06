@@ -256,6 +256,10 @@ public abstract class PlayService implements
         return playConfig;
     }
 
+    public long getPanId() {
+        return panId;
+    }
+
     @Override
     public WaitingPlayerCursorRepository getWaitingPlayerCursorRepository() {
         return waitingPlayerCursorRepository;

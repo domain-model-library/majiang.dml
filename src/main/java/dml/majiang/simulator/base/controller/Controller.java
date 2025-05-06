@@ -85,9 +85,10 @@ public class Controller {
     }
 
     public static void mouseReleasedForPaiExchange() {
+        long panId = playService.getPanId();
         PaiExchangeState paiExchangeState = paiExchangeService.mouseReleasedForPaiExchange();
         if (paiExchangeState instanceof SecondPaiSelected) {
-            paiExchangeService.exchangePai(((SecondPaiSelected) paiExchangeState).getFirstPaiId(),
+            paiExchangeService.exchangePai(panId, ((SecondPaiSelected) paiExchangeState).getFirstPaiId(),
                     ((SecondPaiSelected) paiExchangeState).getSecondPaiId());
             Pan pan = playService.getPan();
             PlayStateEnum playState = playService.getPlayState();

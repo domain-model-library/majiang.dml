@@ -44,8 +44,8 @@ public class PaiExchangeService {
         return paiExchangeStateContainer.getState();
     }
 
-    public void exchangePai(int firstPaiId, int secondPaiId) {
-        Pan pan = panRepository.take(1L);
+    public void exchangePai(long panId, int firstPaiId, int secondPaiId) {
+        Pan pan = panRepository.take(panId);
         List<Pai> avaliablePaiList = pan.getAvaliablePaiList();
         List<PanPlayer> panPlayerList = pan.allPlayers();
         PaiExchanger firstPaiExchanger = null;

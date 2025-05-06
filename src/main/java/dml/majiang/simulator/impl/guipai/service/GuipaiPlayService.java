@@ -170,7 +170,7 @@ public class GuipaiPlayService extends PlayService implements GuipaiServiceRepos
     @Override
     public List<String[]> getPanSpecialRulesStateView() {
         List<String[]> panSpecialRulesStateView = new ArrayList<>();
-        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.find(1L);
+        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.find(panId);
         GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
         ActGuipaiBenpaiState actGuipaiBenpaiState = panSpecialRulesState.findSpecialRuleState(ActGuipaiBenpaiState.class);
         panSpecialRulesStateView.add(new String[]{"guipai", guipaiState.getGuipaiType().name()});
