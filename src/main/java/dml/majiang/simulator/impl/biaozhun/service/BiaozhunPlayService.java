@@ -9,7 +9,6 @@ import dml.majiang.core.entity.action.da.DaActionUpdater;
 import dml.majiang.core.entity.action.da.DachushoupaiDaActionProcessor;
 import dml.majiang.core.entity.action.gang.GangActionProcessor;
 import dml.majiang.core.entity.action.gang.GangActionUpdater;
-import dml.majiang.core.entity.action.gang.GangPlayerMoPaiGangActionUpdater;
 import dml.majiang.core.entity.action.gang.HuFirstGangActionProcessor;
 import dml.majiang.core.entity.action.guo.DoNothingGuoActionProcessor;
 import dml.majiang.core.entity.action.guo.GuoActionProcessor;
@@ -31,6 +30,7 @@ import dml.majiang.core.entity.action.start.ZhuangMoStartActionUpdater;
 import dml.majiang.core.service.*;
 import dml.majiang.simulator.base.service.PlayService;
 import dml.majiang.simulator.impl.biaozhun.entity.BiaozhunDaActionUpdater;
+import dml.majiang.simulator.impl.biaozhun.entity.BiaozhunGangActionUpdater;
 import dml.majiang.simulator.impl.biaozhun.entity.BiaozhunGangHuDaMoActionUpdater;
 
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected GangActionUpdater createGangActionUpdater() {
-        return new GangPlayerMoPaiGangActionUpdater();
+        return new BiaozhunGangActionUpdater();
     }
 
     @Override
