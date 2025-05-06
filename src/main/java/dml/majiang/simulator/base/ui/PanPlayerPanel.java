@@ -151,6 +151,9 @@ public class PanPlayerPanel extends javax.swing.JPanel {
     }
 
     public void showPanPlayer(PanPlayer player, PlayStateEnum playState) {
+        if (player == null) {
+            return;
+        }
         ownpaiPanel.removeAll();
         tileContainerPanel.removeAll();
         oprationPanel.removeAll();
