@@ -514,11 +514,8 @@ public class PanPlayer {
 
     public void releaseActionBlockedByHigherPriorityAction() {
         for (PanPlayerAction action : actionCandidates.values()) {
-            if (action instanceof ChiAction) {
-                ChiAction chiAction = (ChiAction) action;
-                if (chiAction.isBlockedByHigherPriorityAction()) {
-                    chiAction.setBlockedByHigherPriorityAction(false);
-                }
+            if (action.isBlockedByHigherPriorityAction()) {
+                action.setBlockedByHigherPriorityAction(false);
             }
         }
     }

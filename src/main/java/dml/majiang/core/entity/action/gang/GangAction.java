@@ -9,7 +9,6 @@ public class GangAction extends PanPlayerAction {
     private int[] paiIds;
     private GangType gangType;
 
-    private boolean blockedByHigherPriorityAction = false;
 
     public GangAction() {
     }
@@ -54,11 +53,4 @@ public class GangAction extends PanPlayerAction {
         this.gangType = gangType;
     }
 
-    public boolean isBlockedByHigherPriorityAction() {
-        return blockedByHigherPriorityAction;
-    }
-
-    public void setBlockedByHigherPriorityAction(boolean blockedByHigherPriorityAction) {
-        this.blockedByHigherPriorityAction = blockedByHigherPriorityAction;
-    }
 }

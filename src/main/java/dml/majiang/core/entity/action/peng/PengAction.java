@@ -7,7 +7,6 @@ public class PengAction extends PanPlayerAction {
     private int pengPaiId;
     private int[] paiIds;
 
-    private boolean blockedByHigherPriorityAction = false;
 
     public PengAction() {
     }
@@ -43,11 +42,4 @@ public class PengAction extends PanPlayerAction {
         this.paiIds = paiIds;
     }
 
-    public boolean isBlockedByHigherPriorityAction() {
-        return blockedByHigherPriorityAction;
-    }
-
-    public void setBlockedByHigherPriorityAction(boolean blockedByHigherPriorityAction) {
-        this.blockedByHigherPriorityAction = blockedByHigherPriorityAction;
-    }
 }

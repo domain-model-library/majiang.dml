@@ -23,6 +23,11 @@ public class GangPlayerMoPaiGangActionUpdater implements GangActionUpdater {
 
     @Override
     public void updateActions(GangAction gangAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
+        //如果杠的动作阻塞了，就不用更新动作了
+        if (gangAction.isBlockedByHigherPriorityAction()) {
+            return;
+        }
+
         pan.clearAllPlayersActionCandidates();
         PanPlayer player = pan.findPlayerById(gangAction.getActionPlayerId());
 

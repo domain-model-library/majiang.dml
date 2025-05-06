@@ -8,7 +8,6 @@ public class ChiAction extends PanPlayerAction {
     private int chijinPaiId;
     private Shunzi shunzi;
 
-    private boolean blockedByHigherPriorityAction = false;
 
     public ChiAction() {
     }
@@ -44,11 +43,4 @@ public class ChiAction extends PanPlayerAction {
         this.shunzi = shunzi;
     }
 
-    public boolean isBlockedByHigherPriorityAction() {
-        return blockedByHigherPriorityAction;
-    }
-
-    public void setBlockedByHigherPriorityAction(boolean blockedByHigherPriorityAction) {
-        this.blockedByHigherPriorityAction = blockedByHigherPriorityAction;
-    }
 }
