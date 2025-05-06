@@ -31,7 +31,8 @@ public abstract class ActGuipaiBenpaiQiangganghuGangActionUpdater implements Gan
         //抢杠胡
         boolean qiangganghu = false;
         if (gangAction.getGangType().equals(GangType.kezigangmo)
-                || gangAction.getGangType().equals(GangType.kezigangshoupai)) {
+                || gangAction.getGangType().equals(GangType.kezigangshoupai)
+                || gangAction.getGangType().equals(GangType.shoupaigangmo)) {
             PanPlayer currentPlayer = player;
             Pai gangpai = player.findGangchuPai(gangAction.getGangPaiId());
             while (true) {
