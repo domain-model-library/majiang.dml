@@ -35,6 +35,9 @@ public class SpecialRuleStatePanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     public void showSpecialRuleState(List<String[]> panSpecialRulesStateView) {
+        if (panSpecialRulesStateView == null || panSpecialRulesStateView.isEmpty()) {
+            return;
+        }
         removeAll();
         for (String[] specialRuleState : panSpecialRulesStateView) {
             add(new JLabel(specialRuleState[0] + ": " + specialRuleState[1]));
