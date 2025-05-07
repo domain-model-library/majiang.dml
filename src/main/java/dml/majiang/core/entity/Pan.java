@@ -36,6 +36,42 @@ public class Pan {
      */
     private List<MajiangPai> playPaiTypeList;
 
+    public Pan copy() {
+        Pan pan = new Pan();
+        pan.setId(id);
+        pan.setAvaliablePaiList(new ArrayList<>(avaliablePaiList));
+        Map<String, PanPlayer> newPlayerIdPanPlayerMap = new HashMap<>();
+        for (Map.Entry<String, PanPlayer> entry : playerIdPanPlayerMap.entrySet()) {
+            String playerId = entry.getKey();
+            PanPlayer panPlayer = entry.getValue();
+            PanPlayer newPanPlayer = panPlayer.copy();
+            newPlayerIdPanPlayerMap.put(playerId, newPanPlayer);
+        }
+        pan.setPlayerIdPanPlayerMap(newPlayerIdPanPlayerMap);
+        pan.setMenFengPanPlayerIdMap(new HashMap<>(menFengPanPlayerIdMap));
+        pan.setZhuangPlayerId(zhuangPlayerId);
+        pan.setPlayPaiTypeList(new ArrayList<>(playPaiTypeList));
+        if (activePaiCursor != null) {
+            pan.setActivePaiCursor(activePaiCursor.copy());
+        }
+        return pan;
+    }
+
+    public void override(Pan pan) {
+        this.id = pan.getId();
+        this.avaliablePaiList = new ArrayList<>(pan.getAvaliablePaiList());
+        this.playerIdPanPlayerMap = new HashMap<>();
+        for (Map.Entry<String, PanPlayer> entry : pan.getPlayerIdPanPlayerMap().entrySet()) {
+            String playerId = entry.getKey();
+            PanPlayer panPlayer = entry.getValue();
+            PanPlayer newPanPlayer = panPlayer.copy();
+            this.playerIdPanPlayerMap.put(playerId, newPanPlayer);
+        }
+        this.menFengPanPlayerIdMap = new HashMap<>(pan.getMenFengPanPlayerIdMap());
+        this.zhuangPlayerId = pan.getZhuangPlayerId();
+        this.playPaiTypeList = new ArrayList<>(pan.getPlayPaiTypeList());
+        this.activePaiCursor = pan.getActivePaiCursor().copy();
+    }
 
     public long getId() {
         return id;
@@ -341,4 +377,6 @@ public class Pan {
         }
         return null;
     }
+
+
 }

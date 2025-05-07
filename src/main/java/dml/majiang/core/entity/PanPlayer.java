@@ -53,6 +53,21 @@ public class PanPlayer {
      */
     private Hu hu;
 
+    public PanPlayer copy() {
+        PanPlayer newPanPlayer = new PanPlayer();
+        newPanPlayer.setId(id);
+        newPanPlayer.setMenFeng(menFeng);
+        newPanPlayer.setFangruShoupai(new HashMap<>(fangruShoupai));
+        newPanPlayer.setGangmoShoupai(gangmoShoupai);
+        newPanPlayer.setActionCandidates(new HashMap<>(actionCandidates));
+        newPanPlayer.setDachupaiList(new ArrayList<>(dachupaiList));
+        newPanPlayer.setChichupaiZuList(new ArrayList<>(chichupaiZuList));
+        newPanPlayer.setPengchupaiZuList(new ArrayList<>(pengchupaiZuList));
+        newPanPlayer.setGangchupaiZuList(new ArrayList<>(gangchupaiZuList));
+        newPanPlayer.setHu(hu);
+        return newPanPlayer;
+    }
+
     public void setHu(Hu hu) {
         this.hu = hu;
     }
@@ -619,5 +634,10 @@ public class PanPlayer {
 
     public Pai removeFangruShoupai(int paiId) {
         return fangruShoupai.remove(paiId);
+    }
+
+
+    public void removeGangmoShoupai() {
+        gangmoShoupai = null;
     }
 }

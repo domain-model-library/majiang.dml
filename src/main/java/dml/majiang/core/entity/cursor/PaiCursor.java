@@ -6,4 +6,5 @@ package dml.majiang.core.entity.cursor;
  * @author Neo
  */
 public interface PaiCursor {
+    PaiCursor copy();
 }

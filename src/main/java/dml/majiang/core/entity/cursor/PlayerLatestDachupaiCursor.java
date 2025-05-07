@@ -16,6 +16,11 @@ public class PlayerLatestDachupaiCursor implements PaiCursor {
         this.playerId = playerId;
     }
 
+    @Override
+    public PaiCursor copy() {
+        return new PlayerLatestDachupaiCursor(playerId);
+    }
+
     public String getPlayerId() {
         return playerId;
     }
@@ -23,5 +28,4 @@ public class PlayerLatestDachupaiCursor implements PaiCursor {
     public void setPlayerId(String playerId) {
         this.playerId = playerId;
     }
-
 }

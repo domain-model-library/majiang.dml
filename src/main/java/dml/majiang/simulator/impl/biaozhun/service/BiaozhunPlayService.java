@@ -17,7 +17,7 @@ import dml.majiang.core.entity.action.guo.PlayerDaPaiOrXiajiaMoPaiGuoActionUpdat
 import dml.majiang.core.entity.action.hu.ClearAllActionHuActionUpdater;
 import dml.majiang.core.entity.action.hu.HuActionProcessor;
 import dml.majiang.core.entity.action.hu.HuActionUpdater;
-import dml.majiang.core.entity.action.hu.PlayerSetHuHuActionProcessor;
+import dml.majiang.core.entity.action.hu.QiangganghuHuActionProcessor;
 import dml.majiang.core.entity.action.mo.MoActionProcessor;
 import dml.majiang.core.entity.action.mo.MoActionUpdater;
 import dml.majiang.core.entity.action.mo.PlayerMoPaiMoActionProcessor;
@@ -100,7 +100,7 @@ public class BiaozhunPlayService extends PlayService {
 
     @Override
     protected HuActionProcessor createHuActionProcessor() {
-        return new PlayerSetHuHuActionProcessor();
+        return new QiangganghuHuActionProcessor();
     }
 
     @Override

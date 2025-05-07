@@ -12,9 +12,24 @@ public class PanFrames {
 
     public void addFrame(PanPlayerAction action, Pan panAfterAction) {
         PanFrame panFrame = new PanFrame();
+        panFrame.setNumber(panFrameList.size());
         panFrame.setAction(action);
         panFrame.setPanAfterAction(panAfterAction);
         panFrameList.add(panFrame);
+    }
+
+    public PanFrame getLastFrame() {
+        if (panFrameList.isEmpty()) {
+            return null;
+        }
+        return panFrameList.get(panFrameList.size() - 1);
+    }
+
+    public PanFrame getFrame(int number) {
+        if (number < 0 || number >= panFrameList.size()) {
+            return null;
+        }
+        return panFrameList.get(number);
     }
 
     public long getPanId() {
@@ -40,6 +55,4 @@ public class PanFrames {
     public void setPanFrameList(List<PanFrame> panFrameList) {
         this.panFrameList = panFrameList;
     }
-
-
 }

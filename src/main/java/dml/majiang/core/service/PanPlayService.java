@@ -194,7 +194,7 @@ public class PanPlayService {
             GuoActionUpdater guoActionUpdater = guoActionUpdaterRepository.find(panId);
             guoActionUpdater.updateActions(guoAction, pan, panFrames, panSpecialRulesState);
         }
-        panFrames.addFrame(action, pan);
+        panFrames.addFrame(action, pan.copy());
         return action;
     }
 
