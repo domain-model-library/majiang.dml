@@ -379,4 +379,33 @@ public class Pan {
     }
 
 
+    public int countPlayersNotHu() {
+        int count = 0;
+        for (PanPlayer player : playerIdPanPlayerMap.values()) {
+            if (player.getHu() == null) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public List<PanPlayer> getHuPlayers() {
+        List<PanPlayer> huPlayers = new ArrayList<>();
+        for (PanPlayer player : playerIdPanPlayerMap.values()) {
+            if (player.getHu() != null) {
+                huPlayers.add(player);
+            }
+        }
+        return huPlayers;
+    }
+
+    public void removePlayer(PanPlayer player) {
+        playerIdPanPlayerMap.remove(player.getId());
+        menFengPanPlayerIdMap.remove(player.getMenFeng());
+    }
+
+    public void putPlayer(PanPlayer player) {
+        playerIdPanPlayerMap.put(player.getId(), player);
+        menFengPanPlayerIdMap.put(player.getMenFeng(), player.getId());
+    }
 }
