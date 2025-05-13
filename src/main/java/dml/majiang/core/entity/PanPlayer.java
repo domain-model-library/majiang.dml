@@ -640,4 +640,16 @@ public class PanPlayer {
     public void removeGangmoShoupai() {
         gangmoShoupai = null;
     }
+
+    public void removeAllDaActions() {
+        Set<Integer> daActionIds = new HashSet<>();
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof DaAction) {
+                daActionIds.add(action.getId());
+            }
+        }
+        for (Integer daActionId : daActionIds) {
+            actionCandidates.remove(daActionId);
+        }
+    }
 }

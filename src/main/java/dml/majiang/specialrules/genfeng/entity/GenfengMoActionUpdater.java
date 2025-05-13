@@ -1,10 +1,11 @@
 package dml.majiang.specialrules.genfeng.entity;
 
-import dml.majiang.core.entity.Pan;
-import dml.majiang.core.entity.PanFrames;
-import dml.majiang.core.entity.PanSpecialRulesState;
+import dml.majiang.core.entity.*;
+import dml.majiang.core.entity.action.da.DaAction;
 import dml.majiang.core.entity.action.mo.MoAction;
 import dml.majiang.core.entity.action.mo.MoActionUpdater;
+
+import java.util.*;
 
 /**
  * 跟风，出自温州麻将
@@ -34,6 +35,42 @@ public class GenfengMoActionUpdater implements MoActionUpdater {
     @Override
     public void updateActions(MoAction moAction, Pan pan, PanFrames panFrames, PanSpecialRulesState panSpecialRulesState) {
         moActionUpdater.updateActions(moAction, pan, panFrames, panSpecialRulesState);
-        //TODO 实现跟风规则
+        PanPlayer moPlayer = pan.findPlayerById(moAction.getActionPlayerId());
+        //限制玩家只能打的牌
+        Set<MajiangPai> daPaiCandidates = new HashSet<>();
+        //是否有正在被跟的牌
+        GenfengState genfengState = panSpecialRulesState.findSpecialRuleState(GenfengState.class);
+        List<Pai> shoupaiList = moPlayer.getShoupaiList();
+        for (Pai pai : shoupaiList) {
+            if (genfengState.zhengzaiBeiGen(pai.getPaiType())) {
+                daPaiCandidates.add(pai.getPaiType());
+            }
+        }
+        if (daPaiCandidates.isEmpty()) {
+            //是否有风牌要先打出
+            Map<MajiangPai, Integer> genfengPaiCountMap = new HashMap<>();
+            for (Pai pai : shoupaiList) {
+                if (genfengState.isGenfengPai(pai.getPaiType())) {
+                    genfengPaiCountMap.put(pai.getPaiType(), genfengPaiCountMap.getOrDefault(pai.getPaiType(), 0) + 1);
+                }
+            }
+            for (Map.Entry<MajiangPai, Integer> entry : genfengPaiCountMap.entrySet()) {
+                MajiangPai paiType = entry.getKey();
+                int count = entry.getValue();
+                if (count == 1) {
+                    //如果只有一张风牌，必须打出
+                    daPaiCandidates.add(paiType);
+                }
+            }
+        }
+        //只有允许打的牌才可以打
+        if (!daPaiCandidates.isEmpty()) {
+            moPlayer.removeAllDaActions();
+            for (Pai pai : shoupaiList) {
+                if (daPaiCandidates.contains(pai.getPaiType())) {
+                    moPlayer.addActionCandidate(new DaAction(moPlayer.getId(), pai.getId()));
+                }
+            }
+        }
     }
 }

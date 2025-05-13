@@ -18,9 +18,9 @@ public class GuipaiService {
      *
      * @param panId
      */
-    public static void determineGuipai(long panId, GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
-        PanRepository panRepository = guipaiServiceRepositorySet.getPanRepository();
-        PanSpecialRulesStateRepository panSpecialRulesStateRepository = guipaiServiceRepositorySet.getPanSpecialRulesStateRepository();
+    public static void determineGuipai(long panId, GuipaiServiceRepositorySet repositorySet) {
+        PanRepository panRepository = repositorySet.getPanRepository();
+        PanSpecialRulesStateRepository panSpecialRulesStateRepository = repositorySet.getPanSpecialRulesStateRepository();
 
         Pan pan = panRepository.take(panId);
         List<MajiangPai> paiTypeList = pan.getPlayPaiTypeList();
@@ -50,6 +50,16 @@ public class GuipaiService {
         panSpecialRulesState.addSpecialRuleState(guipaiState);
         Pan pan = panRepository.take(panId);
         pan.removeAvaliablePai(guipai);
+    }
+
+    /**
+     * 查询鬼牌
+     */
+    public static MajiangPai getGuipai(long panId, GuipaiServiceRepositorySet guipaiServiceRepositorySet) {
+        PanSpecialRulesStateRepository panSpecialRulesStateRepository = guipaiServiceRepositorySet.getPanSpecialRulesStateRepository();
+        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.find(panId);
+        GuipaiState guipaiState = panSpecialRulesState.findSpecialRuleState(GuipaiState.class);
+        return guipaiState.getGuipaiType();
     }
 
     /**

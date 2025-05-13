@@ -149,7 +149,7 @@ public class PanPlayService {
 
         Pan pan = panRepository.take(panId);
         PanFrames panFrames = panFramesRepository.take(panId);
-        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.find(panId);
+        PanSpecialRulesState panSpecialRulesState = panSpecialRulesStateRepository.take(panId);
         PanPlayerAction action = pan.getPlayerAction(playerId, actionId);
         if (action instanceof MoAction) {
             MoAction moAction = (MoAction) action;
