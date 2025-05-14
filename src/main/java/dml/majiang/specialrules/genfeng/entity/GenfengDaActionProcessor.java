@@ -9,6 +9,7 @@ public class GenfengDaActionProcessor implements DaActionProcessor {
     private DaActionProcessor daActionProcessor;
 
     public GenfengDaActionProcessor(DaActionProcessor daActionProcessor) {
+        this.panId = daActionProcessor.getPanId();
         this.daActionProcessor = daActionProcessor;
     }
 

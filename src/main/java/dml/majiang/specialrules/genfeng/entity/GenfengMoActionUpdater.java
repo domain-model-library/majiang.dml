@@ -19,6 +19,7 @@ public class GenfengMoActionUpdater implements MoActionUpdater {
     private MoActionUpdater moActionUpdater;
 
     public GenfengMoActionUpdater(MoActionUpdater moActionUpdater) {
+        this.panId = moActionUpdater.getPanId();
         this.moActionUpdater = moActionUpdater;
     }
 
