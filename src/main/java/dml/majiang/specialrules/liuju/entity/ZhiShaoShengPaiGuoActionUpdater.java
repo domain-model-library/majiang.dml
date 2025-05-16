@@ -11,6 +11,9 @@ public class ZhiShaoShengPaiGuoActionUpdater implements GuoActionUpdater {
 
     private GuoActionUpdater guoActionUpdater;
 
+    public ZhiShaoShengPaiGuoActionUpdater() {
+    }
+
     public ZhiShaoShengPaiGuoActionUpdater(GuoActionUpdater guoActionUpdater) {
         this.panId = guoActionUpdater.getPanId();
         this.guoActionUpdater = guoActionUpdater;
@@ -34,5 +37,13 @@ public class ZhiShaoShengPaiGuoActionUpdater implements GuoActionUpdater {
             //删除mo的action
             pan.removeMoActionCandidate();
         }
+    }
+
+    public GuoActionUpdater getGuoActionUpdater() {
+        return guoActionUpdater;
+    }
+
+    public void setGuoActionUpdater(GuoActionUpdater guoActionUpdater) {
+        this.guoActionUpdater = guoActionUpdater;
     }
 }

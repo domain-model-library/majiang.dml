@@ -11,6 +11,9 @@ public class ZhiShaoShengPaiGangActionUpdater implements GangActionUpdater {
 
     private GangActionUpdater gangActionUpdater;
 
+    public ZhiShaoShengPaiGangActionUpdater() {
+    }
+
     public ZhiShaoShengPaiGangActionUpdater(GangActionUpdater gangActionUpdater) {
         this.panId = gangActionUpdater.getPanId();
         this.gangActionUpdater = gangActionUpdater;
@@ -34,5 +37,13 @@ public class ZhiShaoShengPaiGangActionUpdater implements GangActionUpdater {
             //删除mo的action
             pan.removeMoActionCandidate();
         }
+    }
+
+    public GangActionUpdater getGangActionUpdater() {
+        return gangActionUpdater;
+    }
+
+    public void setGangActionUpdater(GangActionUpdater gangActionUpdater) {
+        this.gangActionUpdater = gangActionUpdater;
     }
 }

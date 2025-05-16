@@ -14,6 +14,9 @@ public class XuezhandaodiDaActionUpdater implements DaActionUpdater {
 
     private DaActionUpdater daActionUpdater;
 
+    public XuezhandaodiDaActionUpdater() {
+    }
+
     public XuezhandaodiDaActionUpdater(DaActionUpdater daActionUpdater) {
         this.panId = daActionUpdater.getPanId();
         this.daActionUpdater = daActionUpdater;
@@ -41,5 +44,13 @@ public class XuezhandaodiDaActionUpdater implements DaActionUpdater {
         for (PanPlayer huPlayer : huPlayers) {
             pan.putPlayer(huPlayer);
         }
+    }
+
+    public DaActionUpdater getDaActionUpdater() {
+        return daActionUpdater;
+    }
+
+    public void setDaActionUpdater(DaActionUpdater daActionUpdater) {
+        this.daActionUpdater = daActionUpdater;
     }
 }

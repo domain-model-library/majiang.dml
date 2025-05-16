@@ -14,6 +14,9 @@ public class XuezhandaodiGangActionUpdater implements GangActionUpdater {
 
     private GangActionUpdater gangActionUpdater;
 
+    public XuezhandaodiGangActionUpdater() {
+    }
+
     public XuezhandaodiGangActionUpdater(GangActionUpdater gangActionUpdater) {
         this.panId = gangActionUpdater.getPanId();
         this.gangActionUpdater = gangActionUpdater;
@@ -41,5 +44,13 @@ public class XuezhandaodiGangActionUpdater implements GangActionUpdater {
         for (PanPlayer huPlayer : huPlayers) {
             pan.putPlayer(huPlayer);
         }
+    }
+
+    public GangActionUpdater getGangActionUpdater() {
+        return gangActionUpdater;
+    }
+
+    public void setGangActionUpdater(GangActionUpdater gangActionUpdater) {
+        this.gangActionUpdater = gangActionUpdater;
     }
 }

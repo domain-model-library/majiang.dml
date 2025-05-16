@@ -11,6 +11,9 @@ public class ZhiShaoShengPaiDaActionUpdater implements DaActionUpdater {
 
     private DaActionUpdater daActionUpdater;
 
+    public ZhiShaoShengPaiDaActionUpdater() {
+    }
+
     public ZhiShaoShengPaiDaActionUpdater(DaActionUpdater daActionUpdater) {
         this.panId = daActionUpdater.getPanId();
         this.daActionUpdater = daActionUpdater;
@@ -34,5 +37,13 @@ public class ZhiShaoShengPaiDaActionUpdater implements DaActionUpdater {
             //删除mo的action
             pan.removeMoActionCandidate();
         }
+    }
+
+    public DaActionUpdater getDaActionUpdater() {
+        return daActionUpdater;
+    }
+
+    public void setDaActionUpdater(DaActionUpdater daActionUpdater) {
+        this.daActionUpdater = daActionUpdater;
     }
 }

@@ -14,6 +14,9 @@ public class XuezhandaodiGuoActionUpdater implements GuoActionUpdater {
 
     private GuoActionUpdater guoActionUpdater;
 
+    public XuezhandaodiGuoActionUpdater() {
+    }
+
     public XuezhandaodiGuoActionUpdater(GuoActionUpdater guoActionUpdater) {
         this.panId = guoActionUpdater.getPanId();
         this.guoActionUpdater = guoActionUpdater;
@@ -41,5 +44,13 @@ public class XuezhandaodiGuoActionUpdater implements GuoActionUpdater {
         for (PanPlayer huPlayer : huPlayers) {
             pan.putPlayer(huPlayer);
         }
+    }
+
+    public GuoActionUpdater getGuoActionUpdater() {
+        return guoActionUpdater;
+    }
+
+    public void setGuoActionUpdater(GuoActionUpdater guoActionUpdater) {
+        this.guoActionUpdater = guoActionUpdater;
     }
 }

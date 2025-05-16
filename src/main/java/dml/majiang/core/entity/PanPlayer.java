@@ -652,4 +652,35 @@ public class PanPlayer {
             actionCandidates.remove(daActionId);
         }
     }
+
+    public PengAction getPengCandidateAction() {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof PengAction) {
+                return (PengAction) action;
+            }
+        }
+        return null;
+    }
+
+    public void removeActionCandidate(int actionId) {
+        actionCandidates.remove(actionId);
+    }
+
+    public boolean hasChiActionCandidate() {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof ChiAction) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeGuoActionCandidate() {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof GuoAction) {
+                actionCandidates.remove(action.getId());
+                return;
+            }
+        }
+    }
 }

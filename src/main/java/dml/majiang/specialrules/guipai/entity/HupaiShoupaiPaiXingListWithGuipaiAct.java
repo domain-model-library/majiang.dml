@@ -19,6 +19,10 @@ public class HupaiShoupaiPaiXingListWithGuipaiAct {
         return guipaiActMap;
     }
 
+    public void setGuipaiActMap(Map<Integer, MajiangPai> guipaiActMap) {
+        this.guipaiActMap = guipaiActMap;
+    }
+
     public List<ShoupaiPaiXing> getHupaiShoupaiPaiXingList() {
         return hupaiShoupaiPaiXingList;
     }

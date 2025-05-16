@@ -8,6 +8,9 @@ public class GenfengDaActionProcessor implements DaActionProcessor {
     private long panId;
     private DaActionProcessor daActionProcessor;
 
+    public GenfengDaActionProcessor() {
+    }
+
     public GenfengDaActionProcessor(DaActionProcessor daActionProcessor) {
         this.panId = daActionProcessor.getPanId();
         this.daActionProcessor = daActionProcessor;
@@ -30,5 +33,13 @@ public class GenfengDaActionProcessor implements DaActionProcessor {
         PanPlayer daPlayer = pan.findPlayerById(action.getActionPlayerId());
         Pai daPai = daPlayer.findDachupai(action.getPaiId());
         genfengState.updateGenfengState(daPai.getPaiType());
+    }
+
+    public DaActionProcessor getDaActionProcessor() {
+        return daActionProcessor;
+    }
+
+    public void setDaActionProcessor(DaActionProcessor daActionProcessor) {
+        this.daActionProcessor = daActionProcessor;
     }
 }
