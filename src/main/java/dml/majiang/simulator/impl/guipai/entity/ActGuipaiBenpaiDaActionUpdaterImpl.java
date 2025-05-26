@@ -13,7 +13,10 @@ public class ActGuipaiBenpaiDaActionUpdaterImpl extends ActGuipaiBenpaiDaActionU
     private long panId;
 
     @Override
-    protected Hu makeHuWithGuipai(DaAction daAction, Pai daPai, Pan pan, PanFrames panFrames, String huPlayerId, List<HupaiShoupaiPaiXingListWithGuipaiAct> hupaiShoupaiPaiXingListWithGuipaiActList, PanSpecialRulesState panSpecialRulesState, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType) {
+    protected Hu makeHuWithGuipai(DaAction daAction, Pai daPai, Pan pan, PanFrames panFrames, String huPlayerId,
+                                  List<HupaiShoupaiPaiXingListWithGuipaiAct> hupaiShoupaiPaiXingListWithGuipaiActList,
+                                  PanSpecialRulesState panSpecialRulesState, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType,
+                                  List<MajiangPai> guipaiActPaiTypeList) {
         if (hupaiShoupaiPaiXingListWithGuipaiActList == null || hupaiShoupaiPaiXingListWithGuipaiActList.isEmpty()) {
             return null;
         }

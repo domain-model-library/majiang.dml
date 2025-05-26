@@ -139,7 +139,7 @@ public abstract class ActGuipaiBenpaiMoActionUpdater implements MoActionUpdater 
                 }
             }
             Hu hu = makeHuWithGuipai(moAction, player.getGangmoShoupai(), pan, panFrames, hupaiShoupaiPaiXingListWithGuipaiActList, panSpecialRulesState,
-                    guipaiType, actGuipaiBenpaiPaiType);
+                    guipaiType, actGuipaiBenpaiPaiType, guipaiActPaiTypeList);
             if (hu != null) {
                 player.addActionCandidate(new HuAction(player.getId(), hu));
             }
@@ -148,7 +148,8 @@ public abstract class ActGuipaiBenpaiMoActionUpdater implements MoActionUpdater 
 
     protected abstract Hu makeHuWithGuipai(MoAction moAction, Pai moPai, Pan pan, PanFrames panFrames,
                                            List<HupaiShoupaiPaiXingListWithGuipaiAct> hupaiShoupaiPaiXingListWithGuipaiActList,
-                                           PanSpecialRulesState panSpecialRulesState, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType);
+                                           PanSpecialRulesState panSpecialRulesState, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType,
+                                           List<MajiangPai> guipaiActPaiTypeList);
 
     protected abstract Hu makeHuWithoutGuipai(MoAction moAction, Pai moPai, Pan pan, PanFrames panFrames,
                                               List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState,

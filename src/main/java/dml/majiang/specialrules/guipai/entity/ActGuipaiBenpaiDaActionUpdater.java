@@ -159,7 +159,7 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
                 }
             }
             Hu hu = makeHuWithGuipai(daAction, daPai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingListWithGuipaiActList, panSpecialRulesState,
-                    guipaiType, actGuipaiBenpaiPaiType);
+                    guipaiType, actGuipaiBenpaiPaiType, guipaiActPaiTypeList);
             if (hu != null) {
                 hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
             }
@@ -168,7 +168,8 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
 
     protected abstract Hu makeHuWithGuipai(DaAction daAction, Pai daPai, Pan pan, PanFrames panFrames, String huPlayerId,
                                            List<HupaiShoupaiPaiXingListWithGuipaiAct> hupaiShoupaiPaiXingListWithGuipaiActList,
-                                           PanSpecialRulesState panSpecialRulesState, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType);
+                                           PanSpecialRulesState panSpecialRulesState, MajiangPai guipaiType, MajiangPai actGuipaiBenpaiPaiType,
+                                           List<MajiangPai> guipaiActPaiTypeList);
 
     protected abstract Hu makeHuWithoutGuipai(DaAction daAction, Pai daPai, Pan pan, PanFrames panFrames, String huPlayerId,
                                               List<ShoupaiPaiXing> hupaiShoupaiPaiXingList, PanSpecialRulesState panSpecialRulesState,
