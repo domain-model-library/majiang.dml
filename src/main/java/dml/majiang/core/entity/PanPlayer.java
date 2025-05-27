@@ -683,4 +683,28 @@ public class PanPlayer {
             }
         }
     }
+
+    public boolean hasShoupaiPai(MajiangPai paiType) {
+        for (Pai pai : fangruShoupai.values()) {
+            if (pai.getPaiType().equals(paiType)) {
+                return true;
+            }
+        }
+        if (gangmoShoupai != null && gangmoShoupai.getPaiType().equals(paiType)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasChiChuPaiZu() {
+        return !chichupaiZuList.isEmpty();
+    }
+
+    public boolean hasPengChuPaiZu() {
+        return !pengchupaiZuList.isEmpty();
+    }
+
+    public boolean hasGangChuPaiZu() {
+        return !gangchupaiZuList.isEmpty();
+    }
 }
