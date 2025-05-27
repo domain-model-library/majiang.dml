@@ -11,6 +11,7 @@ import dml.majiang.core.entity.action.chi.ChiAction;
 import dml.majiang.core.entity.action.da.DaAction;
 import dml.majiang.core.entity.action.gang.GangAction;
 import dml.majiang.core.entity.action.guo.GuoAction;
+import dml.majiang.core.entity.action.hu.Hu;
 import dml.majiang.core.entity.action.hu.HuAction;
 import dml.majiang.core.entity.action.mo.MoAction;
 import dml.majiang.core.entity.action.peng.PengAction;
@@ -56,6 +57,7 @@ public class PanPlayerPanel extends javax.swing.JPanel {
         tileContainerPanel = new javax.swing.JPanel();
         oprationPanel = new javax.swing.JPanel();
         dapaiPanel = new javax.swing.JPanel();
+        huPanel = new javax.swing.JPanel();
 
         ownpaiPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 2, 2));
 
@@ -80,21 +82,24 @@ public class PanPlayerPanel extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(huPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(oprationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(dapaiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(dapaiPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(gangmopaiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                                        .addComponent(gangmopaiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                                         .addComponent(ownpaiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(oprationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dapaiPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(huPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -103,6 +108,7 @@ public class PanPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel dapaiPanel;
     private javax.swing.JLabel gangmopaiLabel;
     private javax.swing.JPanel gangmopaiPanel;
+    private javax.swing.JPanel huPanel;
     private javax.swing.JPanel oprationPanel;
     private javax.swing.JPanel ownpaiPanel;
     private javax.swing.JPanel tileContainerPanel;
@@ -286,6 +292,12 @@ public class PanPlayerPanel extends javax.swing.JPanel {
         for (Pai pai : dachupaiList) {
             MahjongTile tile = new MahjongTile(pai, playState, MahjongTileSceneEnum.chuPaiZu, false);
             dapaiPanel.add(tile);
+        }
+
+        Hu hu = player.getHu();
+        if (hu != null) {
+            huPanel.removeAll();
+            huPanel.add(new JLabel(hu.toString()));
         }
 
         revalidate();
