@@ -707,4 +707,17 @@ public class PanPlayer {
     public boolean hasGangChuPaiZu() {
         return !gangchupaiZuList.isEmpty();
     }
+
+    public int countShoupaiPai(MajiangPai paiType) {
+        int count = 0;
+        for (Pai pai : fangruShoupai.values()) {
+            if (pai.getPaiType().equals(paiType)) {
+                count++;
+            }
+        }
+        if (gangmoShoupai != null && gangmoShoupai.getPaiType().equals(paiType)) {
+            count++;
+        }
+        return count;
+    }
 }
