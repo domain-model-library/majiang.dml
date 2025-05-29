@@ -126,11 +126,11 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
                 for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
                     shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
                 }
-                Hu hu = makeHuWithoutGuipai(daAction, daPai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState,
-                        guipaiType, actGuipaiBenpaiPaiType);
-                if (hu != null) {
-                    hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
-                }
+            }
+            Hu hu = makeHuWithoutGuipai(daAction, daPai, pan, panFrames, hupaiPlayer.getId(), hupaiShoupaiPaiXingList, panSpecialRulesState,
+                    guipaiType, actGuipaiBenpaiPaiType);
+            if (hu != null) {
+                hupaiPlayer.addActionCandidate(new HuAction(hupaiPlayer.getId(), hu));
             }
         } else {
             //生成所有鬼牌当的组合

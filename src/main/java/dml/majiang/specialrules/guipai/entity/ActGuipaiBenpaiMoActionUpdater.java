@@ -106,11 +106,11 @@ public abstract class ActGuipaiBenpaiMoActionUpdater implements MoActionUpdater 
                 for (ShoupaiPaiXing shoupaiPaiXing : hupaiShoupaiPaiXingList) {
                     shoupaiPaiXing.replacePaiType(guipaiType, actGuipaiBenpaiPaiType);
                 }
-                Hu hu = makeHuWithoutGuipai(moAction, player.getGangmoShoupai(), pan, panFrames, hupaiShoupaiPaiXingList, panSpecialRulesState,
-                        guipaiType, actGuipaiBenpaiPaiType);
-                if (hu != null) {
-                    player.addActionCandidate(new HuAction(player.getId(), hu));
-                }
+            }
+            Hu hu = makeHuWithoutGuipai(moAction, player.getGangmoShoupai(), pan, panFrames, hupaiShoupaiPaiXingList, panSpecialRulesState,
+                    guipaiType, actGuipaiBenpaiPaiType);
+            if (hu != null) {
+                player.addActionCandidate(new HuAction(player.getId(), hu));
             }
         } else {
             //生成所有鬼牌当的组合
