@@ -294,9 +294,9 @@ public class PanPlayerPanel extends javax.swing.JPanel {
             dapaiPanel.add(tile);
         }
 
+        huPanel.removeAll();
         Hu hu = player.getHu();
         if (hu != null) {
-            huPanel.removeAll();
             huPanel.add(new JLabel(hu.toString()));
         }
 

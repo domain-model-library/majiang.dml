@@ -55,4 +55,17 @@ public class PanFrames {
     public void setPanFrameList(List<PanFrame> panFrameList) {
         this.panFrameList = panFrameList;
     }
+
+    public boolean isEmpty() {
+        return panFrameList.isEmpty();
+    }
+
+    public boolean hasFrameForPlayerAction(String playerId) {
+        for (PanFrame panFrame : panFrameList) {
+            if (panFrame.getAction().getActionPlayerId().equals(playerId)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
