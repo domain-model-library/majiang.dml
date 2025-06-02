@@ -85,7 +85,11 @@ public abstract class ActGuipaiBenpaiQiangganghuGangActionUpdater implements Gan
                 }
             }
         }
-        shoupaiList.add(gangpai);
+        if (gangpai.getPaiType().equals(actGuipaiBenpaiPaiType)) {
+            shoupaiList.add(new Pai(gangpai.getId(), guipaiType));
+        } else {
+            shoupaiList.add(gangpai);
+        }
         if (guipaiList.isEmpty()) {
             List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
             if (hupaiShoupaiPaiXingList != null) {
