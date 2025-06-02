@@ -118,7 +118,11 @@ public abstract class ActGuipaiBenpaiDaActionUpdater implements DaActionUpdater 
                 }
             }
         }
-        shoupaiList.add(daPai);
+        if (daPai.getPaiType().equals(actGuipaiBenpaiPaiType)) {
+            shoupaiList.add(new Pai(daPai.getId(), guipaiType));
+        } else {
+            shoupaiList.add(daPai);
+        }
         if (guipaiList.isEmpty()) {
             List<ShoupaiPaiXing> hupaiShoupaiPaiXingList = ShoupaiBiaoZhunPanHu.getAllHuPaiShoupaiPaiXing(shoupaiList);
             if (hupaiShoupaiPaiXingList != null) {
