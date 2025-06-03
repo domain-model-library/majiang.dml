@@ -408,4 +408,13 @@ public class Pan {
         playerIdPanPlayerMap.put(player.getId(), player);
         menFengPanPlayerIdMap.put(player.getMenFeng(), player.getId());
     }
+
+    public boolean playerHasHuActionCandidates() {
+        for (PanPlayer player : playerIdPanPlayerMap.values()) {
+            if (player.hasHuActionCandidate()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
