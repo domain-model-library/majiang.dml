@@ -167,6 +167,7 @@ public class PanPlayerPanel extends javax.swing.JPanel {
         tileContainerPanel.removeAll();
         oprationPanel.removeAll();
         dapaiPanel.removeAll();
+        huPanel.removeAll();
 
         List<ChichuPaiZu> chichupaiZuList = player.getChichupaiZuList();
         for (ChichuPaiZu chichuPaiZu : chichupaiZuList) {
