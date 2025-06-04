@@ -7,10 +7,7 @@ import dml.majiang.core.entity.action.mo.MoAction;
 import dml.majiang.core.entity.cursor.PaiCursor;
 import dml.majiang.core.entity.cursor.PlayerLatestDachupaiCursor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 一盘麻将
@@ -320,7 +317,14 @@ public class Pan {
     }
 
     public void removeAvaliablePai(MajiangPai pai) {
-        avaliablePaiList.remove(pai);
+        Iterator<Pai> i = avaliablePaiList.iterator();
+        while (i.hasNext()) {
+            Pai avaliablePai = i.next();
+            if (avaliablePai.getPaiType().equals(pai)) {
+                i.remove();
+                break;
+            }
+        }
     }
 
     public void releasePlayerActionBlockedByHigherPriorityAction() {

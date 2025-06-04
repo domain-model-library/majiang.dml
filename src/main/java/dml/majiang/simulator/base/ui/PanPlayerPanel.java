@@ -161,6 +161,7 @@ public class PanPlayerPanel extends javax.swing.JPanel {
         }
         ownpaiPanel.removeAll();
         tileContainerPanel.removeAll();
+        
         oprationPanel.removeAll();
         dapaiPanel.removeAll();
         huPanel.removeAll();

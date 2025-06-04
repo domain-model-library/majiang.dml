@@ -721,4 +721,12 @@ public class PanPlayer {
         return count;
     }
 
+    public GangAction getGangCandidateAction() {
+        for (PanPlayerAction action : actionCandidates.values()) {
+            if (action instanceof GangAction) {
+                return (GangAction) action;
+            }
+        }
+        return null;
+    }
 }
